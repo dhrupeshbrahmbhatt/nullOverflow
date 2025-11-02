@@ -1,12 +1,15 @@
 import React from 'react'
 import './index.css' // Import Tailwind CSS
-import Hero from './component/Hero.jsx'
+import Home from './pages/Home.jsx'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
-    <>
-      <Hero />
-    </>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
   )
 }
 
