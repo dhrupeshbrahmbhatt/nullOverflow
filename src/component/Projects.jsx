@@ -215,7 +215,7 @@ function Projects() {
               <div className="mt-8 flex justify-end">
                 <button
                   onClick={closeModal}
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-[var(--color-overflow-blue)] to-[var(--color-null-purple)] text-white font-medium hover:shadow-glow-brand transition-all duration-300"
+                  className="px-6 py-3 rounded-xl backdrop-blur-xl bg-white/10 border border-white/20 text-white font-medium hover:bg-white/20 transition-all duration-300"
                 >
                   Close
                 </button>

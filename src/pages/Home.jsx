@@ -6,6 +6,7 @@ import Services from '../component/Services.jsx'
 import Projects from '../component/Projects.jsx'
 import TeamTech from '../component/TeamTech.jsx'
 import Achievements from '../component/Achievements.jsx'
+import Footer from '../component/Footer.jsx'
 
 function Home() {
   return (
@@ -17,6 +18,7 @@ function Home() {
       <TeamTech />
       <Achievements />
       <About />
+      <Footer />
     </div>
   )
 }
