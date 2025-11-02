@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+/* Typographic scale – golden ratio */
+:root {
+  --fs-base: 1rem; /* 16px */
+  --fs-secondary: calc(var(--fs-base) * 1.618); /* ≈26px */
+  --fs-primary: calc(var(--fs-secondary) * 1.618); /* ≈42px */
+  --fs-hero: calc(var(--fs-primary) * 1.618); /* ≈68px */
+}
+
+
+
+@theme {
+  /* NullOverflow Brand Colors */
+  --color-null-purple: #B464F3;
+  --color-overflow-blue: #1E83F3;
+  
+  /* Extended brand palette */
+  --color-brand-purple: #B464F3;
+  --color-brand-purple-light: #C589F5;
+  --color-brand-purple-dark: #9B4AE0;
+  
+  --color-brand-blue: #1E83F3;
+  --color-brand-blue-light: #4A9EF5;
+  --color-brand-blue-dark: #1669D0;
+  
+  /* Brand Gradients */
+  --gradient-brand: linear-gradient(135deg, #1E83F3 0%, #B464F3 100%);
+  --gradient-brand-reverse: linear-gradient(135deg, #B464F3 0%, #1E83F3 100%);
+  --gradient-light: linear-gradient(180deg, #f8f9fe 0%, #fefbff 50%, #f5f8fe 100%);
+  
+  /* Brand Shadows */
+  --shadow-glow-blue: 0 10px 40px rgba(30, 131, 243, 0.3);
+  --shadow-glow-purple: 0 10px 40px rgba(180, 100, 243, 0.3);
+  --shadow-glow-brand: 0 20px 50px rgba(30, 131, 243, 0.2);
+}
