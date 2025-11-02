@@ -118,27 +118,6 @@ function About() {
             <span className="font-medium text-white">industry-grade implementation</span>.
           </p>
           
-          {/* Stats or Achievement Badge */}
-          <div className="mt-16 flex flex-wrap justify-center gap-8 md:gap-12">
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-semibold bg-clip-text bg-gradient-to-r from-[var(--color-overflow-blue)] to-[var(--color-null-purple)] text-transparent">
-                IEEE
-              </div>
-              <div className="text-sm text-white/60 mt-2">Published Research</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-semibold bg-clip-text bg-gradient-to-r from-[var(--color-overflow-blue)] to-[var(--color-null-purple)] text-transparent">
-                60%+
-              </div>
-              <div className="text-sm text-white/60 mt-2">Traffic Growth</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-semibold bg-clip-text bg-gradient-to-r from-[var(--color-overflow-blue)] to-[var(--color-null-purple)] text-transparent">
-                AI-First
-              </div>
-              <div className="text-sm text-white/60 mt-2">Solutions</div>
-            </div>
-          </div>
         </div>
 
       </div>

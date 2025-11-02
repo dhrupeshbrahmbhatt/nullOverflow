@@ -4,7 +4,7 @@ function Hero() {
   return (
     <section className="relative w-full h-screen flex items-center justify-center px-6 py-16 overflow-hidden">
       {/* Dark overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/10 -z-10" aria-hidden="true" />
+      <div className="absolute inset-0 bg-black/30 -z-10" aria-hidden="true" />
 
       <div className="max-w-3xl text-center">
         {/* Tagline */}

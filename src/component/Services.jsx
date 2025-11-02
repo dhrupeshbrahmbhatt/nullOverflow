@@ -89,7 +89,7 @@ function Services() {
       <div className="relative max-w-7xl mx-auto w-full">
         {/* Section Header */}
         <div className="text-center mb-20 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold bg-clip-text bg-gradient-to-r from-[var(--color-overflow-blue)] to-[var(--color-null-purple)] text-transparent mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold bg-clip-text text-white text-transparent mb-6">
             Our Services
           </h2>
           <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed">

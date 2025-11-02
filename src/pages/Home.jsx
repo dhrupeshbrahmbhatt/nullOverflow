@@ -3,6 +3,9 @@ import Navbar from '../component/Navbar.jsx'
 import Hero from '../component/Hero.jsx'
 import About from '../component/About.jsx'
 import Services from '../component/Services.jsx'
+import Projects from '../component/Projects.jsx'
+import TeamTech from '../component/TeamTech.jsx'
+import Achievements from '../component/Achievements.jsx'
 
 function Home() {
   return (
@@ -10,6 +13,9 @@ function Home() {
       <Navbar />
       <Hero />
       <Services />
+      <Projects />
+      <TeamTech />
+      <Achievements />
       <About />
     </div>
   )
