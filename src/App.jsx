@@ -1,5 +1,4 @@
 import React from 'react'
-import './index.css' // Import Tailwind CSS
 import Home from './pages/Home.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
