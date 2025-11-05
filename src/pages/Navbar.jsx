@@ -1,17 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 
 const Navbar = () => {
   const topRef = useRef(null);
 
-  useEffect(() => {
-    // Initialize any animations or scroll effects here
-    // You would typically import and initialize GSAP, Swiper, etc.
-    console.log('Component mounted - initialize animations');
-  }, []);
-
   return (
     <div className="mil-wrapper" id="top" ref={topRef}>
-      {/* Cursor */}
+      {/* Cursor
       <div className="mil-ball">
         <span className="mil-icon-1">
           <svg viewBox="0 0 128 128">
@@ -20,9 +14,19 @@ const Navbar = () => {
         </span>
         <div className="mil-more-text">More</div>
         <div className="mil-choose-text">Сhoose</div>
+      </div> */}
+      {/* Cursor - Migrated to Tailwind */}
+      <div className="w-5 h-5 fixed z-[999] pointer-events-none rounded-full border border-white/90 flex justify-center items-center opacity-10 max-xl:hidden">
+        <span className="absolute w-10 h-10 scale-0">
+          <svg viewBox="0 0 128 128">
+            <path d="M106.1,41.9c-1.2-1.2-3.1-1.2-4.2,0c-1.2,1.2-1.2,3.1,0,4.2L116.8,61H11.2l14.9-14.9c1.2-1.2,1.2-3.1,0-4.2	c-1.2-1.2-3.1-1.2-4.2,0l-20,20c-1.2,1.2-1.2,3.1,0,4.2l20,20c0.6,0.6,1.4,0.9,2.1,0.9s1.5-0.3,2.1-0.9c1.2-1.2,1.2-3.1,0-4.2	L11.2,67h105.5l-14.9,14.9c-1.2,1.2-1.2,3.1,0,4.2c0.6,0.6,1.4,0.9,2.1,0.9s1.5-0.3,2.1-0.9l20-20c1.2-1.2,1.2-3.1,0-4.2L106.1,41.9	z" className="fill-white/90"></path>
+          </svg>
+        </span>
+        <div className="absolute w-full text-center text-[10px] uppercase font-medium text-white/90 scale-0">More</div>
+        <div className="absolute w-full text-center text-[10px] uppercase font-medium text-white/90 scale-0">Сhoose</div>
       </div>
 
-      {/* Preloader */}
+      {/* Preloader 
       <div className="mil-preloader">
         <div className="mil-preloader-animation">
           <div className="mil-pos-abs mil-animation-1">
@@ -37,11 +41,39 @@ const Navbar = () => {
             </div>
           </div>
         </div>
+      </div> */}
+      {/* Preloader - Migrated to Tailwind */}
+      <div className="fixed z-[9] top-0 left-0 w-full h-screen bg-black">
+        <div className="opacity-0 relative h-screen text-white">
+          <div className="absolute h-screen w-full flex justify-center items-center lg:flex-col">
+            <p className="opacity-0 mr-[15px] lg:mr-0 lg:mb-[10px] text-[42px] xl:text-[39px] lg:text-[36px] md:text-[30px] text-white/90 font-thin">
+              Pioneering
+            </p>
+            <p className="opacity-0 mr-[15px] lg:mr-0 lg:mb-[10px] text-[42px] xl:text-[39px] lg:text-[36px] md:text-[30px] text-white/90 font-medium">
+              Creative
+            </p>
+            <p className="opacity-0 mr-[15px] lg:mr-0 lg:mb-[10px] text-[42px] xl:text-[39px] lg:text-[36px] md:text-[30px] text-white/90 font-thin">
+              Excellence
+            </p>
+          </div>
+          <div className="absolute h-screen w-full flex justify-center items-center lg:flex-col">
+            <div className="relative px-[30px]">
+              <p className="opacity-0 z-[4] absolute h-full bg-[rgb(255,152,0)]"></p>
+              <p className="text-[42px] xl:text-[39px] lg:text-[36px] md:text-[30px] text-white/90 font-thin">
+                ∅verflow()
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Scrollbar Progress */}
+      {/* Scrollbar Progress 
       <div className="mil-progress-track">
         <div className="mil-progress"></div>
+      </div> */}
+      {/* Scrollbar Progress - Migrated to Tailwind */}
+      <div className="fixed z-10 top-0 right-0 w-1 h-full bg-black lg:hidden">
+        <div className="w-1 h-0 bg-[rgb(255,152,0)]"></div>
       </div>
 
       {/* Menu */}
@@ -149,14 +181,35 @@ const Navbar = () => {
       </div>
 
       {/* Curtain */}
-      <div className="mil-curtain"></div>
+      {/* <div className="mil-curtain"></div> */}
+      {/* Curtain - Migrated to Tailwind */}
+      <div className="fixed pointer-events-none z-[4] w-full h-full bg-black opacity-0 transition-opacity duration-600"></div>
 
-      {/* Frame */}
+      {/* Frame 
       <div className="mil-frame">
         <div className="mil-frame-top">
           <a href="home-1.html" className="mil-logo">A.</a>
           <div className="mil-menu-btn">
             <span></span>
+          </div>
+        </div>
+        <div className="mil-frame-bottom">
+          <div className="mil-current-page"></div>
+          <div className="mil-back-to-top">
+            <a href="#top" className="mil-link mil-dark mil-arrow-place">
+              <span>Back to top</span>
+            </a>
+          </div>
+        </div>
+      </div> */}
+      {/* Frame - Migrated to Tailwind */}
+      <div className="fixed z-[2] w-full h-full pointer-events-none px-[60px] py-[50px] lg:px-[30px] lg:py-[30px] max-lg:p-0 max-lg:z-[999] max-lg:h-[90px] opacity-100 scale-100 transition-all duration-700">
+        <div className="flex justify-between items-center pointer-events-none max-lg:h-[90px] max-lg:bg-black/95 max-lg:border-b max-lg:border-white/10 max-lg:px-[30px] max-lg:backdrop-blur-lg">
+          <a href="home-1.html" className="pointer-events-auto text-[42px] lg:text-[36px] font-medium leading-none text-black max-lg:text-white">
+            A.
+          </a>
+          <div className="pointer-events-auto h-7 cursor-pointer relative transition-all duration-[400ms] ease-[cubic-bezier(0,0,0.3642,1)] lg:scale-85">
+            <span className="block w-7 h-0.5 bg-black max-lg:bg-white relative transition-all duration-[400ms] ease-[cubic-bezier(0,0,0.3642,1)] before:content-[''] before:block before:w-7 before:h-0.5 before:bg-black max-lg:before:bg-white before:absolute before:top-[-9px] before:transition-all before:duration-[400ms] before:ease-[cubic-bezier(0,0,0.3642,1)] after:content-[''] after:block after:w-[18px] after:h-0.5 after:bg-black max-lg:after:bg-white after:absolute after:top-[9px] after:transition-all after:duration-[400ms] after:ease-[cubic-bezier(0,0,0.3642,1)]"></span>
           </div>
         </div>
         <div className="mil-frame-bottom">
@@ -173,7 +226,7 @@ const Navbar = () => {
       <div className="mil-content">
         <div id="swupMain" className="mil-main-transition">
           
-          {/* Banner */}
+          {/* Banner
           <section className="mil-banner mil-dark-bg">
             <div className="mi-invert-fix">
               <div className="mil-animation-frame">
@@ -219,7 +272,35 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
+          {/* HERO */}
+<section className="bg-black text-white">
+  <div className="mx-auto max-w-7xl px-4 py-24 lg:py-40">
+    <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight">
+      Designing <span className="font-light">a Better</span><br/>
+      World <span className="font-light">Today</span>
+    </h1>
+
+    <p className="mt-6 max-w-lg text-lg text-gray-300">
+      Welcome to our world of endless imagination and boundless creativity.
+      Together, let's embark on a remarkable journey where dreams become
+      tangible realities.
+    </p>
+
+    <div className="mt-10 flex gap-6">
+      <a href="#services"
+         className="inline-flex items-center gap-2 rounded-full bg-amber-500 px-6 py-3 text-sm font-medium
+                    text-black shadow-lg hover:bg-amber-400 transition">
+        WHAT WE DO <i className="fa-solid fa-arrow-right"></i>
+      </a>
+
+      <a href="#portfolio" className="group inline-flex items-center gap-2 text-sm">
+        <span className="group-hover:underline">VIEW WORKS</span>
+        <i className="fa-solid fa-arrow-right group-hover:translate-x-1 transition" />
+      </a>
+    </div>
+  </div>
+</section>
 
           {/* About */}
           <section id="about">
