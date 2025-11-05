@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
+import '../index.css';
 
 const Navbar = () => {
   const topRef = useRef(null);
 
   return (
     <div className="mil-wrapper" id="top" ref={topRef}>
-      {/* Cursor
+      {/* Cursor */}
       <div className="mil-ball">
         <span className="mil-icon-1">
           <svg viewBox="0 0 128 128">
@@ -14,19 +15,9 @@ const Navbar = () => {
         </span>
         <div className="mil-more-text">More</div>
         <div className="mil-choose-text">Сhoose</div>
-      </div> */}
-      {/* Cursor - Migrated to Tailwind */}
-      <div className="w-5 h-5 fixed z-[999] pointer-events-none rounded-full border border-white/90 flex justify-center items-center opacity-10 max-xl:hidden">
-        <span className="absolute w-10 h-10 scale-0">
-          <svg viewBox="0 0 128 128">
-            <path d="M106.1,41.9c-1.2-1.2-3.1-1.2-4.2,0c-1.2,1.2-1.2,3.1,0,4.2L116.8,61H11.2l14.9-14.9c1.2-1.2,1.2-3.1,0-4.2	c-1.2-1.2-3.1-1.2-4.2,0l-20,20c-1.2,1.2-1.2,3.1,0,4.2l20,20c0.6,0.6,1.4,0.9,2.1,0.9s1.5-0.3,2.1-0.9c1.2-1.2,1.2-3.1,0-4.2	L11.2,67h105.5l-14.9,14.9c-1.2,1.2-1.2,3.1,0,4.2c0.6,0.6,1.4,0.9,2.1,0.9s1.5-0.3,2.1-0.9l20-20c1.2-1.2,1.2-3.1,0-4.2L106.1,41.9	z" className="fill-white/90"></path>
-          </svg>
-        </span>
-        <div className="absolute w-full text-center text-[10px] uppercase font-medium text-white/90 scale-0">More</div>
-        <div className="absolute w-full text-center text-[10px] uppercase font-medium text-white/90 scale-0">Сhoose</div>
-      </div>
+      </div> 
 
-      {/* Preloader 
+      {/* Preloader */}
       <div className="mil-preloader">
         <div className="mil-preloader-animation">
           <div className="mil-pos-abs mil-animation-1">
@@ -41,31 +32,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </div> */}
-      {/* Preloader - Migrated to Tailwind */}
-      <div className="fixed z-[9] top-0 left-0 w-full h-screen bg-black">
-        <div className="opacity-0 relative h-screen text-white">
-          <div className="absolute h-screen w-full flex justify-center items-center lg:flex-col">
-            <p className="opacity-0 mr-[15px] lg:mr-0 lg:mb-[10px] text-[42px] xl:text-[39px] lg:text-[36px] md:text-[30px] text-white/90 font-thin">
-              Pioneering
-            </p>
-            <p className="opacity-0 mr-[15px] lg:mr-0 lg:mb-[10px] text-[42px] xl:text-[39px] lg:text-[36px] md:text-[30px] text-white/90 font-medium">
-              Creative
-            </p>
-            <p className="opacity-0 mr-[15px] lg:mr-0 lg:mb-[10px] text-[42px] xl:text-[39px] lg:text-[36px] md:text-[30px] text-white/90 font-thin">
-              Excellence
-            </p>
-          </div>
-          <div className="absolute h-screen w-full flex justify-center items-center lg:flex-col">
-            <div className="relative px-[30px]">
-              <p className="opacity-0 z-[4] absolute h-full bg-[rgb(255,152,0)]"></p>
-              <p className="text-[42px] xl:text-[39px] lg:text-[36px] md:text-[30px] text-white/90 font-thin">
-                ∅verflow()
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      </div> 
 
       {/* Scrollbar Progress 
       <div className="mil-progress-track">
@@ -226,7 +193,7 @@ const Navbar = () => {
       <div className="mil-content">
         <div id="swupMain" className="mil-main-transition">
           
-          {/* Banner
+          {/* Banner  */} 
           <section className="mil-banner mil-dark-bg">
             <div className="mi-invert-fix">
               <div className="mil-animation-frame">
@@ -237,9 +204,9 @@ const Navbar = () => {
 
               <div className="mil-gradient"></div>
 
-              <div className="container">
+              <div className="container d-flex flex-column align-items-center justify-content-center text-center min-vh-100">
                 <div className="mil-banner-content mil-up">
-                  <h1 className="mil-muted mil-mb-60">Designing <span className="mil-thin">a Better</span><br /> World <span className="mil-thin">Today</span></h1>
+                  <h1 className="mil-muted mil-mb-60 text-underline display-3 fw-bold">Designing <span className="mil-thin">a Better</span><br /> World <span className="mil-thin">Today</span></h1>
                   <div className="row">
                     <div className="col-md-7 col-lg-5">
                       <p className="mil-light-soft mil-mb-60">Welcome to our world of endless imagination and boundless creativity. Together, let's embark on a remarkable journey where dreams become tangible realities.</p>
@@ -272,36 +239,7 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-          </section> */}
-          {/* HERO */}
-<section className="bg-black text-white">
-  <div className="mx-auto max-w-7xl px-4 py-24 lg:py-40">
-    <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-      Designing <span className="font-light">a Better</span><br/>
-      World <span className="font-light">Today</span>
-    </h1>
-
-    <p className="mt-6 max-w-lg text-lg text-gray-300">
-      Welcome to our world of endless imagination and boundless creativity.
-      Together, let's embark on a remarkable journey where dreams become
-      tangible realities.
-    </p>
-
-    <div className="mt-10 flex gap-6">
-      <a href="#services"
-         className="inline-flex items-center gap-2 rounded-full bg-amber-500 px-6 py-3 text-sm font-medium
-                    text-black shadow-lg hover:bg-amber-400 transition">
-        WHAT WE DO <i className="fa-solid fa-arrow-right"></i>
-      </a>
-
-      <a href="#portfolio" className="group inline-flex items-center gap-2 text-sm">
-        <span className="group-hover:underline">VIEW WORKS</span>
-        <i className="fa-solid fa-arrow-right group-hover:translate-x-1 transition" />
-      </a>
-    </div>
-  </div>
-</section>
-
+          </section>
           {/* About */}
           <section id="about">
             <div className="container mil-p-120-30">
@@ -398,7 +336,7 @@ const Navbar = () => {
               <div className="row justify-content-between align-items-center">
                 <div className="col-lg-5 col-xl-4">
                   <div className="mil-mb-90">
-                    <h2 className="mil-up mil-mb-60">Meet <br />Our Team</h2>
+                    <h2 className="mil-up mil-mb-60 text-red-500">Meet <br />Our Team</h2>
                     <p className="mil-up mil-mb-30">We are talented individuals who are passionate about bringing ideas to life. With a diverse range of backgrounds and skill sets, we collaborate to produce effective solutions for our clients.</p>
 
                     <p className="mil-up mil-mb-60">Together, our creative team is committed to delivering impactful work that exceeds expectations.</p>
