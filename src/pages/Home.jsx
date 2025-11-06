@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import Footer from './footers';
+import PopularPublications from './popularPublication';
 
 const Home = () => {
   const topRef = useRef(null);
@@ -476,61 +477,8 @@ const Home = () => {
           </div>
 
           {/* Blog */}
-          <section>
-            <div className="container mil-p-120-60">
-              <div className="row align-items-center mil-mb-30">
-                <div className="col-lg-6 mil-mb-30">
-                  <h3 className="mil-up">Popular Publications:</h3>
-                </div>
-                <div className="col-lg-6 mil-mb-30">
-                  <div className="mil-adaptive-right mil-up">
-                    <a href="blog.html" className="mil-link mil-dark mil-arrow-place">
-                      <span>View all</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-6">
-                  <a href="publication.html" className="mil-blog-card mil-mb-60">
-                    <div className="mil-cover-frame mil-up">
-                      <img src="images/1_1.jpg" alt="cover" />
-                    </div>
-                    <div className="mil-post-descr">
-                      <div className="mil-labels mil-up mil-mb-30">
-                        <div className="mil-label mil-upper mil-accent">TECHNOLOGY</div>
-                        <div className="mil-label mil-upper">may 24 2023</div>
-                      </div>
-                      <h4 className="mil-up mil-mb-30">How to Become a Graphic Designer in 10 Simple Steps</h4>
-                      <p className="mil-post-text mil-up mil-mb-30">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi commodi dignissimos optio, beatae, eos necessitatibus nisi. Nam cupiditate consectetur nostrum qui! Repellat natus nulla, nisi aliquid, asperiores impedit tempora sequi est reprehenderit cumque explicabo, dicta. Rem nihil ullam totam ea voluptas quibusdam repudiandae id ut at iure! Totam, a!</p>
-                      <div className="mil-link mil-dark mil-arrow-place mil-up">
-                        <span>Read more</span>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div className="col-lg-6">
-                  <a href="publication.html" className="mil-blog-card mil-mb-60">
-                    <div className="mil-cover-frame mil-up">
-                      <img src="images/2_3.jpg" alt="cover" />
-                    </div>
-                    <div className="mil-post-descr">
-                      <div className="mil-labels mil-up mil-mb-30">
-                        <div className="mil-label mil-upper mil-accent">TECHNOLOGY</div>
-                        <div className="mil-label mil-upper">may 24 2023</div>
-                      </div>
-                      <h4 className="mil-up mil-mb-30">16 Best Graphic Design Online and Offline Courses</h4>
-                      <p className="mil-post-text mil-up mil-mb-30">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi commodi dignissimos optio, beatae, eos necessitatibus nisi. Nam cupiditate consectetur nostrum qui! Repellat natus nulla, nisi aliquid, asperiores impedit tempora sequi est reprehenderit cumque explicabo, dicta. Rem nihil ullam totam ea voluptas quibusdam repudiandae id ut at iure! Totam, a!</p>
-                      <div className="mil-link mil-dark mil-arrow-place mil-up">
-                        <span>Read more</span>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-
+          
+<PopularPublications />
           {/* Footer */}
           <Footer />
 

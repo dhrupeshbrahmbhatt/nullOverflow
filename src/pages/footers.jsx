@@ -125,7 +125,7 @@ body {
   padding: 100px 80px 60px;
   position: relative;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
-  min-height: 600px;
+  min-height: 700px;
 }
 
 .footer-container {
@@ -152,7 +152,7 @@ body {
 }
 
 .brand-letter {
-  font-size: 72px;
+  font-size: 96px;
   font-weight: 300;
   color: #ffffff;
   line-height: 0.9;
