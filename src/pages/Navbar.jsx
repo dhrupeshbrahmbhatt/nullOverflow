@@ -58,7 +58,7 @@ const Navbar = () => {
                 <nav className="mil-main-menu" id="swupMenu">
                   <ul>
                     <li className="mil-has-children mil-active">
-                      <a href="#.">Homepage</a>
+                      
                       <ul>
                         <li><a href="home-1.html">Landing page</a></li>
                         <li><a href="home-2.html">Personal</a></li>

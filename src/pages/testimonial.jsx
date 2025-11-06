@@ -423,20 +423,7 @@ const CustomerTestimonials = () => {
       
 
       {/* Homepage Link */}
-      <div style={{
-        position: 'fixed',
-        left: '40px',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        writingMode: 'vertical-rl',
-        textOrientation: 'mixed',
-        fontSize: '11px',
-        fontWeight: '600',
-        letterSpacing: '2px',
-        color: '#000000'
-      }}>
-        HOMEPAGE
-      </div>
+      
 
       {/* Responsive Styles */}
       <style>

@@ -54,7 +54,7 @@ const Footer = () => {
 
           <p className="copyright">© Copyright 2023 - Mil. All Rights Reserved.</p>
           
-          <div className="homepage-label">HOMEPAGE</div>
+          
         </div>
 
         {/* Middle Column - Navigation */}

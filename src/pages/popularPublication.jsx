@@ -286,7 +286,7 @@ const PopularPublications = () => {
         letterSpacing: '2px',
         color: '#000000'
       }}>
-        HOMEPAGE
+      
       </div>
 
       {/* Responsive Styles */}

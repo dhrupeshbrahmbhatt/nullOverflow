@@ -175,9 +175,7 @@ const MeetOurTeamPage = () => {
       </main>
 
       {/* Side Navigation - HOMEPAGE */}
-      <div style={styles.sideNavLeft}>
-        <div style={styles.homePageText}>HOMEPAGE</div>
-      </div>
+      
 
       {/* Back to Top Button */}
       

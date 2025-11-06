@@ -65,7 +65,7 @@ const Home = () => {
                 <nav className="mil-main-menu" id="swupMenu">
                   <ul>
                     <li className="mil-has-children mil-active">
-                      <a href="#.">Homepage</a>
+                      
                       <ul>
                         <li><a href="home-1.html">Landing page</a></li>
                         <li><a href="home-2.html">Personal</a></li>
@@ -125,26 +125,8 @@ const Home = () => {
                           <li><a href="project-6.html" className="mil-light-soft">Tony's Chocolonely</a></li>
                         </ul>
                       </div>
-                      <div className="col-lg-4 mil-mb-60">
-                        <h6 className="mil-muted mil-mb-30">Useful links</h6>
-                        <ul className="mil-menu-list">
-                          <li><a href="#." className="mil-light-soft">Privacy Policy</a></li>
-                          <li><a href="#." className="mil-light-soft">Terms and conditions</a></li>
-                          <li><a href="#." className="mil-light-soft">Cookie Policy</a></li>
-                          <li><a href="#." className="mil-light-soft">Careers</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div className="mil-divider mil-mb-60"></div>
-                    <div className="row justify-content-between">
-                      <div className="col-lg-4 mil-mb-60">
-                        <h6 className="mil-muted mil-mb-30">Canada</h6>
-                        <p className="mil-light-soft mil-up">71 South Los Carneros Road, California <span className="mil-no-wrap">+51 174 705 812</span></p>
-                      </div>
-                      <div className="col-lg-4 mil-mb-60">
-                        <h6 className="mil-muted mil-mb-30">Germany</h6>
-                        <p className="mil-light-soft">Leehove 40, 2678 MC De Lier, Netherlands <span className="mil-no-wrap">+31 174 705 811</span></p>
-                      </div>
+                      
+                    
                     </div>
                   </div>
                 </div>
