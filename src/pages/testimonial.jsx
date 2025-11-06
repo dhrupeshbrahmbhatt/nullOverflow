@@ -165,28 +165,7 @@ const CustomerTestimonials = () => {
         padding: '40px 80px',
         position: 'relative'
       }}>
-        {/* Logo */}
-        <div style={{
-          fontSize: '32px',
-          fontWeight: '600',
-          color: '#000000',
-          letterSpacing: '-1px'
-        }}>
-          A.
-        </div>
-
-        {/* Hamburger Menu */}
-        <button style={{
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          padding: '8px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <Menu size={32} color="#000000" strokeWidth={2} />
-        </button>
+        
       </header>
 
       {/* Top Right Text */}
@@ -441,33 +420,7 @@ const CustomerTestimonials = () => {
       </main>
 
       {/* Back to Top Button */}
-      <button style={{
-        position: 'fixed',
-        bottom: '40px',
-        right: '40px',
-        width: '50px',
-        height: '120px',
-        background: '#000000',
-        border: 'none',
-        borderRadius: '25px',
-        cursor: 'pointer',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '8px',
-        color: '#ffffff',
-        fontSize: '10px',
-        fontWeight: '600',
-        letterSpacing: '1px',
-        writingMode: 'vertical-rl',
-        textOrientation: 'mixed',
-        transform: 'rotate(180deg)',
-        transition: 'all 0.3s ease',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
-      }}>
-        BACK TO TOP
-      </button>
+      
 
       {/* Homepage Link */}
       <div style={{

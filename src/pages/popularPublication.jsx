@@ -56,28 +56,9 @@ const PopularPublications = () => {
         padding: '40px 80px',
         position: 'relative'
       }}>
-        {/* Logo */}
-        <div style={{
-          fontSize: '32px',
-          fontWeight: '600',
-          color: '#000000',
-          letterSpacing: '-1px'
-        }}>
-          A.
-        </div>
+        
 
-        {/* Hamburger Menu */}
-        <button style={{
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          padding: '8px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <Menu size={32} color="#000000" strokeWidth={2} />
-        </button>
+        
       </header>
 
       {/* Main Content */}

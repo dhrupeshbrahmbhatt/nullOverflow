@@ -96,12 +96,7 @@ const Footer = () => {
       </div>
 
       {/* Back to Top Button */}
-      <button className="back-to-top" aria-label="Back to top">
-        <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-          <path d="M10 16V4M10 4L4 10M10 4L16 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-        <span className="back-to-top-text">BACK TO TOP</span>
-      </button>
+      
     </footer>
   );
 };
