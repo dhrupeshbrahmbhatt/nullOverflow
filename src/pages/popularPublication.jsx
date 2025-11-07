@@ -37,8 +37,8 @@ const PopularPublications = () => {
           @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
           
           * {
-            margin: 0;
-            padding: 0;
+            margin: 0 px;
+            padding: 0 px;
             box-sizing: border-box;
           }
           
@@ -53,7 +53,7 @@ const PopularPublications = () => {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '40px 80px',
+        padding: '60px 80px',
         position: 'relative'
       }}>
         
@@ -63,7 +63,7 @@ const PopularPublications = () => {
 
       {/* Main Content */}
       <main style={{
-        padding: '60px 80px 80px'
+        padding: '60px 400px 60px'
       }}>
         {/* Section Header */}
         <div style={{

@@ -212,9 +212,9 @@ const styles = {
   },
   main: {
     display: 'flex',
-    padding: '80px 80px 80px 80px',
-    gap: '100px',
-    maxWidth: '1600px',
+    padding: '100px 300px 100px 300px',
+    gap: '50px',
+    maxWidth: '2000px',
     margin: '120px auto',
     alignItems: 'flex-start'
   },

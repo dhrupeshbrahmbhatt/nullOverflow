@@ -110,9 +110,9 @@ const StudioAboutPage = () => {
       {/* Main Content */}
       <main style={{
         paddingTop: '120px',
-        padding: '120px 60px 60px',
+        padding: '60px 400px 60px',
         display: 'flex',
-        gap: '80px',
+        gap: '40px',
         maxWidth: '1400px',
         margin: '0 auto',
         alignItems: 'center',
@@ -125,30 +125,31 @@ const StudioAboutPage = () => {
         }}>
           <h1 style={{
             fontSize: '64px',
-            fontWeight: '600',
+            fontWeight: '300',
             lineHeight: '1.2',
             marginBottom: '40px',
             color: '#000'
           }} className="fade-in-up">
-            Discover<br />
-            <span style={{ fontWeight: '300' }}>Our</span> Studio
+            <br />
+            <span style={{ fontWeight: '500' }}>Discover</span> <br />
+            <span style={{ fontWeight: '500' }}>Our</span> Studio
           </h1>
           
           <p style={{
-            fontSize: '16px',
+            fontSize: '12px',
             lineHeight: '1.8',
             color: '#666',
-            marginBottom: '30px',
+            marginBottom: '20px',
             fontWeight: '300'
           }} className="fade-in-up delay-1">
             At our design studio, we are a collective of talented individuals ignited by our unwavering passion for transforming ideas into reality. With a harmonious blend of diverse backgrounds and a vast array of skill sets, we join forces to create compelling solutions for our esteemed clients.
           </p>
           
           <p style={{
-            fontSize: '16px',
+            fontSize: '12px',
             lineHeight: '1.8',
             color: '#666',
-            marginBottom: '50px',
+            marginBottom: '20px',
             fontWeight: '300'
           }} className="fade-in-up delay-2">
             Collaboration is at the heart of what we do. Our team thrives on the synergy that arises when unique perspectives converge, fostering an environment of boundless creativity. By harnessing our collective expertise, we produce extraordinary results that consistently surpass expectations.
