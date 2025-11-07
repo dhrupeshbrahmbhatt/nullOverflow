@@ -1714,7 +1714,7 @@ banner
 }
 @media screen and (max-width: 992px) {
   .mil-banner-personal .mil-banner-content {
-    padding-top: 300px;
+    padding-top: 180px;
   }
 }
 .mil-banner-personal .mil-banner-content .mil-personal-text {
@@ -1736,7 +1736,7 @@ banner
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 0 120px 0 120px;
+  padding: 0 60px 0 90px;
   background-color: rgb(255, 255, 255);
   height: 180px;
   position: absolute;
