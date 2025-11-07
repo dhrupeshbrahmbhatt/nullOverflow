@@ -32,6 +32,7 @@ const Home = () => {
      {/* {/* Preloader */}
       
 
+
       {/* Scrollbar Progress */}
       <div className="mil-progress-track">
         <div className="mil-progress"></div>
@@ -144,7 +145,21 @@ const Home = () => {
                     </div>
                   </div>
 
-                  <a href="services.html" className="mil-button mil-arrow-place mil-btn-space" style={{ padding: '0px', marginLeft: '300px' }}>
+                  <a href="services.html" className="mil-button mil-arrow-place mil-btn-space" style={{ padding: '0px', marginLeft: '300px' ,backgroundColor: '#ff9500',
+    color: '#000000',
+    border: 'none',
+    borderRadius: '50px',
+    padding: '1.2rem 2.5rem',
+    fontSize: '0.75rem',
+    fontWeight: '600',
+    letterSpacing: '0.15em',
+    cursor: 'pointer',
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '1rem',
+    transition: 'all 0.3s ease',
+    textTransform: 'uppercase',
+    boxShadow: '0 10px 30px rgba(255, 149, 0, 0.3)'   }}>
                     <span>What we do</span>
                   </a>
 
