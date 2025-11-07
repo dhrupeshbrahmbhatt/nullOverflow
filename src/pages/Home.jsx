@@ -137,18 +137,18 @@ const Home = () => {
 
               <div className="container">
                 <div className="mil-banner-content mil-up">
-                  <h1 className="mil-muted mil-mb-60">Designing <span className="mil-thin">a Better</span><br /> World <span className="mil-thin">Today</span></h1>
+                  <h1 className="mil-muted mil-mb-0" style={{ padding: '10px', marginLeft: '300px',  fontSize: '60px' }}>Designing <span className="mil-thin">a Better</span><br /> World <span className="mil-thin">Today</span></h1>
                   <div className="row">
                     <div className="col-md-7 col-lg-12">
-                      <p className="mil-light-soft mil-mb-60">Welcome to our world of endless imagination and boundless creativity. Together, let's embark on a remarkable journey where dreams become tangible realities.</p>
+                      <p className="mil-light-soft mil-mb-60" style={{  marginLeft: '300px', fontSize: '12px' }}>Welcome to our world of endless imigination and boundless <br /> creativity. Together, let's embark on a remarkable journey where <br /> dreams become tangible realities.</p>
                     </div>
                   </div>
 
-                  <a href="services.html" className="mil-button mil-arrow-place mil-btn-space">
+                  <a href="services.html" className="mil-button mil-arrow-place mil-btn-space" style={{ padding: '0px', marginLeft: '300px' }}>
                     <span>What we do</span>
                   </a>
 
-                  <a href="portfolio-1.html" className="mil-link mil-muted mil-arrow-place">
+                  <a href="portfolio-1.html" className="mil-link mil-muted mil-arrow-place" style={{ padding: '0px', marginLeft: '20px' }}>
                     <span>View works</span>
                   </a>
 
