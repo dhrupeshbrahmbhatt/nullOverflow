@@ -4,6 +4,7 @@ import CustomerTestimonials from './testimonial';
 import MeetOurTeamPage from './meetOurTeam';
 import AgencyLandingPage from './agencyLanding';
 import StudioAboutPage from './studioAboutPage';
+
 import PopularPublications from './popularPublication';
 
 const Home = () => {
@@ -28,22 +29,8 @@ const Home = () => {
         <div className="mil-choose-text">Сhoose</div>
       </div>
 
-      {/* Preloader */}
-      <div className="mil-preloader">
-        <div className="mil-preloader-animation">
-          <div className="mil-pos-abs mil-animation-1">
-            <p className="mil-h3 mil-muted mil-thin">Pioneering</p>
-            <p className="mil-h3 mil-muted">Creative</p>
-            <p className="mil-h3 mil-muted mil-thin">Excellence</p>
-          </div>
-          <div className="mil-pos-abs mil-animation-2">
-            <div className="mil-reveal-frame">
-              <p className="mil-reveal-box"></p>
-              <p className="mil-h3 mil-muted mil-thin">∅verflow()</p>
-            </div>
-          </div>
-        </div>
-      </div>
+     {/* {/* Preloader */}
+      
 
       {/* Scrollbar Progress */}
       <div className="mil-progress-track">
@@ -53,7 +40,7 @@ const Home = () => {
       {/* Menu */}
       <div className="mil-menu-frame">
         <div className="mil-frame-top">
-          <a href="home-1.html" className="mil-logo">A.</a>
+          <a href="home-1.html" className="mil-logo">∅verflow</a>
           <div className="mil-menu-btn">
             <span></span>
           </div>
@@ -66,11 +53,7 @@ const Home = () => {
                   <ul>
                     <li className="mil-has-children mil-active">
                       
-                      <ul>
-                        <li><a href="home-1.html">Landing page</a></li>
-                        <li><a href="home-2.html">Personal</a></li>
-                        <li><a href="portfolio-3.html">Portfolio slider</a></li>
-                      </ul>
+                      
                     </li>
                     <li className="mil-has-children">
                       <a href="#.">Portfolio</a>
@@ -96,11 +79,7 @@ const Home = () => {
                     </li>
                     <li className="mil-has-children">
                       <a href="#.">Other pages</a>
-                      <ul>
-                        <li><a href="team.html">Team</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="404.html">404</a></li>
-                      </ul>
+                     
                     </li>
                   </ul>
                 </nav>
@@ -112,23 +91,7 @@ const Home = () => {
                       <div className="mil-animation mil-position-1 mil-scale" data-value-1="2" data-value-2="2"></div>
                     </div>
                   </div>
-                  <div className="mil-menu-right">
-                    <div className="row">
-                      <div className="col-lg-8 mil-mb-60">
-                        <h6 className="mil-muted mil-mb-30">Projects</h6>
-                        <ul className="mil-menu-list">
-                          <li><a href="project-1.html" className="mil-light-soft">Interior design studio</a></li>
-                          <li><a href="project-2.html" className="mil-light-soft">Home Security Camera</a></li>
-                          <li><a href="project-3.html" className="mil-light-soft">Kemia Honest Skincare</a></li>
-                          <li><a href="project-4.html" className="mil-light-soft">Cascade of Lava</a></li>
-                          <li><a href="project-5.html" className="mil-light-soft">Air Pro by Molekule</a></li>
-                          <li><a href="project-6.html" className="mil-light-soft">Tony's Chocolonely</a></li>
-                        </ul>
-                      </div>
-                      
-                    
-                    </div>
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -138,11 +101,11 @@ const Home = () => {
 
       {/* Curtain */}
       <div className="mil-curtain"></div>
-
+                                             {/* ye kaam kar raha hai nav baar mein  */}
       {/* Frame */}
       <div className="mil-frame">
         <div className="mil-frame-top">
-          <a href="home-1.html" className="mil-logo">A.</a>
+          <a href="home-1.html" className="mil-logo">∅verflow</a>
           <div className="mil-menu-btn">
             <span></span>
           </div>
@@ -151,7 +114,7 @@ const Home = () => {
           <div className="mil-current-page"></div>
           <div className="mil-back-to-top">
             <a href="#top" className="mil-link mil-dark mil-arrow-place">
-              <span>Back to top</span>
+              <span></span>
             </a>
           </div>
         </div>
@@ -176,7 +139,7 @@ const Home = () => {
                 <div className="mil-banner-content mil-up">
                   <h1 className="mil-muted mil-mb-60">Designing <span className="mil-thin">a Better</span><br /> World <span className="mil-thin">Today</span></h1>
                   <div className="row">
-                    <div className="col-md-7 col-lg-5">
+                    <div className="col-md-7 col-lg-12">
                       <p className="mil-light-soft mil-mb-60">Welcome to our world of endless imagination and boundless creativity. Together, let's embark on a remarkable journey where dreams become tangible realities.</p>
                     </div>
                   </div>

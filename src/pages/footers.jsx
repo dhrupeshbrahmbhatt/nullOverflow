@@ -7,8 +7,8 @@ const Footer = () => {
         {/* Left Column - Brand and Newsletter */}
         <div className="footer-column brand-column">
           <div className="brand">
-            <span className="brand-letter">A</span>
-            <span className="brand-name">Ashley.</span>
+           
+            <span className="brand-name">∅verflow</span>
           </div>
           
           <p className="newsletter-text">Subscribe our newsletter:</p>
@@ -117,7 +117,7 @@ body {
 .footer {
   background-color: #000000;
   color: #ffffff;
-  padding: 100px 80px 60px;
+  padding: 100px 200px 100px;
   position: relative;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
   min-height: 700px;
@@ -136,7 +136,7 @@ body {
 .brand-column {
   display: flex;
   flex-direction: column;
-  gap: 35px;
+  gap: 50px;
 }
 
 .brand {
@@ -175,8 +175,10 @@ body {
   align-items: center;
   background-color: #1a1a1a;
   border-radius: 60px;
-  padding: 10px 10px 10px 32px;
-  max-width: 420px;
+  padding: 0px 30px 0px 20px;
+  max-width: 300px;
+  height : 60px;
+
   transition: background-color 0.3s ease;
 }
 
