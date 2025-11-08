@@ -194,7 +194,7 @@ const StudioAboutPage = () => {
           minWidth: '400px', order: 2, display: 'flex', alignItems: 'stretch'
         }} className="fade-in delay-4">
           <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=900&fit=crop"
+            src="public/images/1_2.jpg"
             className="studio-img" alt="Studio workspace"
             style={{
               width: '100%',
@@ -228,7 +228,7 @@ const StudioAboutPage = () => {
             
             main {
               padding: 100px 40px 40px !important;
-              gap: 60px !important;
+              gap: 0px !important;
             }
             
             h1 {

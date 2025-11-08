@@ -11,19 +11,16 @@ const Home = () => {
   const topRef = useRef(null);
   const aboutRef = useRef(null);
   const [showTop, setShowTop] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const scrollToAbout = () => {
     if (aboutRef.current) {
       aboutRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }
-
-  useEffect(() => {
-    // Initialize any animations or scroll effects here
-    // You would typically import and initialize GSAP, Swiper, etc.
-    console.log('Component mounted - initialize animations');
-  }, []);
-
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   useEffect(() => {
     const handleScroll = () => {
       if (aboutRef.current) {
@@ -33,6 +30,15 @@ const Home = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    // Add/remove class to body when menu opens/closes
+    if (isMenuOpen) {
+      document.body.classList.add('mil-menu-open');
+    } else {
+      document.body.classList.remove('mil-menu-open');
+    }
+  }, [isMenuOpen]);
 
   return (
     <div className="mil-wrapper" id="top" ref={topRef}>
@@ -72,10 +78,10 @@ const Home = () => {
       </div>
 
       {/* Menu */}
-      <div className="mil-menu-frame">
+      <div className={`mil-menu-frame ${isMenuOpen ? 'mil-active' : ''}`}>
         <div className="mil-frame-top">
           <a href="home-1.html" className="mil-logo">∅verflow</a>
-          <div className="mil-menu-btn">
+          <div className={`mil-menu-btn ${isMenuOpen ? 'mil-active' : ''}`} onClick={toggleMenu} style={{zIndex: 9999}}>
             <span></span>
           </div>
         </div>
@@ -140,7 +146,7 @@ const Home = () => {
       <div className="mil-frame">
         <div className="mil-frame-top">
           <a href="home-1.html" className="mil-logo">∅verflow</a>
-          <div className="mil-menu-btn">
+          <div className={`mil-menu-btn ${isMenuOpen ? 'mil-active' : ''}`} onClick={toggleMenu} style={{zIndex: 50}}>
             <span></span>
           </div>
         </div>
