@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Footer from './footers';
 import CustomerTestimonials from './testimonial';
 import MeetOurTeamPage from './meetOurTeam';
@@ -9,11 +9,29 @@ import PopularPublications from './popularPublication';
 
 const Home = () => {
   const topRef = useRef(null);
+  const aboutRef = useRef(null);
+  const [showTop, setShowTop] = useState(false);
+
+  const scrollToAbout = () => {
+    if (aboutRef.current) {
+      aboutRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 
   useEffect(() => {
     // Initialize any animations or scroll effects here
     // You would typically import and initialize GSAP, Swiper, etc.
     console.log('Component mounted - initialize animations');
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (aboutRef.current) {
+        setShowTop(window.scrollY >= aboutRef.current.offsetTop - 100);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -30,7 +48,7 @@ const Home = () => {
       </div>
 
      {/* {/* Preloader */}
-      <div className="mil-preloader">
+      {/* <div className="mil-preloader">
         <div className="mil-preloader-animation">
           <div className="mil-pos-abs mil-animation-1">
             <p className="mil-h3 mil-muted mil-thin">Pioneering</p>
@@ -44,7 +62,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
 
 
@@ -128,7 +146,7 @@ const Home = () => {
         </div>
         <div className="mil-frame-bottom">
           <div className="mil-current-page"></div>
-          <div className="mil-back-to-top">
+          <div className="mil-back-to-top" style={{opacity: showTop ? 1 : 0, pointerEvents: showTop ? 'auto' : 'none', transition: 'opacity 0.3s'}}>
             <a href="#top" className="mil-link mil-dark mil-arrow-place">
               <span></span>
             </a>
@@ -152,37 +170,35 @@ const Home = () => {
               <div className="mil-gradient"></div>
 
               <div className="container">
-                <div className="mil-banner-content mil-up">
-                  <h1 className="mil-muted mil-mb-0" style={{ padding: '10px', marginLeft: '300px',  fontSize: '60px' }}>Designing <span className="mil-thin">a Better</span><br /> World <span className="mil-thin">Today</span></h1>
+                <div className="mil-banner-content mil-up" style={{ marginLeft: "180px"}}>
+                  <h1 className="mil-muted mil-mb-0" style={{ padding: '10px',  fontSize: '86px', lineHeight: '103px', marginBottom: "50px" }}>Designing <span className="mil-thin" style={{ fontSize: '86px', lineHeight: '103px', fontWeight: '100' }}>a Better</span><br /> World <span className="mil-thin">Today</span></h1>
                   <div className="row">
                     <div className="col-md-7 col-lg-12">
-                      <p className="mil-light-soft mil-mb-60" style={{  marginLeft: '300px', fontSize: '12px' }}>Welcome to our world of endless imigination and boundless <br /> creativity. Together, let's embark on a remarkable journey where <br /> dreams become tangible realities.</p>
+                      <p className="mil-light-soft mil-mb-60" style={{ marginLeft: "10px",fontSize: '16px', lineHeight: '24px', fontWeight: '300' }}>Welcome to our world of endless imigination and boundless <br /> creativity. Together, let's embark on a remarkable journey where <br /> dreams become tangible realities.</p>
+                      <a href="#" className="mil-button mil-arrow-place mil-btn-space" style={{ padding: '0px', fontWeight: '500' ,backgroundColor: '#ff9500',
+                        color: '#000000',
+                        border: 'none',
+                        borderRadius: '50px',
+                        padding: '1.2rem 2.5rem',
+                        fontSize: '0.75rem',
+                        fontWeight: '600',
+                        letterSpacing: '0.15em',
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '1rem',
+                        transition: 'all 0.3s ease',
+                        textTransform: 'uppercase',
+                        boxShadow: '0 10px 30px rgba(255, 149, 0, 0.3)'   }}>
+                        <span>What we do</span>
+                      </a>
+
+                      <a href="portfolio-1.html" className="mil-link mil-muted mil-arrow-place" style={{ padding: '0px', marginLeft: '20px' }}>
+                        <span>View works</span>
+                      </a>
                     </div>
                   </div>
-
-                  <a href="services.html" className="mil-button mil-arrow-place mil-btn-space" style={{ padding: '0px', marginLeft: '300px' ,backgroundColor: '#ff9500',
-    color: '#000000',
-    border: 'none',
-    borderRadius: '50px',
-    padding: '1.2rem 2.5rem',
-    fontSize: '0.75rem',
-    fontWeight: '600',
-    letterSpacing: '0.15em',
-    cursor: 'pointer',
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '1rem',
-    transition: 'all 0.3s ease',
-    textTransform: 'uppercase',
-    boxShadow: '0 10px 30px rgba(255, 149, 0, 0.3)'   }}>
-                    <span>What we do</span>
-                  </a>
-
-                  <a href="portfolio-1.html" className="mil-link mil-muted mil-arrow-place" style={{ padding: '0px', marginLeft: '20px' }}>
-                    <span>View works</span>
-                  </a>
-
-                  <div className="mil-circle-text" style={{ marginRight: '300px', transform: 'scale(0.7)' }}>
+                  <div className="mil-circle-text" style={{ marginRight: '200px' }}>
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 300 300" enableBackground="new 0 0 300 300" xmlSpace="preserve" className="mil-ct-svg mil-rotate" data-value="360">
                       <defs>
                         <path id="circlePath" d="M 150, 150 m -60, 0 a 60,60 0 0,1 120,0 a 60,60 0 0,1 -120,0 "></path>
@@ -195,7 +211,7 @@ const Home = () => {
                         </text>
                       </g>
                     </svg>
-                    <a href="#about" className="mil-button mil-arrow-place mil-icon-button mil-arrow-down"></a>
+                    <a href="#about" onClick={(e)=>{e.preventDefault(); scrollToAbout();}} className="mil-button mil-arrow-place mil-icon-button mil-arrow-down"></a>
                   </div>
                 </div>
               </div>
@@ -203,7 +219,11 @@ const Home = () => {
           </section>
 
           {/* About */}
-          <StudioAboutPage />
+          <div id="about" ref={aboutRef}>
+            <div className="mil-about">
+              <StudioAboutPage />
+            </div>
+          </div>
 
           {/* Services */}
           <AgencyLandingPage />
@@ -215,7 +235,6 @@ const Home = () => {
           <CustomerTestimonials />
 
           {/* Blog */}
-          
           <PopularPublications />
           
           {/* Footer */}

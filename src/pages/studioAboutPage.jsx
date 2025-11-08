@@ -110,13 +110,13 @@ const StudioAboutPage = () => {
       {/* Main Content */}
       <main style={{
         paddingTop: '120px',
-        padding: '60px 400px 60px',
+        padding: '60px 140px',
         display: 'flex',
         gap: '40px',
         maxWidth: '1400px',
         margin: '0 auto',
         alignItems: 'center',
-        flexWrap: 'wrap'
+        flexWrap: 'nowrap'
       }}>
         {/* Left Content */}
         <div style={{
@@ -124,10 +124,10 @@ const StudioAboutPage = () => {
           minWidth: '400px'
         }}>
           <h1 style={{
-            fontSize: '64px',
-            fontWeight: '300',
+            fontSize: '68px',
+            fontWeight: '100',
             lineHeight: '1.2',
-            marginBottom: '40px',
+            marginBottom: '60px',
             color: '#000'
           }} className="fade-in-up">
             <br />
@@ -136,26 +136,19 @@ const StudioAboutPage = () => {
           </h1>
           
           <p style={{
-            fontSize: '12px',
-            lineHeight: '1.8',
+            fontSize: '16px',
+            lineHeight: '24px',
+            width: '500px',
             color: '#666',
             marginBottom: '20px',
             fontWeight: '300'
           }} className="fade-in-up delay-1">
             At our design studio, we are a collective of talented individuals ignited by our unwavering passion for transforming ideas into reality. With a harmonious blend of diverse backgrounds and a vast array of skill sets, we join forces to create compelling solutions for our esteemed clients.
           </p>
-          
-          <p style={{
-            fontSize: '12px',
-            lineHeight: '1.8',
-            color: '#666',
-            marginBottom: '20px',
-            fontWeight: '300'
-          }} className="fade-in-up delay-2">
+          <p style={{ fontSize: '16px', lineHeight: '24px', width: '500px', color: '#666', margin: '30px 0', fontWeight: '300' }} className="fade-in-up delay-2">
             Collaboration is at the heart of what we do. Our team thrives on the synergy that arises when unique perspectives converge, fostering an environment of boundless creativity. By harnessing our collective expertise, we produce extraordinary results that consistently surpass expectations.
           </p>
-          
-          {/* Audio Player */}
+
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -166,46 +159,27 @@ const StudioAboutPage = () => {
               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
               alt="Profile"
               style={{
-                width: '60px',
-                height: '60px',
+                width: '90px',
+                height: '90px',
                 borderRadius: '50%',
                 objectFit: 'cover'
               }}
             />
             
-            <button
-              onClick={() => setIsPlaying(!isPlaying)}
-              style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg, #FFA500, #FF8C00)',
-                border: 'none',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'transform 0.2s ease',
-                boxShadow: '0 4px 12px rgba(255, 165, 0, 0.3)'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-            >
-              {isPlaying ? <Pause size={16} color="#fff" /> : <Play size={16} color="#fff" />}
-            </button>
-            
             <div>
               <div style={{
-                fontSize: '14px',
-                fontWeight: '600',
+                fontSize: '18px',
+                lineHeight: '27px',
+                fontWeight: '500',
                 color: '#000',
                 marginBottom: '3px'
               }}>
                 Passionately Creating <span style={{ fontWeight: '300', color: '#666' }}>Design Wonders:</span>
               </div>
               <div style={{
-                fontSize: '14px',
-                fontWeight: '600',
+                fontSize: '18px',
+                lineHeight: '27px',
+                fontWeight: '100',
                 color: '#000'
               }}>
                 Unleashing <span style={{ fontWeight: '300', color: '#666' }}>Boundless Creativity</span>
@@ -216,23 +190,21 @@ const StudioAboutPage = () => {
 
         {/* Right Image */}
         <div style={{
-          flex: '1 1 500px',
-          minWidth: '400px'
+          flex: '1',
+          minWidth: '400px', order: 2, display: 'flex', alignItems: 'stretch'
         }} className="fade-in delay-4">
           <img
             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=900&fit=crop"
-            alt="Studio workspace"
+            className="studio-img" alt="Studio workspace"
             style={{
               width: '100%',
-              height: 'auto',
-              borderRadius: '0',
+              height: '620px',
+              borderRadius: '8px',
               objectFit: 'cover',
               boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
               transition: 'transform 0.5s ease',
               cursor: 'pointer'
             }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
           />
         </div>
       </main>
