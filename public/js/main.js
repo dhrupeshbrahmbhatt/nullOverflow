@@ -9,22 +9,96 @@ p.s. I am available for Freelance hire (UI design, web development). email: mill
 
 ------------------------------------------- */
 
+// Note: Safari compatibility fix is now loaded from safari-fix.js (loaded before this script)
+
 $(function () {
 
     "use strict";
+
+    // Check if GSAP is loaded - critical for animations
+    if (typeof gsap === 'undefined') {
+        console.error('GSAP is not loaded! Animations will not work.');
+        return;
+    }
+
+    // Check if jQuery is loaded
+    if (typeof jQuery === 'undefined') {
+        console.error('jQuery is not loaded!');
+        return;
+    }
+
+    console.log('All libraries loaded successfully (GSAP, jQuery)');
+
+    // Wait for React to render DOM elements before initializing animations
+    // Check if elements exist before proceeding
+    function waitForReactDOM(callback, maxAttempts = 50) {
+        let attempts = 0;
+        const checkInterval = setInterval(function() {
+            attempts++;
+            // Check if key React-rendered elements exist
+            if (document.querySelector('.mil-preloader') &&
+                document.querySelector('.mil-banner') &&
+                document.querySelector('#swupMain')) {
+                clearInterval(checkInterval);
+                console.log('React DOM ready, initializing animations');
+                callback();
+            } else if (attempts >= maxAttempts) {
+                clearInterval(checkInterval);
+                console.warn('Timeout waiting for React DOM, proceeding anyway');
+                callback();
+            }
+        }, 100); // Check every 100ms
+    }
+
+    // Wrap all animations and initializations to wait for React DOM
+    waitForReactDOM(function() {
 
     /***************************
 
     swup
 
     ***************************/
-    const options = {
-        containers: ['#swupMain', '#swupMenu'],
-        animateHistoryBrowsing: true,
-        linkSelector: 'a:not([data-no-swup])',
-        animationSelector: '[class="mil-main-transition"]'
+    // Detect Safari browser
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+    // Safe Swup initialization with error handling
+    let swup = null;
+
+    // Initialize Swup for all browsers (Safari fix is loaded before this)
+    // For Safari, wait a bit to ensure all patches are fully applied
+    const initSwup = function() {
+        try {
+            const options = {
+                containers: ['#swupMain', '#swupMenu'],
+                animateHistoryBrowsing: true,
+                linkSelector: 'a:not([data-no-swup])',
+                animationSelector: '[class="mil-main-transition"]'
+            };
+
+            // Ensure Swup is available
+            if (typeof Swup !== 'undefined') {
+                swup = new Swup(options);
+                if (isSafari) {
+                    console.log('Swup initialized successfully for Safari (with XHR compatibility patch)');
+                } else {
+                    console.log('Swup initialized successfully');
+                }
+            } else {
+                console.warn('Swup is not available, page transitions disabled');
+            }
+        } catch (e) {
+            console.error('Swup initialization failed:', e);
+            console.log('Continuing without Swup page transitions');
+            // Even if Swup fails, continue with the page
+        }
     };
-    const swup = new Swup(options);
+
+    // Safari needs a small delay to ensure patches are ready
+    if (isSafari) {
+        setTimeout(initSwup, 100);
+    } else {
+        initSwup();
+    }
 
     /***************************
 
@@ -114,6 +188,22 @@ $(function () {
             $('.mil-preloader').addClass("mil-hidden");
         },
     }, "-=1");
+
+    // Safari fallback: ensure preloader is hidden after max 8 seconds
+    // Increased timeout to allow GSAP animations to complete properly
+    setTimeout(function() {
+        const preloader = $('.mil-preloader');
+        if (preloader.length && !preloader.hasClass('mil-hidden')) {
+            console.log('Forcing preloader hide (Safari fallback)');
+            preloader.css({
+                'opacity': '0',
+                'visibility': 'hidden',
+                'pointer-events': 'none',
+                'display': 'none'
+            });
+            preloader.addClass('mil-hidden');
+        }
+    }, 8000);
     /***************************
 
     anchor scroll
@@ -1049,4 +1139,6 @@ $(function () {
 
     });
 
-});
+    }); // End of waitForReactDOM callback
+
+}); // End of jQuery ready

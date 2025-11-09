@@ -40,6 +40,23 @@ const Home = () => {
     }
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    // Initialize jQuery plugins and animations after React renders
+    // This ensures all DOM elements are available before jQuery tries to manipulate them
+    const initializeScripts = () => {
+      // Trigger jQuery ready event manually for scripts that depend on it
+      if (window.jQuery && window.jQuery.isReady !== undefined) {
+        // jQuery is loaded and ready, trigger custom initialization if needed
+        console.log('React mounted, jQuery scripts should now initialize');
+      }
+    };
+
+    // Small delay to ensure all child components have rendered
+    const timer = setTimeout(initializeScripts, 100);
+
+    return () => clearTimeout(timer);
+  }, []); // Run once on mount
+
   return (
     <div className="mil-wrapper" id="top" ref={topRef}>
       {/* Cursor */}
@@ -241,37 +258,20 @@ const Home = () => {
               <div className="mil-gradient"></div>
 
               <div className="container">
-                <div className="mil-banner-content mil-up" style={{ marginLeft: "180px"}}>
-                  <h1 className="mil-muted mil-mb-0" style={{ padding: '10px',  fontSize: '86px', lineHeight: '103px', marginBottom: "50px" }}>Designing <span className="mil-thin" style={{ fontSize: '86px', lineHeight: '103px', fontWeight: '100' }}>a Better</span><br /> World <span className="mil-thin">Today</span></h1>
+                <div className="mil-banner-content mil-up">
+                  <h1 className="mil-muted mil-mb-60">Designing <span className="mil-thin">a Better</span><br /> World <span className="mil-thin">Today</span></h1>
                   <div className="row">
-                    <div className="col-md-7 col-lg-12">
-                      <p className="mil-light-soft mil-mb-60" style={{ marginLeft: "10px",fontSize: '16px', lineHeight: '24px', fontWeight: '300' }}>Welcome to our world of endless imigination and boundless <br /> creativity. Together, let's embark on a remarkable journey where <br /> dreams become tangible realities.</p>
-                      <a href="#" className="mil-button mil-arrow-place mil-btn-space" style={{
-                        backgroundColor: '#ff9500',
-                        color: '#000000',
-                        border: 'none',
-                        borderRadius: '50px',
-                        padding: '1.2rem 2.5rem',
-                        fontSize: '0.75rem',
-                        fontWeight: '600',
-                        letterSpacing: '0.15em',
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '1rem',
-                        transition: 'all 0.3s ease',
-                        textTransform: 'uppercase',
-                        boxShadow: '0 10px 30px rgba(255, 149, 0, 0.3)'
-                      }}>
-                        <span>What we do</span>
-                      </a>
-
-                      <a href="portfolio-1.html" className="mil-link mil-muted mil-arrow-place" style={{ padding: '0px', marginLeft: '20px' }}>
-                        <span>View works</span>
-                      </a>
+                    <div className="col-md-7 col-lg-5">
+                      <p className="mil-light-soft mil-mb-60">Welcome to our world of endless imigination and boundless <br /> creativity. Together, let's embark on a remarkable journey where <br /> dreams become tangible realities.</p>
                     </div>
                   </div>
-                  <div className="mil-circle-text" style={{ marginRight: '200px' }}>
+                  <a href="#." className="mil-button mil-arrow-place mil-btn-space">
+                    <span>What we do</span>
+                  </a>
+                  <a href="portfolio-1.html" className="mil-link mil-muted mil-arrow-place mil-view-works">
+                    <span>View works</span>
+                  </a>
+                  <div className="mil-circle-text">
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 300 300" enableBackground="new 0 0 300 300" xmlSpace="preserve" className="mil-ct-svg mil-rotate" data-value="360">
                       <defs>
                         <path id="circlePath" d="M 150, 150 m -60, 0 a 60,60 0 0,1 120,0 a 60,60 0 0,1 -120,0 "></path>
@@ -290,6 +290,118 @@ const Home = () => {
               </div>
             </div>
           </section>
+
+          {/* Banner Responsive Styles */}
+          <style>{`
+            /* Tablet View (1024px and below) */
+            @media screen and (max-width: 1024px) {
+              .mil-banner .mil-banner-content {
+                padding-bottom: 100px;
+              }
+              .mil-banner h1 {
+                font-size: 64px !important;
+                line-height: 1.2 !important;
+                margin-bottom: 40px !important;
+              }
+              .mil-banner p {
+                font-size: 15px !important;
+                line-height: 22px !important;
+                margin-bottom: 40px !important;
+              }
+            }
+
+            /* Tablet and Phone View (768px and below) */
+            @media screen and (max-width: 768px) {
+              .mil-banner .mil-banner-content {
+                padding-bottom: 80px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+              }
+              .mil-banner h1 {
+                font-size: 48px !important;
+                line-height: 1.3 !important;
+                margin-bottom: 30px !important;
+                text-align: center;
+              }
+              .mil-banner .row {
+                width: 100%;
+                justify-content: center;
+              }
+              .mil-banner .row .col-md-7 {
+                max-width: 100%;
+                padding: 0 20px;
+              }
+              .mil-banner p {
+                font-size: 14px !important;
+                line-height: 20px !important;
+                margin-bottom: 35px !important;
+                text-align: center;
+              }
+              .mil-banner p br {
+                display: none;
+              }
+              .mil-banner .mil-button {
+                margin: 0 auto 20px;
+              }
+              .mil-banner .mil-view-works {
+                display: none !important;
+              }
+            }
+
+            /* Phone View (600px and below) */
+            @media screen and (max-width: 600px) {
+              .mil-banner .mil-banner-content {
+                padding-bottom: 60px;
+              }
+              .mil-banner h1 {
+                font-size: 40px !important;
+                line-height: 1.25 !important;
+                margin-bottom: 25px !important;
+              }
+              .mil-banner p {
+                font-size: 13px !important;
+                line-height: 19px !important;
+                margin-bottom: 30px !important;
+              }
+            }
+
+            /* Small Phone View (480px and below) */
+            @media screen and (max-width: 480px) {
+              .mil-banner .mil-banner-content {
+                padding-bottom: 50px;
+              }
+              .mil-banner h1 {
+                font-size: 36px !important;
+                line-height: 1.3 !important;
+                margin-bottom: 20px !important;
+              }
+              .mil-banner p {
+                font-size: 12px !important;
+                line-height: 18px !important;
+                margin-bottom: 25px !important;
+                padding: 0 10px;
+              }
+              .mil-banner .mil-button {
+                font-size: 10px !important;
+                height: 60px !important;
+                padding: 0 10px 0 40px !important;
+              }
+            }
+
+            /* Extra Small Phone View (375px and below) */
+            @media screen and (max-width: 375px) {
+              .mil-banner h1 {
+                font-size: 32px !important;
+                line-height: 1.3 !important;
+              }
+              .mil-banner p {
+                font-size: 11px !important;
+                line-height: 17px !important;
+              }
+            }
+          `}</style>
 
           {/* About */}
           <div id="about" ref={aboutRef}>

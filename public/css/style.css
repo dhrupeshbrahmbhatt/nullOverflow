@@ -76,6 +76,20 @@ body {
   line-height: 150%;
   -ms-scroll-chaining: none;
       overscroll-behavior: none;
+  /* Safari smooth scrolling fixes */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Safari-specific: Reduce scroll resistance */
+@supports (-webkit-touch-callout: none) {
+  html,
+  body {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
 }
 @media screen and (max-width: 768px) {
   html,
@@ -1083,6 +1097,9 @@ preloader
 }
 .mil-preloader.mil-hidden {
   pointer-events: none;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  display: none !important;
 }
 
 /* -------------------------------------------

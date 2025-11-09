@@ -13,49 +13,49 @@ const CustomerTestimonials = () => {
       name: 'Sarah Newman',
       company: 'ENVATO MARKET',
       text: 'This creative agency stands out with their exceptional talent and expertise. Their ability to think outside the box and bring unique ideas to life is truly impressive. With meticulous attention to detail, they consistently deliver visually stunning and impactful work.',
-      avatar: 'https://i.pravatar.cc/150?img=1'
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah&backgroundColor=b6e3f4'
     },
     {
       id: 1,
       name: 'Emma Wilson',
       company: 'CREATIVE STUDIO',
       text: 'Working with this team has been an absolute pleasure. Their professionalism and creativity exceeded all expectations. They bring fresh perspectives to every project.',
-      avatar: 'https://i.pravatar.cc/150?img=5'
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emma&backgroundColor=c0aede'
     },
     {
       id: 2,
       name: 'Michael Chen',
       company: 'TECH INNOVATIONS',
       text: 'Outstanding service and remarkable attention to detail. The team delivered beyond what we imagined and transformed our vision into reality.',
-      avatar: 'https://i.pravatar.cc/150?img=12'
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Michael&backgroundColor=d1d4f9'
     },
     {
       id: 3,
       name: 'Lisa Anderson',
       company: 'DESIGN HOUSE',
       text: 'Exceptional creativity and flawless execution. Their innovative approach and dedication to excellence make them stand out in the industry.',
-      avatar: 'https://i.pravatar.cc/150?img=9'
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Lisa&backgroundColor=ffd5dc'
     },
     {
       id: 4,
       name: 'David Martinez',
       company: 'BRAND STUDIO',
       text: 'The quality of work is simply outstanding. They understand client needs perfectly and deliver results that surpass expectations every single time.',
-      avatar: 'https://i.pravatar.cc/150?img=14'
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=David&backgroundColor=ffdfbf'
     },
     {
       id: 5,
       name: 'Sophie Taylor',
       company: 'DIGITAL AGENCY',
       text: 'Incredible team with amazing talent. Their creative solutions and professional approach make them the best choice for any project.',
-      avatar: 'https://i.pravatar.cc/150?img=10'
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie&backgroundColor=c0f0dd'
     },
     {
       id: 6,
       name: 'James Wilson',
       company: 'STARTUP CO',
       text: 'Truly impressive work ethic and creativity. They brought our ideas to life in ways we never thought possible. Highly recommended!',
-      avatar: 'https://i.pravatar.cc/150?img=13'
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=James&backgroundColor=ffeaa7'
     }
   ];
 
@@ -260,6 +260,7 @@ const CustomerTestimonials = () => {
                 <img
                   src={testimonial.avatar}
                   alt={testimonial.name}
+                  crossOrigin="anonymous"
                   style={{
                     width: '100%',
                     height: '100%',
