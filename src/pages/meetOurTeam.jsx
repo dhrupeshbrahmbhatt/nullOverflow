@@ -363,7 +363,7 @@ const MeetOurTeamPage = () => {
                 onMouseEnter={() => setHoveredCard(1)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
-                <img src="images/3_1.jpg" alt="Sarah Johnson" style={styles.teamImage} loading="lazy" />
+                <img src="/images/3_1.jpg" alt="Sarah Johnson" style={styles.teamImage} loading="lazy" />
                 <div style={{ ...styles.overlay, opacity: hoveredCard === 1 ? 1 : 0 }} className="team-overlay">
                   <div style={styles.memberInfo}>
                     <h3 style={styles.memberName} className="team-member-name">Sarah Johnson</h3>
@@ -385,7 +385,7 @@ const MeetOurTeamPage = () => {
                 onMouseEnter={() => setHoveredCard(2)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
-                <img src="images/3.jpg" alt="Emma Williams" style={styles.teamImage} loading="lazy" />
+                <img src="/images/3.jpg" alt="Emma Williams" style={styles.teamImage} loading="lazy" />
                 <div style={{ ...styles.overlay, opacity: hoveredCard === 2 ? 1 : 0 }} className="team-overlay">
                   <div style={styles.memberInfo}>
                     <h3 style={styles.memberName} className="team-member-name">Emma Williams</h3>
@@ -406,7 +406,7 @@ const MeetOurTeamPage = () => {
                 onMouseEnter={() => setHoveredCard(3)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
-                <img src="images/4_1.jpg" alt="Michael Brown" style={styles.teamImage} loading="lazy" />
+                <img src="/images/4_1.jpg" alt="Michael Brown" style={styles.teamImage} loading="lazy" />
                 <div style={{ ...styles.overlay, opacity: hoveredCard === 3 ? 1 : 0 }} className="team-overlay">
                   <div style={styles.memberInfo}>
                     <h3 style={styles.memberName} className="team-member-name">Michael Brown</h3>
@@ -427,7 +427,7 @@ const MeetOurTeamPage = () => {
                 onMouseEnter={() => setHoveredCard(4)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
-                <img src="images/4.jpg" alt="Lisa Trueman" style={styles.teamImage} loading="lazy" />
+                <img src="/images/4.jpg" alt="Lisa Trueman" style={styles.teamImage} loading="lazy" />
                 <div style={{ ...styles.overlay, opacity: hoveredCard === 4 ? 1 : 0 }} className="team-overlay">
                   <div style={styles.memberInfo}>
                     <h3 style={styles.memberName} className="team-member-name">Lisa Trueman</h3>

@@ -194,7 +194,7 @@ const StudioAboutPage = () => {
           minWidth: '400px', order: 2, display: 'flex', alignItems: 'stretch'
         }} className="fade-in delay-4">
           <img
-            src="public/images/1_2.jpg"
+            src="/images/1_2.jpg"
             className="studio-img" alt="Studio workspace"
             style={{
               width: '100%',

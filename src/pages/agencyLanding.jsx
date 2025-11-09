@@ -467,7 +467,7 @@ export default function AgencyLandingPage() {
           <div style={styles.mainHeading}>
             <div style={styles.uniqueIdeas} className="hero-heading">
               <div style={styles.imageCircle}>
-                <img src="public/images/2_1.jpg" alt="team" style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'top'}}/>
+                <img src="/images/2_1.jpg" alt="team" style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'top'}}/>
               </div>
               <span style={{fontWeight:'700'}}>Unique</span>
               <span style={{fontWeight:'200',color:'#ccc'}}>Ideas</span>
