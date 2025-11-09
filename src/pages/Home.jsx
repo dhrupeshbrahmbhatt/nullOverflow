@@ -116,6 +116,7 @@ const Home = () => {
             width: auto;
             text-align: center;
           }
+            
 
           .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame .mil-reveal-box {
             width: 100%;
