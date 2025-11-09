@@ -158,18 +158,18 @@ const CustomerTestimonials = () => {
       </style>
 
       {/* Header */}
-      <header style={{
+      <header className="testimonial-header" style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '40px 80px',
         position: 'relative'
       }}>
-        
+
       </header>
 
       {/* Top Right Text */}
-      <div style={{
+      <div className="top-right-text" style={{
         position: 'absolute',
         top: '80px',
         right: '550px',
@@ -185,7 +185,7 @@ const CustomerTestimonials = () => {
       </div>
 
       {/* Main Content */}
-      <main style={{
+      <main className="testimonial-main" style={{
         padding: '80px 80px 120px',
         display: 'flex',
         flexDirection: 'column',
@@ -194,7 +194,7 @@ const CustomerTestimonials = () => {
         minHeight: 'calc(100vh - 200px)'
       }}>
         {/* Title */}
-        <h1 style={{
+        <h1 className="testimonial-title" style={{
           fontSize: '68px',
           fontWeight: '100',
           color: '#000000',
@@ -210,7 +210,7 @@ const CustomerTestimonials = () => {
         </h1>
 
         {/* Avatar Carousel */}
-        <div style={{
+        <div className="avatar-carousel" style={{
           display: 'flex',
           alignItems: 'flex-end',
           justifyContent: 'center',
@@ -271,8 +271,11 @@ const CustomerTestimonials = () => {
           })}
         </div>
 
+        {/* Scroll Hint for Mobile */}
+        <div className="scroll-hint" style={{ display: 'none' }}></div>
+
         {/* Quote Icon */}
-        <div 
+        <div
           key={`quote-${activeTestimonial}`}
           className="quote-icon"
           style={{
@@ -286,16 +289,16 @@ const CustomerTestimonials = () => {
         </div>
 
         {/* Testimonial Content */}
-        <div 
+        <div
           key={`content-${activeTestimonial}`}
-          className="testimonial-content"
+          className="testimonial-content testimonial-content-wrapper"
           style={{
             maxWidth: '700px',
             textAlign: 'center'
           }}
         >
           {/* Name */}
-          <h3 style={{
+          <h3 className="testimonial-name" style={{
             fontSize: '20px',
             lineHeight: '30px',
             fontWeight: '500',
@@ -307,7 +310,7 @@ const CustomerTestimonials = () => {
           </h3>
 
           {/* Company */}
-          <p style={{
+          <p className="testimonial-company" style={{
             fontSize: '12px',
             fontWeight: '500',
             lineHeight: '24px',
@@ -319,7 +322,7 @@ const CustomerTestimonials = () => {
           </p>
 
           {/* Testimonial Text */}
-          <p style={{
+          <p className="testimonial-text" style={{
             fontSize: '22px',
             lineHeight: '40px',
             fontWeight: '300',
@@ -331,13 +334,14 @@ const CustomerTestimonials = () => {
         </div>
 
         {/* Navigation Arrows */}
-        <div style={{
+        <div className="nav-arrows" style={{
           display: 'flex',
           gap: '20px',
           marginTop: '60px'
         }}>
           {/* Previous Button */}
           <button
+            className="nav-button"
             onClick={handlePrevious}
             onMouseEnter={() => setHoveredNav('prev')}
             onMouseLeave={() => setHoveredNav(null)}
@@ -366,6 +370,7 @@ const CustomerTestimonials = () => {
 
           {/* Next Button */}
           <button
+            className="nav-button"
             onClick={handleNext}
             onMouseEnter={() => setHoveredNav('next')}
             onMouseLeave={() => setHoveredNav(null)}
@@ -383,8 +388,8 @@ const CustomerTestimonials = () => {
               boxShadow: hoveredNav === 'next' ? '0 4px 12px rgba(0,0,0,0.15)' : 'none'
             }}
           >
-            <ChevronRight 
-              size={24} 
+            <ChevronRight
+              size={24}
               color={hoveredNav === 'next' ? '#ffffff' : '#000000'}
               style={{ transition: 'color 0.3s ease' }}
             />
@@ -402,21 +407,253 @@ const CustomerTestimonials = () => {
       {/* Responsive Styles */}
       <style>
         {`
-          @media (max-width: 1200px) {
-            header, main {
-              padding-left: 40px !important;
-              padding-right: 40px !important;
+          /* Tablet View (768px - 1024px) */
+          @media (max-width: 1024px) {
+            .testimonial-header {
+              padding: 30px 40px !important;
+            }
+
+            .top-right-text {
+              right: 40px !important;
+              top: 120px !important;
+              max-width: 250px !important;
+              font-size: 14px !important;
+              line-height: 22px !important;
+            }
+
+            .testimonial-main {
+              padding: 60px 40px 100px !important;
+            }
+
+            .testimonial-title {
+              font-size: 52px !important;
+              line-height: 64px !important;
+              margin-bottom: 60px !important;
+            }
+
+            .avatar-carousel {
+              gap: 12px !important;
+              margin-bottom: 60px !important;
+              min-height: 150px !important;
+            }
+
+            .avatar {
+              /* Avatars will be resized individually */
+            }
+
+            .quote-icon {
+              font-size: 42px !important;
+              margin-bottom: 25px !important;
+            }
+
+            .testimonial-content-wrapper {
+              max-width: 600px !important;
+            }
+
+            .testimonial-name {
+              font-size: 18px !important;
+              line-height: 28px !important;
+            }
+
+            .testimonial-company {
+              font-size: 11px !important;
+              margin-bottom: 35px !important;
+            }
+
+            .testimonial-text {
+              font-size: 20px !important;
+              line-height: 36px !important;
+            }
+
+            .nav-arrows {
+              margin-top: 50px !important;
+            }
+
+            .nav-button {
+              width: 45px !important;
+              height: 45px !important;
             }
           }
 
-          @media (max-width: 768px) {
-            h1 {
-              font-size: 48px !important;
+          /* Mobile View (up to 767px) */
+          @media (max-width: 767px) {
+            .testimonial-header {
+              padding: 25px 20px !important;
             }
-            
-            header, main {
-              padding-left: 20px !important;
-              padding-right: 20px !important;
+
+            .top-right-text {
+              position: static !important;
+              text-align: center !important;
+              max-width: 100% !important;
+              font-size: 13px !important;
+              line-height: 20px !important;
+              padding: 0 20px !important;
+              margin-bottom: 20px !important;
+            }
+
+            .testimonial-main {
+              padding: 40px 20px 80px !important;
+              min-height: auto !important;
+            }
+
+            .testimonial-title {
+              font-size: 42px !important;
+              line-height: 52px !important;
+              margin-bottom: 50px !important;
+            }
+
+            .avatar-carousel {
+              gap: 10px !important;
+              margin-bottom: 15px !important;
+              min-height: 120px !important;
+              flex-wrap: nowrap !important;
+              overflow-x: auto !important;
+              overflow-y: hidden !important;
+              justify-content: flex-start !important;
+              padding: 0 20px 15px 20px !important;
+              width: 100vw !important;
+              margin-left: -20px !important;
+              scrollbar-width: thin !important;
+              scrollbar-color: rgba(255, 140, 0, 0.5) transparent !important;
+              scroll-behavior: smooth !important;
+              -webkit-overflow-scrolling: touch !important;
+            }
+
+            .avatar-carousel::-webkit-scrollbar {
+              height: 4px !important;
+            }
+
+            .avatar-carousel::-webkit-scrollbar-track {
+              background: rgba(0, 0, 0, 0.05) !important;
+              border-radius: 10px !important;
+            }
+
+            .avatar-carousel::-webkit-scrollbar-thumb {
+              background: rgba(255, 140, 0, 0.5) !important;
+              border-radius: 10px !important;
+            }
+
+            .avatar-carousel::-webkit-scrollbar-thumb:hover {
+              background: rgba(255, 140, 0, 0.8) !important;
+            }
+
+            .scroll-hint {
+              display: block !important;
+              text-align: center !important;
+              font-size: 12px !important;
+              color: #999 !important;
+              margin-bottom: 35px !important;
+              font-weight: 300 !important;
+            }
+
+            .scroll-hint::after {
+              content: " ← Swipe to see all →" !important;
+            }
+
+            .quote-icon {
+              font-size: 38px !important;
+              margin-bottom: 20px !important;
+            }
+
+            .testimonial-content-wrapper {
+              max-width: 100% !important;
+            }
+
+            .testimonial-name {
+              font-size: 18px !important;
+              line-height: 26px !important;
+            }
+
+            .testimonial-company {
+              font-size: 10px !important;
+              margin-bottom: 30px !important;
+            }
+
+            .testimonial-text {
+              font-size: 17px !important;
+              line-height: 30px !important;
+            }
+
+            .nav-arrows {
+              margin-top: 40px !important;
+              gap: 15px !important;
+            }
+
+            .nav-button {
+              width: 42px !important;
+              height: 42px !important;
+            }
+          }
+
+          /* Small Mobile View (up to 480px) */
+          @media (max-width: 480px) {
+            .testimonial-header {
+              padding: 20px 15px !important;
+            }
+
+            .top-right-text {
+              font-size: 12px !important;
+              line-height: 18px !important;
+              padding: 0 15px !important;
+            }
+
+            .testimonial-main {
+              padding: 30px 15px 60px !important;
+            }
+
+            .testimonial-title {
+              font-size: 36px !important;
+              line-height: 44px !important;
+              margin-bottom: 40px !important;
+            }
+
+            .avatar-carousel {
+              gap: 8px !important;
+              margin-bottom: 12px !important;
+              min-height: 100px !important;
+              padding: 0 15px 12px 15px !important;
+              margin-left: -15px !important;
+            }
+
+            .scroll-hint {
+              font-size: 11px !important;
+              margin-bottom: 30px !important;
+            }
+
+            .quote-icon {
+              font-size: 34px !important;
+              margin-bottom: 18px !important;
+            }
+
+            .testimonial-name {
+              font-size: 17px !important;
+              line-height: 24px !important;
+            }
+
+            .testimonial-company {
+              font-size: 9px !important;
+              margin-bottom: 25px !important;
+            }
+
+            .testimonial-text {
+              font-size: 15px !important;
+              line-height: 26px !important;
+            }
+
+            .nav-arrows {
+              margin-top: 35px !important;
+            }
+
+            .nav-button {
+              width: 38px !important;
+              height: 38px !important;
+            }
+          }
+
+          /* Desktop - hide scroll hint */
+          @media (min-width: 768px) {
+            .scroll-hint {
+              display: none !important;
             }
           }
         `}

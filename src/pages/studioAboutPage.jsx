@@ -221,41 +221,118 @@ const StudioAboutPage = () => {
       {/* Responsive Styles */}
       <style>
         {`
+          /* Tablet View (768px - 1024px) */
           @media (max-width: 1024px) {
             header {
               padding: 20px 40px !important;
             }
-            
+
             main {
               padding: 100px 40px 40px !important;
-              gap: 0px !important;
-            }
-            
-            h1 {
-              font-size: 52px !important;
-            }
-          }
-          
-          @media (max-width: 768px) {
-            header {
-              padding: 20px 30px !important;
-            }
-            
-            main {
-              padding: 100px 30px 40px !important;
+              flex-direction: column !important;
               gap: 40px !important;
             }
-            
-            main > div {
+
+            main > div:first-child {
+              flex: 1 1 auto !important;
               min-width: 100% !important;
             }
-            
+
+            main > div:last-child {
+              flex: 1 1 auto !important;
+              min-width: 100% !important;
+            }
+
+            h1 {
+              font-size: 56px !important;
+              margin-bottom: 40px !important;
+            }
+
+            p {
+              width: 100% !important;
+              max-width: 600px !important;
+            }
+
+            .studio-img {
+              height: 500px !important;
+            }
+          }
+
+          /* Mobile View (up to 767px) */
+          @media (max-width: 767px) {
+            header {
+              padding: 20px 20px !important;
+            }
+
+            main {
+              padding: 80px 20px 40px !important;
+              flex-direction: column !important;
+              gap: 30px !important;
+            }
+
+            main > div:first-child {
+              flex: 1 1 auto !important;
+              min-width: 100% !important;
+            }
+
+            main > div:last-child {
+              flex: 1 1 auto !important;
+              min-width: 100% !important;
+            }
+
             h1 {
               font-size: 42px !important;
+              margin-bottom: 30px !important;
             }
-            
+
+            p {
+              width: 100% !important;
+              font-size: 15px !important;
+              line-height: 22px !important;
+              margin: 20px 0 !important;
+            }
+
+            .studio-img {
+              height: 400px !important;
+            }
+
             .side-nav {
               display: none !important;
+            }
+          }
+
+          /* Small Mobile View (up to 480px) */
+          @media (max-width: 480px) {
+            main {
+              padding: 80px 15px 30px !important;
+            }
+
+            h1 {
+              font-size: 36px !important;
+              margin-bottom: 25px !important;
+            }
+
+            p {
+              font-size: 14px !important;
+              line-height: 21px !important;
+            }
+
+            .studio-img {
+              height: 300px !important;
+            }
+
+            img[alt="Profile"] {
+              width: 70px !important;
+              height: 70px !important;
+            }
+
+            img[alt="Profile"] + div {
+              font-size: 16px !important;
+            }
+
+            img[alt="Profile"] + div > div {
+              font-size: 16px !important;
+              line-height: 24px !important;
             }
           }
         `}

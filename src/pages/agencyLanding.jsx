@@ -228,10 +228,216 @@ export default function AgencyLandingPage() {
         body { margin: 0; padding: 0; overflow-x: hidden; }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 1200px) { .services-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-        @media (max-width: 768px) { 
-          .hero-heading { font-size: 2.5rem !important; }
-          .services-grid { grid-template-columns: 1fr !important; }
+
+        /* Tablet View (768px - 1024px) */
+        @media (max-width: 1024px) {
+          .hero-section {
+            padding-top: 140px !important;
+            padding-bottom: 60px !important;
+            padding-left: 2rem !important;
+            padding-right: 2rem !important;
+          }
+
+          .tagline {
+            font-size: 0.8rem !important;
+            margin-bottom: 2.5rem !important;
+          }
+
+          .hero-heading {
+            font-size: 3.2rem !important;
+            gap: 1.2rem !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+          }
+
+          .image-circle {
+            width: 180px !important;
+            height: 60px !important;
+          }
+
+          .cta-button {
+            font-size: 0.7rem !important;
+            padding: 4px 18px !important;
+          }
+
+          .services-grid {
+            width: 90% !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            margin-top: 3rem !important;
+          }
+
+          .service-card {
+            min-height: 280px !important;
+            padding: 18px 12px !important;
+          }
+
+          .service-title {
+            font-size: 1.2rem !important;
+          }
+
+          .service-description {
+            font-size: 0.85rem !important;
+            height: 90px !important;
+          }
+        }
+
+        /* Mobile View (up to 767px) */
+        @media (max-width: 767px) {
+          .hero-section {
+            padding-top: 100px !important;
+            padding-bottom: 40px !important;
+            padding-left: 1.5rem !important;
+            padding-right: 1.5rem !important;
+          }
+
+          .tagline {
+            font-size: 0.75rem !important;
+            margin-bottom: 2rem !important;
+            line-height: 1.5 !important;
+          }
+
+          .main-heading {
+            margin-bottom: 2.5rem !important;
+          }
+
+          .hero-heading {
+            font-size: 2.2rem !important;
+            gap: 0.8rem !important;
+            flex-direction: column !important;
+            align-items: center !important;
+          }
+
+          .unique-ideas {
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+          }
+
+          .for-your-business {
+            flex-direction: column !important;
+            gap: 1.5rem !important;
+          }
+
+          .image-circle {
+            width: 140px !important;
+            height: 50px !important;
+          }
+
+          .cta-button {
+            font-size: 0.65rem !important;
+            padding: 3px 16px !important;
+            gap: 0.8rem !important;
+          }
+
+          .arrow {
+            width: 24px !important;
+            height: 24px !important;
+            font-size: 1.4rem !important;
+          }
+
+          .services-grid {
+            width: 100% !important;
+            grid-template-columns: 1fr !important;
+            margin-top: 2rem !important;
+            gap: 0 !important;
+          }
+
+          .service-card {
+            min-height: 260px !important;
+            padding: 20px 15px !important;
+            border-right: none !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+          }
+
+          .service-card:last-child {
+            border-bottom: none !important;
+          }
+
+          .service-content {
+            height: auto !important;
+            width: 100% !important;
+          }
+
+          .service-title {
+            font-size: 1.15rem !important;
+            line-height: 1.6 !important;
+          }
+
+          .service-description {
+            font-size: 0.85rem !important;
+            line-height: 1.5 !important;
+            height: 80px !important;
+            width: 100% !important;
+            margin-bottom: 30px !important;
+          }
+
+          .arrow-button {
+            width: 36px !important;
+            height: 36px !important;
+            font-size: 1rem !important;
+          }
+
+          .decorative-top,
+          .decorative-bottom {
+            display: none !important;
+          }
+        }
+
+        /* Small Mobile View (up to 480px) */
+        @media (max-width: 480px) {
+          .hero-section {
+            padding-top: 80px !important;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+          }
+
+          .tagline {
+            font-size: 0.7rem !important;
+            margin-bottom: 1.5rem !important;
+          }
+
+          .hero-heading {
+            font-size: 1.8rem !important;
+            gap: 0.6rem !important;
+          }
+
+          .image-circle {
+            width: 120px !important;
+            height: 42px !important;
+          }
+
+          .cta-button {
+            font-size: 0.6rem !important;
+            padding: 3px 14px !important;
+            gap: 0.6rem !important;
+          }
+
+          .arrow {
+            width: 22px !important;
+            height: 22px !important;
+            font-size: 1.2rem !important;
+          }
+
+          .service-card {
+            min-height: 240px !important;
+            padding: 18px 12px !important;
+          }
+
+          .service-title {
+            font-size: 1.05rem !important;
+            line-height: 1.5 !important;
+          }
+
+          .service-description {
+            font-size: 0.8rem !important;
+            line-height: 1.4 !important;
+            height: 75px !important;
+          }
+
+          .arrow-button {
+            width: 32px !important;
+            height: 32px !important;
+            font-size: 0.9rem !important;
+          }
         }
       `}</style>
 

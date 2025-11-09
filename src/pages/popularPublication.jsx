@@ -47,35 +47,21 @@ const PopularPublications = () => {
           }
         `}
       </style>
-
-      {/* Header */}
-      <header style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '60px 80px',
-        position: 'relative'
-      }}>
-        
-
-        
-      </header>
-
       {/* Main Content */}
-      <main style={{
+      <main className="pub-main" style={{
         padding: '80px 96px 120px',
         maxWidth: '1200px',
         margin: '0 auto'
       }}>
         {/* Section Header */}
-        <div style={{
+        <div className="pub-section-header" style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           marginBottom: '60px',
           marginLeft: '100px'
         }}>
-          <h1 style={{
+          <h1 className="pub-title" style={{
             fontSize: '56px',
             fontWeight: '500',
             color: '#000000',
@@ -86,6 +72,7 @@ const PopularPublications = () => {
           </h1>
 
           <button
+            className="view-all-btn"
             onMouseEnter={() => setHoveredButton('viewAll')}
             onMouseLeave={() => setHoveredButton(null)}
             style={{
@@ -106,8 +93,8 @@ const PopularPublications = () => {
             }}
           >
             VIEW ALL
-            <ArrowRight 
-              size={18} 
+            <ArrowRight
+              size={18}
               style={{
                 transition: 'transform 0.3s ease',
                 transform: hoveredButton === 'viewAll' ? 'translateX(4px)' : 'translateX(0)'
@@ -117,7 +104,7 @@ const PopularPublications = () => {
         </div>
 
         {/* Publications Grid */}
-        <div style={{
+        <div className="pub-grid" style={{
           display: 'flex',
           gap: '60px',
           marginLeft: '100px'
@@ -125,6 +112,7 @@ const PopularPublications = () => {
           {publications.map((pub) => (
             <article
               key={pub.id}
+              className="pub-card"
               onMouseEnter={() => setHoveredCard(pub.id)}
               onMouseLeave={() => setHoveredCard(null)}
               style={{
@@ -140,7 +128,7 @@ const PopularPublications = () => {
               }}
             >
               {/* Image */}
-              <div style={{
+              <div className="pub-card-image" style={{
                 width: '100%',
                 maxWidth: '555px',
                 height: '360px',
@@ -163,13 +151,13 @@ const PopularPublications = () => {
               </div>
 
               {/* Content */}
-              <div style={{
+              <div className="pub-card-content" style={{
                 padding: '36px 0 0 0',
                 width: '100%',
                 maxWidth: '555px'
               }}>
                 {/* Category and Date */}
-                <div style={{
+                <div className="pub-meta" style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '16px',
@@ -194,7 +182,7 @@ const PopularPublications = () => {
                 </div>
 
                 {/* Title */}
-                <h2 style={{
+                <h2 className="pub-card-title" style={{
                   fontSize: '28px',
                   fontWeight: '500',
                   color: '#000000',
@@ -207,7 +195,7 @@ const PopularPublications = () => {
                 </h2>
 
                 {/* Description */}
-                <p style={{
+                <p className="pub-card-desc" style={{
                   fontSize: '15px',
                   fontWeight: '300',
                   color: '#888888',
@@ -219,6 +207,7 @@ const PopularPublications = () => {
 
                 {/* Read More Button */}
                 <button
+                  className="read-more-btn"
                   onMouseEnter={(e) => {
                     setHoveredButton(`read-${pub.id}`);
                   }}
@@ -241,7 +230,7 @@ const PopularPublications = () => {
                   }}
                 >
                   READ MORE
-                  <div style={{
+                  <div className="read-more-circle" style={{
                     width: '40px',
                     height: '40px',
                     borderRadius: '50%',
@@ -267,37 +256,8 @@ const PopularPublications = () => {
         </div>
       </main>
 
-      {/* Back to Top Button */}
-      <button style={{
-        position: 'fixed',
-        bottom: '40px',
-        right: '40px',
-        width: '50px',
-        height: '120px',
-        background: '#000000',
-        border: 'none',
-        borderRadius: '25px',
-        cursor: 'pointer',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '8px',
-        color: '#ffffff',
-        fontSize: '10px',
-        fontWeight: '600',
-        letterSpacing: '1px',
-        writingMode: 'vertical-rl',
-        textOrientation: 'mixed',
-        transform: 'rotate(180deg)',
-        transition: 'all 0.3s ease',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
-      }}>
-        BACK TO TOP
-      </button>
-
       {/* Homepage Link */}
-      <div style={{
+      <div className="homepage-link" style={{
         position: 'fixed',
         left: '40px',
         top: '50%',
@@ -309,108 +269,182 @@ const PopularPublications = () => {
         letterSpacing: '2px',
         color: '#000000'
       }}>
-      
+
       </div>
 
       {/* Responsive Styles */}
       <style>
         {`
-          @media (max-width: 1400px) {
-            main {
-              padding-left: 60px !important;
-              padding-right: 60px !important;
-            }
-          }
-
-          @media (max-width: 1200px) {
-            main {
-              padding-left: 40px !important;
-              padding-right: 40px !important;
+          /* Tablet View (768px - 1024px) */
+          @media (max-width: 1024px) {
+            .pub-header {
+              padding: 40px 40px !important;
             }
 
-            main h1 {
+            .pub-main {
+              padding: 60px 40px 100px !important;
+            }
+
+            .pub-section-header {
+              margin-left: 0 !important;
+              margin-bottom: 50px !important;
+            }
+
+            .pub-title {
               font-size: 48px !important;
             }
 
-            main > div:nth-child(2) {
-              grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)) !important;
-            }
-          }
-
-          @media (max-width: 992px) {
-            main > div:first-child {
-              flex-direction: column;
-              align-items: flex-start !important;
-              gap: 24px;
+            .view-all-btn {
+              padding: 14px 24px !important;
+              font-size: 13px !important;
             }
 
-            main > div:nth-child(2) {
-              grid-template-columns: 1fr !important;
+            .pub-grid {
+              margin-left: 0 !important;
               gap: 50px !important;
             }
 
-            main h1 {
-              font-size: 42px !important;
+            .pub-card-image {
+              max-width: 100% !important;
+              height: 340px !important;
             }
 
-            article > div:first-child {
-              height: 320px !important;
-            }
-          }
-
-          @media (max-width: 768px) {
-            main {
-              padding: 60px 24px 80px !important;
+            .pub-card-content {
+              max-width: 100% !important;
             }
 
-            main h1 {
-              font-size: 36px !important;
-            }
-
-            article h2 {
-              font-size: 24px !important;
-            }
-
-            article p {
-              font-size: 14px !important;
-              line-height: 1.6 !important;
-            }
-
-            article > div:first-child {
-              height: 280px !important;
+            .pub-card-title {
+              font-size: 26px !important;
             }
           }
 
-          @media (max-width: 580px) {
-            main {
-              padding: 40px 20px 60px !important;
+          /* Mobile View (up to 767px) */
+          @media (max-width: 767px) {
+            .pub-header {
+              padding: 30px 20px !important;
             }
 
-            main h1 {
-              font-size: 32px !important;
+            .pub-main {
+              padding: 40px 20px 80px !important;
             }
 
-            main > div:nth-child(2) {
-              grid-template-columns: 1fr !important;
+            .pub-section-header {
+              flex-direction: column !important;
+              align-items: flex-start !important;
+              gap: 20px !important;
+              margin-bottom: 40px !important;
+            }
+
+            .pub-title {
+              font-size: 38px !important;
+              letter-spacing: -0.5px !important;
+            }
+
+            .view-all-btn {
+              padding: 12px 20px !important;
+              font-size: 12px !important;
+              align-self: flex-start !important;
+            }
+
+            .pub-grid {
+              flex-direction: column !important;
               gap: 40px !important;
             }
 
-            article h2 {
-              font-size: 22px !important;
+            .pub-card {
+              width: 100% !important;
             }
 
-            article > div:first-child {
-              height: 240px !important;
+            .pub-card-image {
+              height: 280px !important;
+              border-radius: 16px !important;
             }
 
-            article button {
+            .pub-card-content {
+              padding: 28px 0 0 0 !important;
+            }
+
+            .pub-meta {
+              margin-bottom: 14px !important;
+            }
+
+            .pub-card-title {
+              font-size: 24px !important;
+              line-height: 1.3 !important;
+              margin-bottom: 14px !important;
+            }
+
+            .pub-card-desc {
+              font-size: 14px !important;
+              line-height: 1.6 !important;
+              margin-bottom: 22px !important;
+            }
+
+            .read-more-btn {
               font-size: 12px !important;
+              gap: 10px !important;
             }
 
-            article button > div {
+            .read-more-circle {
               width: 36px !important;
               height: 36px !important;
             }
+            .homepage-link {
+              display: none !important;
+            }
+          }
+
+          /* Small Mobile View (up to 480px) */
+          @media (max-width: 480px) {
+            .pub-header {
+              padding: 25px 15px !important;
+            }
+
+            .pub-main {
+              padding: 30px 15px 60px !important;
+            }
+
+            .pub-title {
+              font-size: 32px !important;
+            }
+
+            .view-all-btn {
+              padding: 10px 18px !important;
+              font-size: 11px !important;
+              letter-spacing: 1px !important;
+            }
+
+            .pub-grid {
+              gap: 35px !important;
+            }
+
+            .pub-card-image {
+              height: 240px !important;
+              border-radius: 14px !important;
+            }
+
+            .pub-card-content {
+              padding: 24px 0 0 0 !important;
+            }
+
+            .pub-card-title {
+              font-size: 22px !important;
+            }
+
+            .pub-card-desc {
+              font-size: 13px !important;
+              line-height: 1.55 !important;
+            }
+
+            .read-more-btn {
+              font-size: 11px !important;
+            }
+
+            .read-more-circle {
+              width: 34px !important;
+              height: 34px !important;
+            }
+
           }
         `}
       </style>

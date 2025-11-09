@@ -137,9 +137,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Homepage Label - Left Side */}
-      <div className="homepage-label">HOMEPAGE</div>
-
       {/* Back to Top Button - Right Side */}
       <button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -399,23 +396,26 @@ body {
 .back-to-top {
   position: fixed;
   right: 30px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
+  bottom: 30px;
+  background: #000000;
   border: none;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  padding: 20px 15px;
+  gap: 12px;
+  padding: 16px 12px;
   color: #ffffff;
   transition: all 0.3s ease;
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .back-to-top:hover {
   color: #ff9500;
-  transform: translateY(-50%) scale(1.05);
+  background: #1a1a1a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
 }
 
 .back-to-top svg {
@@ -437,25 +437,59 @@ body {
 }
 
 /* Responsive Design */
+/* Large Desktop View (up to 1400px) */
 @media (max-width: 1400px) {
   .footer-container {
     grid-template-columns: 380px 280px 1fr;
     gap: 60px;
   }
-  
+
   .footer {
     padding: 80px 60px 50px;
   }
 }
 
+/* Tablet View (768px - 1024px) */
 @media (max-width: 1024px) {
   .footer-container {
     grid-template-columns: 1fr;
     gap: 70px;
   }
-  
+
   .footer {
     padding: 60px 40px 40px;
+  }
+
+  .brand-name {
+    font-size: 48px;
+  }
+
+  .newsletter-text {
+    font-size: 14px;
+  }
+
+  .newsletter-form {
+    max-width: 100%;
+  }
+
+  .email-input {
+    font-size: 13px;
+  }
+
+  .nav-link {
+    font-size: 36px;
+  }
+
+  .policy-link {
+    font-size: 14px;
+  }
+
+  .location-title {
+    font-size: 22px;
+  }
+
+  .location-address {
+    font-size: 14px;
   }
 
   .homepage-label {
@@ -463,44 +497,238 @@ body {
     writing-mode: horizontal-tb;
     transform: none;
     margin-top: 50px;
+    font-size: 10px;
   }
 
   .locations {
     grid-template-columns: 1fr;
     gap: 40px;
   }
-  
+
   .back-to-top {
-    bottom: 30px;
-    top: auto;
-    right: 30px;
-    transform: none;
+    bottom: 25px;
+    right: 25px;
   }
-  
+
   .back-to-top:hover {
-    transform: scale(1.05);
+    transform: translateY(-2px);
   }
 }
 
-@media (max-width: 768px) {
+/* Mobile View (up to 767px) */
+@media (max-width: 767px) {
   .footer {
-    padding: 50px 30px 40px;
+    padding: 50px 20px 40px;
+    min-height: auto;
   }
-  
-  .brand-letter {
-    font-size: 56px;
+
+  .footer-container {
+    gap: 50px;
   }
-  
+
+  .brand-column {
+    gap: 40px;
+  }
+
   .brand-name {
-    font-size: 40px;
+    font-size: 42px;
+    line-height: 1;
   }
-  
-  .nav-link {
-    font-size: 32px;
+
+  .newsletter-text {
+    font-size: 13px;
+    margin-bottom: -3px;
   }
-  
+
   .newsletter-form {
-    max-width: 100%;
+    height: 56px;
+    padding: 0 6px 0 0;
+  }
+
+  .email-input {
+    font-size: 12px;
+    padding: 0 25px;
+  }
+
+  .email-input::placeholder {
+    font-size: 12px;
+  }
+
+  .submit-btn {
+    width: 46px;
+    height: 46px;
+  }
+
+  .social-links {
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .social-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .copyright {
+    font-size: 12px;
+    margin-top: 50px;
+  }
+
+  .nav-column {
+    gap: 24px;
+  }
+
+  .nav-link {
+    font-size: 30px;
+    line-height: 1.1;
+  }
+
+  .info-column {
+    gap: 60px;
+  }
+
+  .policies {
+    gap: 16px;
+  }
+
+  .policy-link {
+    font-size: 13px;
+  }
+
+  .location-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .location-address {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .homepage-label {
+    display: none;
+  }
+
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    gap: 16px;
+    padding: 16px 12px;
+  }
+
+  .back-to-top svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .back-to-top-text {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+  }
+}
+
+/* Small Mobile View (up to 480px) */
+@media (max-width: 480px) {
+  .footer {
+    padding: 40px 15px 30px;
+  }
+
+  .footer-container {
+    gap: 45px;
+  }
+
+  .brand-column {
+    gap: 35px;
+  }
+
+  .brand-name {
+    font-size: 36px;
+  }
+
+  .newsletter-text {
+    font-size: 12px;
+  }
+
+  .newsletter-form {
+    height: 52px;
+    padding: 0 5px 0 0;
+  }
+
+  .email-input {
+    font-size: 11px;
+    padding: 0 20px;
+  }
+
+  .email-input::placeholder {
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+
+  .submit-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .social-links {
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .social-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .copyright {
+    font-size: 11px;
+    margin-top: 45px;
+  }
+
+  .nav-column {
+    gap: 22px;
+  }
+
+  .nav-link {
+    font-size: 26px;
+  }
+
+  .info-column {
+    gap: 50px;
+  }
+
+  .policies {
+    gap: 14px;
+  }
+
+  .policy-link {
+    font-size: 12px;
+  }
+
+  .location-title {
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+
+  .location-address {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .back-to-top {
+    bottom: 15px;
+    right: 15px;
+    gap: 14px;
+    padding: 14px 10px;
+  }
+
+  .back-to-top svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .back-to-top-text {
+    font-size: 8px;
+    letter-spacing: 2px;
   }
 }
 `;

@@ -141,7 +141,6 @@ const Home = () => {
 
       {/* Curtain */}
       <div className="mil-curtain"></div>
-                                             {/* ye kaam kar raha hai nav baar mein  */}
       {/* Frame */}
       <div className="mil-frame">
         <div className="mil-frame-top">
@@ -152,11 +151,6 @@ const Home = () => {
         </div>
         <div className="mil-frame-bottom">
           <div className="mil-current-page"></div>
-          <div className="mil-back-to-top" style={{opacity: showTop ? 1 : 0, pointerEvents: showTop ? 'auto' : 'none', transition: 'opacity 0.3s'}}>
-            <a href="#top" className="mil-link mil-dark mil-arrow-place">
-              <span></span>
-            </a>
-          </div>
         </div>
       </div>
 
