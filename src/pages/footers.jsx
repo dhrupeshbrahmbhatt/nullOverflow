@@ -1,102 +1,152 @@
-import React from 'react';
+import React, { memo, useCallback, useState } from 'react';
+
+// Social icons data
+const SOCIAL_LINKS = [
+  {
+    name: 'Behance',
+    path: 'M20.07 6.35H15v1.33h5.07V6.35zM19.5 14.5c0-1.93-1.57-3.5-3.5-3.5s-3.5 1.57-3.5 3.5c0 1.93 1.57 3.5 3.5 3.5 1.4 0 2.6-.82 3.16-2h-2.32c-.25.3-.63.5-1.07.5-.83 0-1.5-.67-1.5-1.5h5.22c.01-.17.01-.33.01-.5zM14.5 13.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5h-3zM9.5 9C8.67 9 8 9.67 8 10.5S8.67 12 9.5 12c.17 0 .33-.03.5-.08v3.58c0 .83-.67 1.5-1.5 1.5H7c-.83 0-1.5-.67-1.5-1.5v-4c0-.83-.67-1.5-1.5-1.5S2.5 10.67 2.5 11.5v4c0 1.93 1.57 3.5 3.5 3.5h1.5c1.93 0 3.5-1.57 3.5-3.5V10.5C11 9.67 10.33 9 9.5 9z',
+    fill: 'currentColor'
+  },
+  {
+    name: 'Dribbble',
+    stroke: 'currentColor',
+    paths: ['M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z', 'M2 12c5 0 10-3 10-10M12 2c0 7 3 12 10 12M22 12c-7 0-12 3-12 10M12 22c0-5-3-10-10-10']
+  },
+  {
+    name: 'Twitter',
+    path: 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z',
+    fill: 'currentColor'
+  },
+  {
+    name: 'GitHub',
+    path: 'M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z',
+    fill: 'currentColor'
+  }
+];
+
+const NAV_LINKS = [
+  { text: 'Home', active: false },
+  { text: 'Portfolio', active: false },
+  { text: 'Services', active: false },
+  { text: 'Contact', active: false },
+  { text: 'Blog', active: false }
+];
+
+const POLICY_LINKS = ['Privacy Policy', 'Terms and conditions', 'Cookie Policy', 'Careers'];
+
+const LOCATIONS = [
+  { title: 'Canada', address: '71 South Los Carneros Road,\nCalifornia +51 174 705 812' }
+];
+
+const BRAND_NAME = '∅verflow';
+
+// Memoized SocialIcon component
+const SocialIcon = memo(({ name, path, paths, fill, stroke }) => (
+  <a href="#" className="social-icon" aria-label={name}>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill={fill || 'none'} stroke={stroke} strokeWidth={stroke ? '2' : undefined}>
+      {paths ? paths.map((p, i) => <path key={i} d={p} />) : <path d={path} />}
+    </svg>
+  </a>
+));
+
+SocialIcon.displayName = 'SocialIcon';
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = useCallback((e) => {
+    e.preventDefault();
+    console.log('Newsletter subscription:', email);
+    setEmail('');
+  }, [email]);
+
+  const handleEmailChange = useCallback((e) => {
+    setEmail(e.target.value);
+  }, []);
+
   return (
     <footer className="footer">
       <div className="footer-container">
         {/* Left Column - Brand and Newsletter */}
         <div className="footer-column brand-column">
           <div className="brand">
-           
-            <span className="brand-name">∅verflow</span>
-          </div>
-          
-          <p className="newsletter-text">Subscribe our newsletter:</p>
-          
-          <div className="newsletter-form">
-            <input 
-              type="email" 
-              placeholder="ENTER OUR EMAIL" 
-              className="email-input"
-            />
-            <button className="submit-btn">
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
+            <span className="brand-name">{BRAND_NAME}</span>
           </div>
 
+          <p className="newsletter-text">Subscribe our newsletter:</p>
+
+          <form className="newsletter-form" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="ENTER OUR EMAIL"
+              className="email-input"
+              value={email}
+              onChange={handleEmailChange}
+              aria-label="Email address"
+            />
+            <button type="submit" className="submit-btn" aria-label="Subscribe">
+              <div className='mil-button mil-arrow-place mil-icon-button mil-arrow-right'></div>
+            </button>
+          </form>
+
           <div className="social-links">
-            <a href="#" className="social-icon" aria-label="Behance">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.07 6.35H15v1.33h5.07V6.35z"/>
-                <path d="M19.5 14.5c0-1.93-1.57-3.5-3.5-3.5s-3.5 1.57-3.5 3.5c0 1.93 1.57 3.5 3.5 3.5 1.4 0 2.6-.82 3.16-2h-2.32c-.25.3-.63.5-1.07.5-.83 0-1.5-.67-1.5-1.5h5.22c.01-.17.01-.33.01-.5zM14.5 13.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5h-3z"/>
-                <path d="M9.5 9C8.67 9 8 9.67 8 10.5S8.67 12 9.5 12c.17 0 .33-.03.5-.08v3.58c0 .83-.67 1.5-1.5 1.5H7c-.83 0-1.5-.67-1.5-1.5v-4c0-.83-.67-1.5-1.5-1.5S2.5 10.67 2.5 11.5v4c0 1.93 1.57 3.5 3.5 3.5h1.5c1.93 0 3.5-1.57 3.5-3.5V10.5C11 9.67 10.33 9 9.5 9z"/>
-              </svg>
-            </a>
-            <a href="#" className="social-icon" aria-label="Dribbble">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M2 12c5 0 10-3 10-10M12 2c0 7 3 12 10 12M22 12c-7 0-12 3-12 10M12 22c0-5-3-10-10-10"/>
-              </svg>
-            </a>
-            <a href="#" className="social-icon" aria-label="Twitter">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-              </svg>
-            </a>
-            <a href="#" className="social-icon" aria-label="GitHub">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
-              </svg>
-            </a>
+            {SOCIAL_LINKS.map(link => (
+              <SocialIcon key={link.name} {...link} />
+            ))}
           </div>
 
           <p className="copyright">© Copyright 2023 - Mil. All Rights Reserved.</p>
-          
-          
         </div>
 
         {/* Middle Column - Navigation */}
-        <div className="footer-column nav-column">
-          <a href="#" className="nav-link active">Home</a>
-          <a href="#" className="nav-link">Portfolio</a>
-          <a href="#" className="nav-link">Services</a>
-          <a href="#" className="nav-link active">Contact</a>
-          <a href="#" className="nav-link">Blog</a>
-        </div>
+        <nav className="footer-column nav-column">
+          {NAV_LINKS.map(link => (
+            <a
+              key={link.text}
+              href="#"
+              className={`nav-link ${link.active ? 'active' : ''}`}
+            >
+              {link.text}
+            </a>
+          ))}
+        </nav>
 
         {/* Right Column - Policies and Locations */}
         <div className="footer-column info-column">
           <div className="policies">
-            <a href="#" className="policy-link">Privacy Policy</a>
-            <a href="#" className="policy-link">Terms and conditions</a>
-            <a href="#" className="policy-link">Cookie Policy</a>
-            <a href="#" className="policy-link">Careers</a>
+            {POLICY_LINKS.map(policy => (
+              <a key={policy} href="#" className="policy-link">{policy}</a>
+            ))}
           </div>
 
           <div className="locations">
-            <div className="location">
-              <h3 className="location-title">Canada</h3>
-              <p className="location-address">
-                71 South Los Carneros Road,<br />
-                California +51 174 705 812
-              </p>
-            </div>
-
-            <div className="location">
-              <h3 className="location-title">Germany</h3>
-              <p className="location-address">
-                Leehove 40, 2678 MC De Lier,<br />
-                Netherlands +31 174 705 811
-              </p>
-            </div>
+            {LOCATIONS.map(location => (
+              <div key={location.title} className="location">
+                <h3 className="location-title">{location.title}</h3>
+                <p className="location-address">
+                  {location.address.split('\n').map((line, i) => (
+                    <React.Fragment key={i}>
+                      {line}
+                      {i < location.address.split('\n').length - 1 && <br />}
+                    </React.Fragment>
+                  ))}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Back to Top Button */}
-      
+      {/* Homepage Label - Left Side */}
+      <div className="homepage-label">HOMEPAGE</div>
+
+      {/* Back to Top Button - Right Side */}
+      <button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+        <span className="back-to-top-text">BACK TO TOP</span>
+      </button>
     </footer>
   );
 };
@@ -175,10 +225,10 @@ body {
   align-items: center;
   background-color: #1a1a1a;
   border-radius: 60px;
-  padding: 0px 30px 0px 20px;
-  max-width: 300px;
-  height : 60px;
-
+  padding: 0px 8px 0px 0px;
+  max-width: 400px;
+  width: 100%;
+  height: 60px;
   transition: background-color 0.3s ease;
 }
 
@@ -190,16 +240,19 @@ body {
   flex: 1;
   background: transparent;
   border: none;
-  color: #666666;
-  font-size: 12px;
-  letter-spacing: 1.5px;
+  color: #ffffff;
+  font-size: 13px;
+  letter-spacing: 1px;
   outline: none;
-  font-weight: 500;
+  font-weight: 400;
+  padding: 0 35px;
+  text-align: left;
 }
 
 .email-input::placeholder {
-  color: #555555;
-  letter-spacing: 1.5px;
+  color: #666666;
+  letter-spacing: 1px;
+  font-size: 13px;
 }
 
 .submit-btn {

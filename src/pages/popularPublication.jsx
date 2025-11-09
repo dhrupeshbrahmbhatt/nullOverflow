@@ -12,7 +12,7 @@ const PopularPublications = () => {
       date: 'MAY 24 2023',
       title: 'How to Become a Graphic Designer in 10 Simple Steps',
       description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eus sequi commodi dignissimos optio, beatae, eos necessitatibus nisi. Nam cupidita...',
-      image: 'https://images.unsplash.com/photo-1561998338-13ad7883b20f?w=800&h=600&fit=crop'
+      image: 'images/1_1.jpg'
     },
     {
       id: 2,
@@ -20,7 +20,7 @@ const PopularPublications = () => {
       date: 'MAY 24 2023',
       title: '16 Best Graphic Design Online and Offline Courses',
       description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eus sequi commodi dignissimos optio, beatae, eos necessitatibus nisi. Nam cupidita...',
-      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&h=600&fit=crop'
+      image: 'images/2_3.jpg'
     }
   ];
 
@@ -28,7 +28,7 @@ const PopularPublications = () => {
     <div style={{
       fontFamily: "'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
       minHeight: '100vh',
-      backgroundColor: '#ffffff',
+      backgroundColor: '#F8F8F8',
       position: 'relative'
     }}>
       {/* Add Google Fonts */}
@@ -63,20 +63,24 @@ const PopularPublications = () => {
 
       {/* Main Content */}
       <main style={{
-        padding: '60px 400px 60px'
+        padding: '80px 96px 120px',
+        maxWidth: '1200px',
+        margin: '0 auto'
       }}>
         {/* Section Header */}
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: '60px'
+          marginBottom: '60px',
+          marginLeft: '100px'
         }}>
           <h1 style={{
-            fontSize: '48px',
-            fontWeight: '600',
+            fontSize: '56px',
+            fontWeight: '500',
             color: '#000000',
-            letterSpacing: '-1px'
+            letterSpacing: '-1px',
+            lineHeight: '1.2'
           }}>
             Popular Publications:
           </h1>
@@ -114,9 +118,9 @@ const PopularPublications = () => {
 
         {/* Publications Grid */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '40px'
+          display: 'flex',
+          gap: '60px',
+          marginLeft: '100px'
         }}>
           {publications.map((pub) => (
             <article
@@ -124,19 +128,24 @@ const PopularPublications = () => {
               onMouseEnter={() => setHoveredCard(pub.id)}
               onMouseLeave={() => setHoveredCard(null)}
               style={{
-                background: '#ffffff',
+                background: 'transparent',
                 borderRadius: '0',
-                overflow: 'hidden',
+                overflow: 'visible',
                 transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                 transform: hoveredCard === pub.id ? 'translateY(-8px)' : 'translateY(0)',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start'
               }}
             >
               {/* Image */}
               <div style={{
                 width: '100%',
-                height: '280px',
+                maxWidth: '555px',
+                height: '360px',
                 overflow: 'hidden',
+                borderRadius: '20px',
                 backgroundColor: '#f5f5f5',
                 position: 'relative'
               }}>
@@ -155,19 +164,21 @@ const PopularPublications = () => {
 
               {/* Content */}
               <div style={{
-                padding: '32px 0'
+                padding: '36px 0 0 0',
+                width: '100%',
+                maxWidth: '555px'
               }}>
                 {/* Category and Date */}
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '16px',
-                  marginBottom: '20px'
+                  marginBottom: '18px'
                 }}>
                   <span style={{
                     fontSize: '11px',
                     fontWeight: '700',
-                    color: '#FFA500',
+                    color: '#FF8C00',
                     letterSpacing: '1.5px'
                   }}>
                     {pub.category}
@@ -175,7 +186,7 @@ const PopularPublications = () => {
                   <span style={{
                     fontSize: '11px',
                     fontWeight: '600',
-                    color: '#999999',
+                    color: '#AAAAAA',
                     letterSpacing: '1px'
                   }}>
                     {pub.date}
@@ -185,9 +196,9 @@ const PopularPublications = () => {
                 {/* Title */}
                 <h2 style={{
                   fontSize: '28px',
-                  fontWeight: '600',
+                  fontWeight: '500',
                   color: '#000000',
-                  lineHeight: '1.3',
+                  lineHeight: '1.35',
                   marginBottom: '16px',
                   letterSpacing: '-0.5px',
                   transition: 'color 0.3s ease'
@@ -198,10 +209,10 @@ const PopularPublications = () => {
                 {/* Description */}
                 <p style={{
                   fontSize: '15px',
-                  fontWeight: '400',
-                  color: '#666666',
-                  lineHeight: '1.6',
-                  marginBottom: '28px'
+                  fontWeight: '300',
+                  color: '#888888',
+                  lineHeight: '1.65',
+                  marginBottom: '26px'
                 }}>
                   {pub.description}
                 </p>
@@ -217,7 +228,7 @@ const PopularPublications = () => {
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '10px',
+                    gap: '14px',
                     background: 'transparent',
                     border: 'none',
                     padding: '0',
@@ -230,13 +241,25 @@ const PopularPublications = () => {
                   }}
                 >
                   READ MORE
-                  <ArrowRight 
-                    size={18} 
-                    style={{
-                      transition: 'transform 0.3s ease',
-                      transform: hoveredButton === `read-${pub.id}` ? 'translateX(6px)' : 'translateX(0)'
-                    }}
-                  />
+                  <div style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '50%',
+                    backgroundColor: hoveredButton === `read-${pub.id}` ? '#000000' : '#F0F0F0',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'all 0.3s ease',
+                    transform: hoveredButton === `read-${pub.id}` ? 'translateX(6px)' : 'translateX(0)'
+                  }}>
+                    <ArrowRight
+                      size={18}
+                      color={hoveredButton === `read-${pub.id}` ? '#ffffff' : '#000000'}
+                      style={{
+                        transition: 'color 0.3s ease'
+                      }}
+                    />
+                  </div>
                 </button>
               </div>
             </article>
@@ -292,28 +315,101 @@ const PopularPublications = () => {
       {/* Responsive Styles */}
       <style>
         {`
+          @media (max-width: 1400px) {
+            main {
+              padding-left: 60px !important;
+              padding-right: 60px !important;
+            }
+          }
+
           @media (max-width: 1200px) {
-            header, main {
+            main {
               padding-left: 40px !important;
               padding-right: 40px !important;
+            }
+
+            main h1 {
+              font-size: 48px !important;
+            }
+
+            main > div:nth-child(2) {
+              grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)) !important;
+            }
+          }
+
+          @media (max-width: 992px) {
+            main > div:first-child {
+              flex-direction: column;
+              align-items: flex-start !important;
+              gap: 24px;
+            }
+
+            main > div:nth-child(2) {
+              grid-template-columns: 1fr !important;
+              gap: 50px !important;
+            }
+
+            main h1 {
+              font-size: 42px !important;
+            }
+
+            article > div:first-child {
+              height: 320px !important;
             }
           }
 
           @media (max-width: 768px) {
-            main > div:first-child {
-              flex-direction: column;
-              align-items: flex-start !important;
-              gap: 20px;
-            }
-            
-            main > div:nth-child(2) {
-              grid-template-columns: 1fr !important;
-              gap: 60px !important;
+            main {
+              padding: 60px 24px 80px !important;
             }
 
-            header, main {
-              padding-left: 20px !important;
-              padding-right: 20px !important;
+            main h1 {
+              font-size: 36px !important;
+            }
+
+            article h2 {
+              font-size: 24px !important;
+            }
+
+            article p {
+              font-size: 14px !important;
+              line-height: 1.6 !important;
+            }
+
+            article > div:first-child {
+              height: 280px !important;
+            }
+          }
+
+          @media (max-width: 580px) {
+            main {
+              padding: 40px 20px 60px !important;
+            }
+
+            main h1 {
+              font-size: 32px !important;
+            }
+
+            main > div:nth-child(2) {
+              grid-template-columns: 1fr !important;
+              gap: 40px !important;
+            }
+
+            article h2 {
+              font-size: 22px !important;
+            }
+
+            article > div:first-child {
+              height: 240px !important;
+            }
+
+            article button {
+              font-size: 12px !important;
+            }
+
+            article button > div {
+              width: 36px !important;
+              height: 36px !important;
             }
           }
         `}

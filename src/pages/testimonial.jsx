@@ -171,12 +171,13 @@ const CustomerTestimonials = () => {
       {/* Top Right Text */}
       <div style={{
         position: 'absolute',
-        top: '40px',
-        right: '180px',
+        top: '80px',
+        right: '550px',
         textAlign: 'right',
-        fontSize: '13px',
+        fontSize: '16px',
+        fontWeight: '300',
         color: '#999999',
-        lineHeight: '1.6',
+        lineHeight: '24px',
         maxWidth: '280px'
       }}>
         Customer reviews are a valuable source<br />
@@ -194,54 +195,44 @@ const CustomerTestimonials = () => {
       }}>
         {/* Title */}
         <h1 style={{
-          fontSize: '72px',
-          fontWeight: '400',
+          fontSize: '68px',
+          fontWeight: '100',
           color: '#000000',
           textAlign: 'center',
           marginBottom: '80px',
-          lineHeight: '1.2',
+          lineHeight: '82px',
           letterSpacing: '-1px',
           animation: 'fadeInUp 0.8s ease-out'
         }}>
-          <span style={{ fontWeight: '700' }}>Customer</span> <span style={{ fontWeight: '300' }}>Voices:</span>
+          <span style={{ fontWeight: '500' }}>Customer</span> <span style={{ fontWeight: '100' }}>Voices:</span>
           <br />
-          <span style={{ fontWeight: '700' }}>Hear What</span> <span style={{ fontWeight: '300' }}>They Say!</span>
+          <span style={{ fontWeight: '500' }}>Hear What</span> <span style={{ fontWeight: '100' }}>They Say!</span>
         </h1>
 
         {/* Avatar Carousel */}
         <div style={{
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-end',
           justifyContent: 'center',
-          gap: '20px',
+          gap: '15px',
           marginBottom: '80px',
           position: 'relative',
-          minHeight: '120px'
+          minHeight: '180px'
         }}>
           {testimonials.map((testimonial, index) => {
             const isActive = index === activeTestimonial;
-            const distance = Math.abs(index - activeTestimonial);
-            const isVisible = distance <= 3;
-            
-            let scale = 1;
-            let opacity = 1;
-            let zIndex = 10;
-            
-            if (isActive) {
-              scale = 1.15;
-              zIndex = 20;
-            } else if (distance === 1) {
-              scale = 0.95;
-              opacity = 0.8;
-              zIndex = 15;
-            } else if (distance === 2) {
-              scale = 0.85;
-              opacity = 0.6;
-              zIndex = 10;
-            } else {
-              scale = 0.75;
-              opacity = 0.4;
-              zIndex = 5;
+
+            // Make the active avatar slightly larger
+            const size = isActive ? '110px' : '90px';
+            const borderWidth = isActive ? '5px' : '0px';
+
+            // Create alternating vertical positions for wave effect
+            // Pattern: down, up, down, up, down, up, down
+            let marginBottom = '0px';
+            if (index === 0 || index === 2 || index === 4 || index === 6) {
+              marginBottom = '0px'; // These stay at the bottom
+            } else if (index === 1 || index === 3 || index === 5) {
+              marginBottom = '40px'; // These are raised up
             }
 
             return (
@@ -251,19 +242,19 @@ const CustomerTestimonials = () => {
                 onMouseLeave={() => setHoveredAvatar(null)}
                 onClick={() => handleAvatarClick(index)}
                 style={{
-                  width: '90px',
-                  height: '90px',
+                  width: size,
+                  height: size,
                   borderRadius: '50%',
                   overflow: 'hidden',
                   cursor: 'pointer',
-                  transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                  transform: `scale(${hoveredAvatar === index ? scale * 1.05 : scale})`,
-                  opacity: isVisible ? opacity : 0,
-                  border: isActive ? '4px solid #FFA500' : '4px solid transparent',
-                  boxShadow: isActive ? '0 8px 24px rgba(255, 165, 0, 0.3)' : 'none',
-                  zIndex: zIndex,
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transform: `scale(${hoveredAvatar === index && !isActive ? 1.05 : 1})`,
+                  opacity: 1,
+                  border: isActive ? `${borderWidth} solid #FF8C00` : 'none',
+                  boxSizing: 'border-box',
                   position: 'relative',
-                  pointerEvents: isVisible ? 'auto' : 'none'
+                  flexShrink: 0,
+                  marginBottom: marginBottom
                 }}
               >
                 <img
@@ -305,8 +296,9 @@ const CustomerTestimonials = () => {
         >
           {/* Name */}
           <h3 style={{
-            fontSize: '24px',
-            fontWeight: '600',
+            fontSize: '20px',
+            lineHeight: '30px',
+            fontWeight: '500',
             color: '#000000',
             marginBottom: '8px',
             letterSpacing: '-0.5px'
@@ -316,8 +308,9 @@ const CustomerTestimonials = () => {
 
           {/* Company */}
           <p style={{
-            fontSize: '11px',
-            fontWeight: '600',
+            fontSize: '12px',
+            fontWeight: '500',
+            lineHeight: '24px',
             color: '#999999',
             letterSpacing: '2px',
             marginBottom: '40px'
@@ -327,10 +320,10 @@ const CustomerTestimonials = () => {
 
           {/* Testimonial Text */}
           <p style={{
-            fontSize: '17px',
-            fontWeight: '400',
+            fontSize: '22px',
+            lineHeight: '40px',
+            fontWeight: '300',
             color: '#666666',
-            lineHeight: '1.8',
             letterSpacing: '0.3px'
           }}>
             {testimonials[activeTestimonial].text}
@@ -348,23 +341,25 @@ const CustomerTestimonials = () => {
             onClick={handlePrevious}
             onMouseEnter={() => setHoveredNav('prev')}
             onMouseLeave={() => setHoveredNav(null)}
+            disabled={activeTestimonial === 0}
             style={{
               width: '50px',
               height: '50px',
               borderRadius: '50%',
               border: '2px solid #E0E0E0',
-              background: hoveredNav === 'prev' ? '#000000' : '#ffffff',
-              cursor: 'pointer',
+              background: activeTestimonial === 0 ? '#F5F5F5' : (hoveredNav === 'prev' ? '#000000' : '#ffffff'),
+              cursor: activeTestimonial === 0 ? 'not-allowed' : 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               transition: 'all 0.3s ease',
-              boxShadow: hoveredNav === 'prev' ? '0 4px 12px rgba(0,0,0,0.15)' : 'none'
+              boxShadow: hoveredNav === 'prev' && activeTestimonial !== 0 ? '0 4px 12px rgba(0,0,0,0.15)' : 'none',
+              opacity: activeTestimonial === 0 ? 0.4 : 1
             }}
           >
-            <ChevronLeft 
-              size={24} 
-              color={hoveredNav === 'prev' ? '#ffffff' : '#000000'}
+            <ChevronLeft
+              size={24}
+              color={activeTestimonial === 0 ? '#CCCCCC' : (hoveredNav === 'prev' ? '#ffffff' : '#000000')}
               style={{ transition: 'color 0.3s ease' }}
             />
           </button>
@@ -396,27 +391,6 @@ const CustomerTestimonials = () => {
           </button>
         </div>
 
-        {/* Auto-play Indicator */}
-        <div style={{
-          marginTop: '30px',
-          display: 'flex',
-          gap: '8px'
-        }}>
-          {testimonials.map((_, index) => (
-            <div
-              key={index}
-              style={{
-                width: index === activeTestimonial ? '24px' : '8px',
-                height: '8px',
-                borderRadius: '4px',
-                backgroundColor: index === activeTestimonial ? '#FFA500' : '#D0D0D0',
-                transition: 'all 0.4s ease',
-                cursor: 'pointer'
-              }}
-              onClick={() => handleAvatarClick(index)}
-            />
-          ))}
-        </div>
       </main>
 
       {/* Back to Top Button */}

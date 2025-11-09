@@ -181,7 +181,8 @@ const Home = () => {
                   <div className="row">
                     <div className="col-md-7 col-lg-12">
                       <p className="mil-light-soft mil-mb-60" style={{ marginLeft: "10px",fontSize: '16px', lineHeight: '24px', fontWeight: '300' }}>Welcome to our world of endless imigination and boundless <br /> creativity. Together, let's embark on a remarkable journey where <br /> dreams become tangible realities.</p>
-                      <a href="#" className="mil-button mil-arrow-place mil-btn-space" style={{ padding: '0px', fontWeight: '500' ,backgroundColor: '#ff9500',
+                      <a href="#" className="mil-button mil-arrow-place mil-btn-space" style={{
+                        backgroundColor: '#ff9500',
                         color: '#000000',
                         border: 'none',
                         borderRadius: '50px',
@@ -195,7 +196,8 @@ const Home = () => {
                         gap: '1rem',
                         transition: 'all 0.3s ease',
                         textTransform: 'uppercase',
-                        boxShadow: '0 10px 30px rgba(255, 149, 0, 0.3)'   }}>
+                        boxShadow: '0 10px 30px rgba(255, 149, 0, 0.3)'
+                      }}>
                         <span>What we do</span>
                       </a>
 

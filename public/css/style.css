@@ -4228,3 +4228,313 @@ html.is-animating .mil-menu-frame {
   -webkit-transition-delay: 0.3s;
           transition-delay: 0.3s;
 }
+/***************************
+
+Responsive Banner Styles
+
+***************************/
+
+/* Tablet styles (iPad, etc) - 768px to 1024px */
+@media screen and (max-width: 1024px) {
+  .mil-banner-content {
+    margin-left: 0px !important;
+    padding: 0 40px !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .mil-banner-content h1 {
+    font-size: 64px !important;
+    line-height: 76px !important;
+    margin-bottom: 30px !important;
+    padding: 0px !important;
+  }
+
+  .mil-banner-content h1 .mil-thin {
+    font-size: 64px !important;
+    line-height: 76px !important;
+  }
+
+  .mil-banner-content p {
+    font-size: 15px !important;
+    line-height: 22px !important;
+    margin-bottom: 40px !important;
+    margin-left: 0px !important;
+  }
+
+  .mil-banner-content p br {
+    display: none;
+  }
+
+  .mil-banner-content .row {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .mil-circle-text {
+    position: fixed !important;
+    bottom: 60px !important;
+    right: 30px !important;
+    margin-right: 0px !important;
+    transform: scale(0.85) !important;
+  }
+}
+
+/* Mobile landscape - 600px to 768px */
+@media screen and (max-width: 768px) {
+  .mil-banner-content {
+    margin-left: 0px !important;
+    padding: 0 30px !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .mil-banner-content h1 {
+    font-size: 52px !important;
+    line-height: 60px !important;
+    margin-bottom: 28px !important;
+    padding: 0px !important;
+    font-weight: 500 !important;
+  }
+
+  .mil-banner-content h1 .mil-thin {
+    font-size: 52px !important;
+    line-height: 60px !important;
+    font-weight: 300 !important;
+  }
+
+  .mil-banner-content p {
+    font-size: 15px !important;
+    line-height: 23px !important;
+    margin-left: 0px !important;
+    margin-bottom: 38px !important;
+    font-weight: 400 !important;
+    color: #999999 !important;
+  }
+
+  .mil-banner-content p br {
+    display: none;
+  }
+
+  .mil-banner-content .mil-button {
+    font-size: 0.7rem !important;
+    padding: 1.1rem 2.2rem !important;
+    letter-spacing: 0.12em !important;
+    font-weight: 600 !important;
+  }
+
+  .mil-banner-content .mil-link {
+    margin-left: 15px !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+  }
+
+  .mil-banner-content .row {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .mil-circle-text {
+    position: fixed !important;
+    bottom: 50px !important;
+    right: 25px !important;
+    margin-right: 0px !important;
+    transform: scale(0.9) !important;
+  }
+}
+
+/* Mobile portrait - 480px to 600px */
+@media screen and (max-width: 600px) {
+  .mil-banner-content {
+    margin-left: 0px !important;
+    padding: 0 25px !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .mil-banner-content h1 {
+    font-size: 44px !important;
+    line-height: 52px !important;
+    margin-bottom: 24px !important;
+    padding: 0px !important;
+    font-weight: 500 !important;
+  }
+
+  .mil-banner-content h1 .mil-thin {
+    font-size: 44px !important;
+    line-height: 52px !important;
+    font-weight: 300 !important;
+  }
+
+  .mil-banner-content p {
+    font-size: 14px !important;
+    line-height: 22px !important;
+    margin-left: 0px !important;
+    margin-bottom: 35px !important;
+    font-weight: 400 !important;
+    color: #999999 !important;
+  }
+
+  .mil-banner-content p br {
+    display: none;
+  }
+
+  .mil-banner-content .mil-button {
+    font-size: 0.7rem !important;
+    padding: 1.1rem 2rem !important;
+    font-weight: 600 !important;
+  }
+
+  .mil-banner-content .mil-link {
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+  }
+
+  .mil-banner-content .row {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .mil-circle-text {
+    position: fixed !important;
+    bottom: 45px !important;
+    right: 22px !important;
+    margin-right: 0px !important;
+    transform: scale(0.88) !important;
+  }
+}
+
+/* Small mobile - below 480px */
+@media screen and (max-width: 480px) {
+  .mil-banner-content {
+    margin-left: 0px !important;
+    padding: 0 20px !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .mil-banner-content h1 {
+    font-size: 42px !important;
+    line-height: 50px !important;
+    margin-bottom: 24px !important;
+    padding: 0px !important;
+    font-weight: 500 !important;
+  }
+
+  .mil-banner-content h1 .mil-thin {
+    font-size: 42px !important;
+    line-height: 50px !important;
+    font-weight: 300 !important;
+  }
+
+  .mil-banner-content p {
+    font-size: 14px !important;
+    line-height: 22px !important;
+    margin-left: 0px !important;
+    font-weight: 400 !important;
+    margin-bottom: 40px !important;
+    color: #999999 !important;
+  }
+
+  .mil-banner-content p br {
+    display: none;
+  }
+
+  .mil-banner-content .mil-button {
+    font-size: 0.7rem !important;
+    padding: 1.1rem 2rem !important;
+    letter-spacing: 0.12em !important;
+    margin-bottom: 0px !important;
+    font-weight: 600 !important;
+  }
+
+  .mil-banner-content .mil-link {
+    margin-left: 12px !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+  }
+
+  .mil-banner-content .row {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .mil-circle-text {
+    position: fixed !important;
+    bottom: 40px !important;
+    right: 20px !important;
+    margin-right: 0px !important;
+    transform: scale(0.85) !important;
+  }
+}
+
+/* Extra small mobile - below 375px */
+@media screen and (max-width: 375px) {
+  .mil-banner-content {
+    margin-left: 0px !important;
+    padding: 0 15px !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .mil-banner-content h1 {
+    font-size: 36px !important;
+    line-height: 44px !important;
+    font-weight: 500 !important;
+  }
+
+  .mil-banner-content h1 .mil-thin {
+    font-size: 36px !important;
+    line-height: 44px !important;
+    font-weight: 300 !important;
+  }
+
+  .mil-banner-content p {
+    font-size: 13px !important;
+    line-height: 20px !important;
+    margin-bottom: 35px !important;
+    margin-left: 0px !important;
+  }
+
+  .mil-banner-content p br {
+    display: none;
+  }
+
+  .mil-banner-content .mil-button {
+    font-size: 0.65rem !important;
+    padding: 1rem 1.8rem !important;
+  }
+
+  .mil-banner-content .mil-link {
+    font-size: 0.75rem !important;
+  }
+
+  .mil-banner-content .row {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .mil-circle-text {
+    transform: scale(0.75) !important;
+  }
+}
