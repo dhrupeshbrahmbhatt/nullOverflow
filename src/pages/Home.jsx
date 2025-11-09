@@ -53,8 +53,8 @@ const Home = () => {
         <div className="mil-choose-text">Сhoose</div>
       </div>
 
-     {/* {/* Preloader */}
-      {/* <div className="mil-preloader">
+     {/* Preloader */}
+      <div className="mil-preloader">
         <div className="mil-preloader-animation">
           <div className="mil-pos-abs mil-animation-1">
             <p className="mil-h3 mil-muted mil-thin">Pioneering</p>
@@ -68,7 +68,77 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
+
+      {/* Preloader Mobile Responsive Styles */}
+      <style>{`
+        /* Tablet and Mobile Responsive Styles for Preloader */
+        @media screen and (max-width: 1024px) {
+          .mil-preloader .mil-preloader-animation .mil-pos-abs {
+            padding: 0 40px;
+          }
+
+          .mil-preloader .mil-h3 {
+            font-size: 36px !important;
+            line-height: 1.2 !important;
+          }
+
+          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame {
+            padding: 0 30px;
+          }
+        }
+
+        @media screen and (max-width: 767px) {
+          .mil-preloader .mil-preloader-animation .mil-pos-abs {
+            padding: 0 20px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+          }
+
+          .mil-preloader .mil-h3 {
+            font-size: 28px !important;
+            line-height: 1.3 !important;
+          }
+
+          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 15px;
+            position: relative;
+          }
+
+          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame p {
+            position: relative;
+            z-index: 5;
+            width: auto;
+            text-align: center;
+          }
+
+          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame .mil-reveal-box {
+            width: 100%;
+            left: 0;
+            right: 0;
+          }
+        }
+
+        @media screen and (max-width: 480px) {
+          .mil-preloader .mil-preloader-animation .mil-pos-abs {
+            padding: 0 15px;
+          }
+
+          .mil-preloader .mil-h3 {
+            font-size: 30px !important;
+            line-height: 1.4 !important;
+            color: white !important;
+          }
+          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame {
+            padding: 0 20px;
+          }
+        }
+      `}</style>
 
 
 
