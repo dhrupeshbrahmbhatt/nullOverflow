@@ -243,7 +243,23 @@ const Home = () => {
       {/* Frame */}
       <div className="mil-frame">
         <div className="mil-frame-top">
-          <a href="home-1.html" className="mil-logo">∅verflow</a>
+          <a
+  href="home-1.html"
+  className="mil-logo"
+  id="logoText"
+  style={{
+    fontSize: "40px",
+    fontWeight: 600,
+    position: "relative",
+
+    zIndex: 9999, 
+    
+  }}
+>
+  ∅verflow
+</a>
+
+
           <div className={`mil-menu-btn ${isMenuOpen ? 'mil-active' : ''}`} onClick={toggleMenu} style={{zIndex: 50}}>
             <span></span>
           </div>
