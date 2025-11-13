@@ -89,6 +89,17 @@ const Home = () => {
 
       {/* Preloader Mobile Responsive Styles */}
       <style>{`
+        /* Hide back-to-top button on mobile and tablets to prevent auto-scroll issues */
+        @media screen and (max-width: 768px) {
+          .mil-back-to-top,
+          .mil-back-to-top * {
+            display: none !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            opacity: 0 !important;
+          }
+        }
+
         /* Tablet and Mobile Responsive Styles for Preloader */
         @media screen and (max-width: 1024px) {
           .mil-preloader .mil-preloader-animation .mil-pos-abs {

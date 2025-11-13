@@ -518,8 +518,10 @@ body {
 /* Mobile View (up to 767px) */
 @media (max-width: 767px) {
   .footer {
-    padding: 50px 20px 40px;
-    min-height: auto;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
 
   .footer-container {
@@ -630,7 +632,10 @@ body {
 /* Small Mobile View (up to 480px) */
 @media (max-width: 480px) {
   .footer {
-    padding: 40px 15px 30px;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
 
   .footer-container {

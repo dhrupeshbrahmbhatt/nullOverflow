@@ -299,24 +299,35 @@ $(function () {
     back to top
 
     ***************************/
+    // Disable back-to-top on mobile devices and Safari to prevent auto-scroll issues
+    const isMobile = window.innerWidth <= 768;
     const btt = document.querySelector(".mil-back-to-top .mil-link");
 
-    gsap.set(btt, {
-        x: -30,
-        opacity: 0,
-    });
+    if (btt && !isMobile && !isSafari) {
+        // Only enable back-to-top on desktop non-Safari browsers
+        gsap.set(btt, {
+            x: -30,
+            opacity: 0,
+        });
 
-    gsap.to(btt, {
-        x: 0,
-        opacity: 1,
-        ease: 'sine',
-        scrollTrigger: {
-            trigger: "body",
-            start: "top -40%",
-            end: "top -40%",
-            toggleActions: "play none reverse none"
+        gsap.to(btt, {
+            x: 0,
+            opacity: 1,
+            ease: 'sine',
+            scrollTrigger: {
+                trigger: "body",
+                start: "top -40%",
+                end: "top -40%",
+                toggleActions: "play none reverse none"
+            }
+        });
+    } else if (btt) {
+        // Hide back-to-top button on mobile and Safari
+        btt.style.display = 'none';
+        if (btt.parentElement) {
+            btt.parentElement.style.display = 'none';
         }
-    });
+    }
     /***************************
 
     cursor
