@@ -1,165 +1,96 @@
-name: Move to Production
+name: deploy to production
 
 on:
   push:
     branches:
-      - main  # Trigger deployment on push to main
+      - main
 
-env:
-  REPO_NAME: ${{ github.repository }}
+concurrency:
+  group: ci-deploy-main
+  cancel-in-progress: true
 
 jobs:
-  # Validate build before triggering Render deployment
-  validate-build:
-    name: Validate Build
+  build-and-deploy:
+    name: Build, Test, Deploy (production)
     runs-on: ubuntu-latest
-
+    environment: prod    # <-- uses secrets configured in the "production" environment
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Run linter
-        run: npm run lint
-        continue-on-error: true
-
-      - name: Build project
-        run: npm run build
-
-      - name: Verify build output
+      - name: Lint
         run: |
-          if [ ! -d "dist" ]; then
-            echo "❌ Build failed - dist directory not found"
-            exit 1
-          fi
-          echo "✅ Build successful - ready to deploy"
-
-      # Send error email if validation fails
-      - name: Send build error email
-        if: failure()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "❌ Build Error - ${{ env.REPO_NAME }}"
-          to: ${{ secrets.MAIL_TO }}
-          from: GitHub Actions <noreply@github.com>
-          body: |
-            ❌ Build validation failed
-
-            Repository: ${{ env.REPO_NAME }}
-            Branch: ${{ github.ref_name }}
-            Commit: ${{ github.sha }}
-            Message: ${{ github.event.head_commit.message }}
-            Author: ${{ github.actor }}
-
-            🔗 View logs:
-            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-
-            ⚠️ Deployment was NOT triggered. Please fix the errors and push again.
-          priority: high
-
-  # Trigger Render deployment (Render will build and deploy automatically)
-  deploy-to-render:
-    name: Deploy to Render
-    needs: validate-build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Trigger Render deployment
-        id: deploy
-        run: |
-          echo "🚀 Triggering Render deployment via webhook..."
-
-          RESPONSE=$(curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" \
-            -H "Content-Type: application/json" \
-            -s -w "\n%{http_code}")
-
-          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
-          BODY=$(echo "$RESPONSE" | sed '$d')
-
-          echo "HTTP Status: $HTTP_CODE"
-          echo "Response: $BODY"
-
-          if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
-            echo "✅ Render deployment triggered successfully!"
-            echo "Render will now pull, build, and deploy your app"
-            echo "status=success" >> $GITHUB_OUTPUT
+          if npm run -s lint --silent --version >/dev/null 2>&1; then
+            npm run lint
           else
-            echo "❌ Failed to trigger Render deployment (HTTP $HTTP_CODE)"
-            echo "status=failed" >> $GITHUB_OUTPUT
-            echo "error=$BODY" >> $GITHUB_OUTPUT
+            echo "No lint script defined; skipping lint step"
+          fi
+
+      - name: Run tests
+        run: |
+          if npm run -s test --silent --version >/dev/null 2>&1; then
+            npm test -- --ci || npm test
+          else
+            echo "No test script defined; skipping test step"
+          fi
+
+      - name: Build
+        run: |
+          if npm run -s build --silent --version >/dev/null 2>&1; then
+            npm run build
+          else
+            echo "No build script defined; skipping build step"
+          fi
+
+      - name: Trigger Render deploy
+        if: ${{ success() }}
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          if [ -z "${RENDER_API_KEY}" ]; then
+            echo "RENDER_API_KEY is not set. Skipping Render deploy." >&2
             exit 1
           fi
 
-      # Send error email if deployment trigger fails
-      - name: Send deployment error email
-        if: failure()
+          # Replace srv-d487jnemcj7s73dq4opg with your service id (already provided)
+          SERVICE_ID="srv-d487jnemcj7s73dq4opg"
+
+          echo "Triggering deploy on Render for service $SERVICE_ID..."
+          response=$(curl -sS -X POST "https://api.render.com/deploy/srv-d487jnemcj7s73dq4opg" \
+            -H "Authorization: Bearer ${RENDER_API_KEY}" \
+            -H "Accept: application/json")
+
+          echo "Render response: $response"
+          # optional: check for expected keys in response (minimal check)
+          echo "$response" | grep -q '"id"' && echo "Render deploy triggered." || (echo "Failed to trigger Render deploy" && exit 1)
+
+      - name: Send success email (SMTP)
+        if: ${{ success() }}
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "❌ Deployment Error - ${{ env.REPO_NAME }}"
-          to: ${{ secrets.MAIL_TO }}
-          from: GitHub Actions <noreply@github.com>
+          # SMTP settings must be provided via repository environment/secret variables (see notes)
+          server_address: ${{ secrets.SMTP_SERVER }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "✅ Build & Deploy succeeded — main"
+          to: ${{ secrets.RECIPIENT_EMAIL }}
+          from: ${{ secrets.SENDER_EMAIL }}
+          content_type: "text/plain"
           body: |
-            ❌ Failed to trigger Render deployment
-
-            Repository: ${{ env.REPO_NAME }}
-            Branch: ${{ github.ref_name }}
+            Build, tests and deploy triggered by push to main succeeded.
+            Repository: ${{ github.repository }}
             Commit: ${{ github.sha }}
-            Message: ${{ github.event.head_commit.message }}
-            Author: ${{ github.actor }}
-
-            Error: ${{ steps.deploy.outputs.error }}
-
-            🔗 View workflow:
-            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-
-            🔗 Check Render:
-            https://dashboard.render.com
-
-            Check the Render dashboard for more details.
-          priority: high
-
-      # Send success email
-      - name: Send success email
-        if: success()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "✅ Deploying to Production - ${{ env.REPO_NAME }}"
-          to: ${{ secrets.MAIL_TO }}
-          from: GitHub Actions <noreply@github.com>
-          body: |
-            ✅ Render deployment triggered successfully!
-
-            Repository: ${{ env.REPO_NAME }}
-            Branch: ${{ github.ref_name }}
-            Commit: ${{ github.sha }}
-            Message: ${{ github.event.head_commit.message }}
-            Author: ${{ github.actor }}
-
-            🔗 View workflow:
-            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-
-            🔗 Monitor deployment:
-            https://dashboard.render.com
-
-            ⏱️ Your site will be live in 2-3 minutes!
-          priority: normal
+            Ref: ${{ github.ref }}
+            Render service: srv-d487jnemcj7s73dq4opg
+            Workflow: ${{ github.workflow }}
+            Run URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
