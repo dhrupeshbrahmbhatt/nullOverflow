@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, ChevronLeft, ChevronRight, ArrowUp } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const CustomerTestimonials = () => {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
@@ -73,47 +73,26 @@ const CustomerTestimonials = () => {
   const handlePrevious = () => {
     setIsAutoPlaying(false);
     setActiveTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-    // Resume auto-play after 10 seconds
     setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
   const handleNext = () => {
     setIsAutoPlaying(false);
     setActiveTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-    // Resume auto-play after 10 seconds
     setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
   const handleAvatarClick = (index) => {
     setIsAutoPlaying(false);
     setActiveTestimonial(index);
-    // Resume auto-play after 10 seconds
     setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
   return (
-    <div style={{
-      fontFamily: "'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-      minHeight: '100vh',
-      backgroundColor: '#F5F5F5',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
-      {/* Google Fonts */}
+    <div className="min-h-screen bg-[#F5F5F5] relative overflow-hidden font-['Outfit','Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',sans-serif]">
+      {/* Keyframe Animations */}
       <style>
         {`
-          @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
-          
-          * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-          }
-          
-          body {
-            overflow-x: hidden;
-          }
-
           @keyframes fadeInUp {
             from {
               opacity: 0;
@@ -136,17 +115,6 @@ const CustomerTestimonials = () => {
             }
           }
 
-          @keyframes slideIn {
-            from {
-              opacity: 0;
-              transform: translateX(30px);
-            }
-            to {
-              opacity: 1;
-              transform: translateX(0);
-            }
-          }
-
           .testimonial-content {
             animation: fadeInUp 0.6s ease-out;
           }
@@ -157,82 +125,51 @@ const CustomerTestimonials = () => {
         `}
       </style>
 
-      {/* Header */}
-      <header className="testimonial-header" style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '40px 80px',
-        position: 'relative'
-      }}>
+      {/* Header with Logo and Menu */}
+      <header className="flex justify-between items-center py-10 px-20 relative lg:py-[30px] lg:px-10 md:py-[25px] md:px-5 max-md:py-5 max-md:px-[15px]">
+        {/* Logo */}
+        <div className="text-4xl font-bold text-black lg:text-3xl md:text-2xl max-md:text-xl">A.</div>
 
+        {/* Hamburger Menu Icon */}
+        <button className="flex flex-col gap-[5px] cursor-pointer bg-transparent border-none" aria-label="Menu">
+          <span className="w-8 h-[2px] bg-black lg:w-7 md:w-6 max-md:w-5"></span>
+          <span className="w-8 h-[2px] bg-black lg:w-7 md:w-6 max-md:w-5"></span>
+          <span className="w-8 h-[2px] bg-black lg:w-7 md:w-6 max-md:w-5"></span>
+        </button>
       </header>
 
-      {/* Top Right Text */}
-      <div className="top-right-text" style={{
-        position: 'absolute',
-        top: '80px',
-        right: '550px',
-        textAlign: 'right',
-        fontSize: '16px',
-        fontWeight: '300',
-        color: '#999999',
-        lineHeight: '24px',
-        maxWidth: '280px'
-      }}>
-        Customer reviews are a valuable source<br />
-        of information for both businesses and consumers.
-      </div>
-
       {/* Main Content */}
-      <main className="testimonial-main" style={{
-        padding: '80px 80px 120px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: 'calc(100vh - 200px)'
-      }}>
-        {/* Title */}
-        <h1 className="testimonial-title" style={{
-          fontSize: '68px',
-          fontWeight: '100',
-          color: '#000000',
-          textAlign: 'center',
-          marginBottom: '80px',
-          lineHeight: '82px',
-          letterSpacing: '-1px',
-          animation: 'fadeInUp 0.8s ease-out'
-        }}>
-          <span style={{ fontWeight: '500' }}>Customer</span> <span style={{ fontWeight: '100' }}>Voices:</span>
-          <br />
-          <span style={{ fontWeight: '500' }}>Hear What</span> <span style={{ fontWeight: '100' }}>They Say!</span>
-        </h1>
+      <main className="py-16 px-20 pb-[140px] flex flex-col items-center justify-center lg:py-12 lg:px-10 lg:pb-[120px] md:py-10 md:px-5 md:pb-24 max-md:py-8 max-md:px-[15px] max-md:pb-[70px]">
+
+        {/* Top Section - Description and Title Centered */}
+        <div className="w-full flex flex-col items-center justify-center text-center mb-24 lg:mb-20 md:mb-16 max-md:mb-12">
+          {/* Description Text */}
+          <p className="text-center text-[13px] font-light text-[#888888] leading-[20px] max-w-[450px] mb-24 lg:max-w-[400px] lg:text-[12px] lg:leading-[18px] lg:mb-20 md:max-w-full md:text-[12px] md:leading-5 md:mb-16 max-md:text-[11px] max-md:leading-[18px] max-md:mb-12">
+            Customer reviews are a valuable source<br />
+            of information for both businesses and consumers.
+          </p>
+
+          {/* Title */}
+          <h1 className="text-[64px] text-black text-center leading-[76px] tracking-[-1.5px] animate-[fadeInUp_0.8s_ease-out] lg:text-[52px] lg:leading-[62px] md:text-[40px] md:leading-[48px] max-md:text-[32px] max-md:leading-[38px]">
+            <span className="font-bold">Customer</span> <span className="font-light">Voices:</span>
+            <br />
+            <span className="font-bold">Hear What</span> <span className="font-light">They Say!</span>
+          </h1>
+        </div>
 
         {/* Avatar Carousel */}
-        <div className="avatar-carousel" style={{
-          display: 'flex',
-          alignItems: 'flex-end',
-          justifyContent: 'center',
-          gap: '15px',
-          marginBottom: '80px',
-          position: 'relative',
-          minHeight: '180px'
-        }}>
+        <div className="flex items-end justify-between gap-4 mb-20 relative min-h-[140px] lg:gap-3 lg:mb-16 lg:min-h-[120px] md:gap-2.5 md:mb-14 md:min-h-[100px] md:items-center md:flex-nowrap md:overflow-x-auto md:overflow-y-hidden md:justify-start md:py-0 md:px-5 md:pb-[15px] md:w-screen md:-ml-5 md:[scrollbar-width:thin] md:[scrollbar-color:rgba(255,140,0,0.5)_transparent] md:scroll-smooth md:[-webkit-overflow-scrolling:touch] max-md:gap-2 max-md:mb-12 max-md:min-h-[90px] max-md:px-[15px] max-md:pb-3 max-md:-ml-[15px]">
           {testimonials.map((testimonial, index) => {
             const isActive = index === activeTestimonial;
+            const size = isActive ? '100px' : '80px';
+            const borderWidth = isActive ? '4px' : '0px';
 
-            // Make the active avatar slightly larger
-            const size = isActive ? '110px' : '90px';
-            const borderWidth = isActive ? '5px' : '0px';
-
-            // Create alternating vertical positions for wave effect
-            // Pattern: down, up, down, up, down, up, down
+            // Wave pattern: alternating top and bottom positions
             let marginBottom = '0px';
             if (index === 0 || index === 2 || index === 4 || index === 6) {
-              marginBottom = '0px'; // These stay at the bottom
+              marginBottom = '0px'; // Bottom row
             } else if (index === 1 || index === 3 || index === 5) {
-              marginBottom = '40px'; // These are raised up
+              marginBottom = '50px'; // Top row
             }
 
             return (
@@ -241,19 +178,13 @@ const CustomerTestimonials = () => {
                 onMouseEnter={() => setHoveredAvatar(index)}
                 onMouseLeave={() => setHoveredAvatar(null)}
                 onClick={() => handleAvatarClick(index)}
+                className={`rounded-full overflow-hidden cursor-pointer transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] relative flex-shrink-0 box-border ${
+                  hoveredAvatar === index && !isActive ? 'scale-105' : 'scale-100'
+                }`}
                 style={{
                   width: size,
                   height: size,
-                  borderRadius: '50%',
-                  overflow: 'hidden',
-                  cursor: 'pointer',
-                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                  transform: `scale(${hoveredAvatar === index && !isActive ? 1.05 : 1})`,
-                  opacity: 1,
-                  border: isActive ? `${borderWidth} solid #FF8C00` : 'none',
-                  boxSizing: 'border-box',
-                  position: 'relative',
-                  flexShrink: 0,
+                  border: isActive ? `${borderWidth} solid #ff9500` : 'none',
                   marginBottom: marginBottom
                 }}
               >
@@ -261,11 +192,7 @@ const CustomerTestimonials = () => {
                   src={testimonial.avatar}
                   alt={testimonial.name}
                   crossOrigin="anonymous"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
-                  }}
+                  className="w-full h-full object-cover"
                 />
               </div>
             );
@@ -273,388 +200,99 @@ const CustomerTestimonials = () => {
         </div>
 
         {/* Scroll Hint for Mobile */}
-        <div className="scroll-hint" style={{ display: 'none' }}></div>
+        <div className="hidden text-center text-xs text-[#999] mb-[35px] font-light md:block md:after:content-['_←_Swipe_to_see_all_→'] max-md:text-[11px] max-md:mb-[30px]"></div>
 
         {/* Quote Icon */}
         <div
           key={`quote-${activeTestimonial}`}
-          className="quote-icon"
-          style={{
-            fontSize: '48px',
-            color: '#FFA500',
-            marginBottom: '30px',
-            fontWeight: '700'
-          }}
+          className="quote-icon text-[40px] text-[#ff9500] mb-12 font-bold lg:text-[36px] lg:mb-10 md:text-[32px] md:mb-8 max-md:text-[28px] max-md:mb-6"
         >
           ,,
         </div>
 
-        {/* Testimonial Content */}
-        <div
-          key={`content-${activeTestimonial}`}
-          className="testimonial-content testimonial-content-wrapper"
-          style={{
-            maxWidth: '700px',
-            textAlign: 'center'
-          }}
-        >
-          {/* Name */}
-          <h3 className="testimonial-name" style={{
-            fontSize: '20px',
-            lineHeight: '30px',
-            fontWeight: '500',
-            color: '#000000',
-            marginBottom: '8px',
-            letterSpacing: '-0.5px'
-          }}>
-            {testimonials[activeTestimonial].name}
-          </h3>
-
-          {/* Company */}
-          <p className="testimonial-company" style={{
-            fontSize: '12px',
-            fontWeight: '500',
-            lineHeight: '24px',
-            color: '#999999',
-            letterSpacing: '2px',
-            marginBottom: '40px'
-          }}>
-            {testimonials[activeTestimonial].company}
-          </p>
-
-          {/* Testimonial Text */}
-          <p className="testimonial-text" style={{
-            fontSize: '22px',
-            lineHeight: '40px',
-            fontWeight: '300',
-            color: '#666666',
-            letterSpacing: '0.3px'
-          }}>
-            {testimonials[activeTestimonial].text}
-          </p>
-        </div>
-
-        {/* Navigation Arrows */}
-        <div className="nav-arrows" style={{
-          display: 'flex',
-          gap: '20px',
-          marginTop: '60px'
-        }}>
-          {/* Previous Button */}
+        {/* Testimonial Content with Side Navigation */}
+        <div className="w-full max-w-[1000px] relative flex items-center justify-center gap-8 lg:max-w-[850px] lg:gap-6 md:flex-col md:max-w-full md:gap-8">
+          {/* Previous Button - Left Side */}
           <button
-            className="nav-button"
             onClick={handlePrevious}
             onMouseEnter={() => setHoveredNav('prev')}
             onMouseLeave={() => setHoveredNav(null)}
-            disabled={activeTestimonial === 0}
-            style={{
-              width: '50px',
-              height: '50px',
-              borderRadius: '50%',
-              border: '2px solid #E0E0E0',
-              background: activeTestimonial === 0 ? '#F5F5F5' : (hoveredNav === 'prev' ? '#000000' : '#ffffff'),
-              cursor: activeTestimonial === 0 ? 'not-allowed' : 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.3s ease',
-              boxShadow: hoveredNav === 'prev' && activeTestimonial !== 0 ? '0 4px 12px rgba(0,0,0,0.15)' : 'none',
-              opacity: activeTestimonial === 0 ? 0.4 : 1
-            }}
+            className={`w-[46px] h-[46px] rounded-full border border-[#DDDDDD] flex items-center justify-center transition-all duration-300 cursor-pointer flex-shrink-0 lg:w-[42px] lg:h-[42px] md:w-[38px] md:h-[38px] max-md:w-[36px] max-md:h-[36px] md:order-2 ${
+              hoveredNav === 'prev'
+                ? 'bg-black border-black shadow-[0_2px_8px_rgba(0,0,0,0.15)]'
+                : 'bg-white'
+            }`}
           >
             <ChevronLeft
-              size={24}
-              color={activeTestimonial === 0 ? '#CCCCCC' : (hoveredNav === 'prev' ? '#ffffff' : '#000000')}
-              style={{ transition: 'color 0.3s ease' }}
+              size={20}
+              className={`transition-colors duration-300 ${
+                hoveredNav === 'prev' ? 'text-white' : 'text-black'
+              }`}
             />
           </button>
 
-          {/* Next Button */}
+          {/* Testimonial Content */}
+          <div
+            key={`content-${activeTestimonial}`}
+            className="testimonial-content max-w-[800px] text-center lg:max-w-[700px] md:max-w-full md:px-4 md:order-1"
+          >
+            {/* Name */}
+            <h3 className="text-[18px] leading-[26px] font-semibold text-black mb-3 tracking-normal lg:text-[17px] lg:leading-[24px] md:text-[16px] md:leading-[22px] max-md:text-[15px] max-md:leading-[20px]">
+              {testimonials[activeTestimonial].name}
+            </h3>
+
+            {/* Company */}
+            <p className="text-[11px] font-medium leading-6 text-[#AAAAAA] tracking-[2.5px] mb-12 uppercase lg:text-[10px] lg:mb-10 md:text-[10px] md:mb-8 max-md:text-[9px] max-md:mb-7">
+              {testimonials[activeTestimonial].company}
+            </p>
+
+            {/* Testimonial Text */}
+            <p className="text-[17px] leading-[32px] font-normal text-[#888888] tracking-normal lg:text-[16px] lg:leading-[30px] md:text-[15px] md:leading-[28px] max-md:text-[14px] max-md:leading-[24px]">
+              {testimonials[activeTestimonial].text}
+            </p>
+          </div>
+
+          {/* Next Button - Right Side */}
           <button
-            className="nav-button"
             onClick={handleNext}
             onMouseEnter={() => setHoveredNav('next')}
             onMouseLeave={() => setHoveredNav(null)}
-            style={{
-              width: '50px',
-              height: '50px',
-              borderRadius: '50%',
-              border: '2px solid #E0E0E0',
-              background: hoveredNav === 'next' ? '#000000' : '#ffffff',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.3s ease',
-              boxShadow: hoveredNav === 'next' ? '0 4px 12px rgba(0,0,0,0.15)' : 'none'
-            }}
+            className={`w-[46px] h-[46px] rounded-full border border-[#DDDDDD] flex items-center justify-center transition-all duration-300 cursor-pointer flex-shrink-0 lg:w-[42px] lg:h-[42px] md:w-[38px] md:h-[38px] max-md:w-[36px] max-md:h-[36px] md:order-3 ${
+              hoveredNav === 'next'
+                ? 'bg-black border-black shadow-[0_2px_8px_rgba(0,0,0,0.15)]'
+                : 'bg-white'
+            }`}
           >
             <ChevronRight
-              size={24}
-              color={hoveredNav === 'next' ? '#ffffff' : '#000000'}
-              style={{ transition: 'color 0.3s ease' }}
+              size={20}
+              className={`transition-colors duration-300 ${
+                hoveredNav === 'next' ? 'text-white' : 'text-black'
+              }`}
             />
           </button>
         </div>
-
       </main>
 
-      {/* Back to Top Button */}
-      
-
-      {/* Homepage Link */}
-      
-
-      {/* Responsive Styles */}
+      {/* Custom scrollbar styles for mobile avatar carousel */}
       <style>
         {`
-          /* Tablet View (768px - 1024px) */
-          @media (max-width: 1024px) {
-            .testimonial-header {
-              padding: 30px 40px !important;
-            }
-
-            .top-right-text {
-              right: 40px !important;
-              top: 120px !important;
-              max-width: 250px !important;
-              font-size: 14px !important;
-              line-height: 22px !important;
-            }
-
-            .testimonial-main {
-              padding: 60px 40px 100px !important;
-            }
-
-            .testimonial-title {
-              font-size: 52px !important;
-              line-height: 64px !important;
-              margin-bottom: 60px !important;
-            }
-
-            .avatar-carousel {
-              gap: 12px !important;
-              margin-bottom: 60px !important;
-              min-height: 150px !important;
-            }
-
-            .avatar {
-              /* Avatars will be resized individually */
-            }
-
-            .quote-icon {
-              font-size: 42px !important;
-              margin-bottom: 25px !important;
-            }
-
-            .testimonial-content-wrapper {
-              max-width: 600px !important;
-            }
-
-            .testimonial-name {
-              font-size: 18px !important;
-              line-height: 28px !important;
-            }
-
-            .testimonial-company {
-              font-size: 11px !important;
-              margin-bottom: 35px !important;
-            }
-
-            .testimonial-text {
-              font-size: 20px !important;
-              line-height: 36px !important;
-            }
-
-            .nav-arrows {
-              margin-top: 50px !important;
-            }
-
-            .nav-button {
-              width: 45px !important;
-              height: 45px !important;
-            }
-          }
-
-          /* Mobile View (up to 767px) */
           @media (max-width: 767px) {
-            .testimonial-header {
-              padding: 25px 20px !important;
+            .md\\:overflow-x-auto::-webkit-scrollbar {
+              height: 4px;
             }
 
-            .top-right-text {
-              position: static !important;
-              text-align: center !important;
-              max-width: 100% !important;
-              font-size: 13px !important;
-              line-height: 20px !important;
-              padding: 0 20px !important;
-              margin-bottom: 20px !important;
+            .md\\:overflow-x-auto::-webkit-scrollbar-track {
+              background: rgba(0, 0, 0, 0.05);
+              border-radius: 10px;
             }
 
-            .testimonial-main {
-              padding: 40px 20px 80px !important;
-              min-height: auto !important;
+            .md\\:overflow-x-auto::-webkit-scrollbar-thumb {
+              background: rgba(255, 140, 0, 0.5);
+              border-radius: 10px;
             }
 
-            .testimonial-title {
-              font-size: 42px !important;
-              line-height: 52px !important;
-              margin-bottom: 50px !important;
-            }
-
-            .avatar-carousel {
-              gap: 10px !important;
-              margin-bottom: 15px !important;
-              min-height: 120px !important;
-              flex-wrap: nowrap !important;
-              overflow-x: auto !important;
-              overflow-y: hidden !important;
-              justify-content: flex-start !important;
-              padding: 0 20px 15px 20px !important;
-              width: 100vw !important;
-              margin-left: -20px !important;
-              scrollbar-width: thin !important;
-              scrollbar-color: rgba(255, 140, 0, 0.5) transparent !important;
-              scroll-behavior: smooth !important;
-              -webkit-overflow-scrolling: touch !important;
-            }
-
-            .avatar-carousel::-webkit-scrollbar {
-              height: 4px !important;
-            }
-
-            .avatar-carousel::-webkit-scrollbar-track {
-              background: rgba(0, 0, 0, 0.05) !important;
-              border-radius: 10px !important;
-            }
-
-            .avatar-carousel::-webkit-scrollbar-thumb {
-              background: rgba(255, 140, 0, 0.5) !important;
-              border-radius: 10px !important;
-            }
-
-            .avatar-carousel::-webkit-scrollbar-thumb:hover {
-              background: rgba(255, 140, 0, 0.8) !important;
-            }
-
-            .scroll-hint {
-              display: block !important;
-              text-align: center !important;
-              font-size: 12px !important;
-              color: #999 !important;
-              margin-bottom: 35px !important;
-              font-weight: 300 !important;
-            }
-
-            .scroll-hint::after {
-              content: " ← Swipe to see all →" !important;
-            }
-
-            .quote-icon {
-              font-size: 38px !important;
-              margin-bottom: 20px !important;
-            }
-
-            .testimonial-content-wrapper {
-              max-width: 100% !important;
-            }
-
-            .testimonial-name {
-              font-size: 18px !important;
-              line-height: 26px !important;
-            }
-
-            .testimonial-company {
-              font-size: 10px !important;
-              margin-bottom: 30px !important;
-            }
-
-            .testimonial-text {
-              font-size: 17px !important;
-              line-height: 30px !important;
-            }
-
-            .nav-arrows {
-              margin-top: 40px !important;
-              gap: 15px !important;
-            }
-
-            .nav-button {
-              width: 42px !important;
-              height: 42px !important;
-            }
-          }
-
-          /* Small Mobile View (up to 480px) */
-          @media (max-width: 480px) {
-            .testimonial-header {
-              padding: 20px 15px !important;
-            }
-
-            .top-right-text {
-              font-size: 12px !important;
-              line-height: 18px !important;
-              padding: 0 15px !important;
-            }
-
-            .testimonial-main {
-              padding: 30px 15px 60px !important;
-            }
-
-            .testimonial-title {
-              font-size: 36px !important;
-              line-height: 44px !important;
-              margin-bottom: 40px !important;
-            }
-
-            .avatar-carousel {
-              gap: 8px !important;
-              margin-bottom: 12px !important;
-              min-height: 100px !important;
-              padding: 0 15px 12px 15px !important;
-              margin-left: -15px !important;
-            }
-
-            .scroll-hint {
-              font-size: 11px !important;
-              margin-bottom: 30px !important;
-            }
-
-            .quote-icon {
-              font-size: 34px !important;
-              margin-bottom: 18px !important;
-            }
-
-            .testimonial-name {
-              font-size: 17px !important;
-              line-height: 24px !important;
-            }
-
-            .testimonial-company {
-              font-size: 9px !important;
-              margin-bottom: 25px !important;
-            }
-
-            .testimonial-text {
-              font-size: 15px !important;
-              line-height: 26px !important;
-            }
-
-            .nav-arrows {
-              margin-top: 35px !important;
-            }
-
-            .nav-button {
-              width: 38px !important;
-              height: 38px !important;
-            }
-          }
-
-          /* Desktop - hide scroll hint */
-          @media (min-width: 768px) {
-            .scroll-hint {
-              display: none !important;
+            .md\\:overflow-x-auto::-webkit-scrollbar-thumb:hover {
+              background: rgba(255, 140, 0, 0.8);
             }
           }
         `}

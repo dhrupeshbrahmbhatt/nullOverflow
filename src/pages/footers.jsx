@@ -1,4 +1,5 @@
 import React, { memo, useCallback, useState } from 'react';
+import '../index.css';
 
 // Social icons data
 const SOCIAL_LINKS = [
@@ -25,9 +26,9 @@ const SOCIAL_LINKS = [
 ];
 
 const NAV_LINKS = [
-  { text: 'Home', active: false },
+  { text: 'Home', active: true },
   { text: 'Portfolio', active: false },
-  { text: 'Services', active: false },
+  { text: 'Services', active: true },
   { text: 'Contact', active: false },
   { text: 'Blog', active: false }
 ];
@@ -35,15 +36,23 @@ const NAV_LINKS = [
 const POLICY_LINKS = ['Privacy Policy', 'Terms and conditions', 'Cookie Policy', 'Careers'];
 
 const LOCATIONS = [
-  { title: 'Canada', address: '71 South Los Carneros Road,\nCalifornia +51 174 705 812' }
+  {
+    title: 'Canada',
+    address: '71 South Los Carneros Road,',
+    city: 'California +51 174 705 812'
+  }
 ];
 
 const BRAND_NAME = '∅verflow';
 
 // Memoized SocialIcon component
 const SocialIcon = memo(({ name, path, paths, fill, stroke }) => (
-  <a href="#" className="social-icon" aria-label={name}>
-    <svg width="22" height="22" viewBox="0 0 24 24" fill={fill || 'none'} stroke={stroke} strokeWidth={stroke ? '2' : undefined}>
+  <a
+    href="#"
+    className="text-[#a0a0a0] transition-all duration-300 ease-in-out hover:text-[#ff9500] hover:-translate-y-0.5 flex items-center cursor-pointer"
+    aria-label={name}
+  >
+    <svg className="w-[22px] h-[22px] max-md:w-[20px] max-md:h-[20px]" viewBox="0 0 24 24" fill={fill || 'none'} stroke={stroke} strokeWidth={stroke ? '2' : undefined}>
       {paths ? paths.map((p, i) => <path key={i} d={p} />) : <path d={path} />}
     </svg>
   </a>
@@ -65,46 +74,54 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="footer">
-      <div className="footer-container">
+    <footer className="bg-[#000000] py-[120px] px-[200px] relative min-h-[600px] xl:py-24 xl:px-[60px] lg:py-[70px] lg:px-10 md:py-[60px] md:px-8 sm:py-12 sm:px-6 max-sm:py-10 max-sm:px-5" style={{ backgroundColor: '#000000', color: '#ffffff' }}>
+      <div className="grid grid-cols-[1fr_auto_1fr] gap-[150px] max-w-[1600px] mx-auto relative xl:gap-[100px] lg:grid-cols-1 lg:gap-[70px] md:gap-[60px] sm:gap-[50px] max-sm:gap-[40px]">
+
         {/* Left Column - Brand and Newsletter */}
-        <div className="footer-column brand-column">
-          <div className="brand">
-            <span className="brand-name">{BRAND_NAME}</span>
+        <div className="flex flex-col gap-[50px] md:gap-[40px] sm:gap-[35px] max-sm:gap-[30px]">
+          <div className="flex items-start mb-2.5">
+            <span className="text-[48px] font-light text-[#ffffff] leading-[1.1] tracking-tight lg:text-5xl md:text-[42px] sm:text-[38px] max-sm:text-[32px]">{BRAND_NAME}</span>
           </div>
 
-          <p className="newsletter-text">Subscribe our newsletter:</p>
+          <p className="text-[#a0a0a0] text-[15px] font-normal lg:text-sm md:text-[14px] sm:text-[13px] max-sm:text-xs">Subscribe our newsletter:</p>
 
-          <form className="newsletter-form" onSubmit={handleSubmit}>
+          <form
+            className="flex items-center bg-[#2a2a2a] rounded-[60px] pr-2 max-w-[450px] w-full h-[60px] transition-colors duration-300 ease-in-out focus-within:bg-[#333333] md:h-[56px] sm:h-[52px] max-sm:h-[48px]"
+            onSubmit={handleSubmit}
+          >
             <input
               type="email"
               placeholder="ENTER OUR EMAIL"
-              className="email-input"
+              className="flex-1 bg-transparent mt-4 border-none text-[#ffffff] text-[13px] tracking-wider outline-none font-normal px-[35px] text-left placeholder:text-[#606060] placeholder:tracking-wider placeholder:text-[13px] md:px-[30px] md:text-xs sm:px-6 sm:text-[11px] sm:placeholder:text-[11px] max-sm:px-5 max-sm:text-[10px] max-sm:placeholder:text-[10px]"
               value={email}
               onChange={handleEmailChange}
               aria-label="Email address"
             />
-            <button type="submit" className="submit-btn" aria-label="Subscribe">
+            <button
+              type="submit"
+              className="w-[54px] h-[54px] rounded-full bg-[#ff9500] border-none cursor-pointer flex items-center justify-center flex-shrink-0 transition-all duration-300 ease-in-out hover:bg-[#ffa726] hover:scale-105 active:scale-95 md:w-[50px] md:h-[50px] sm:w-[46px] sm:h-[46px] max-sm:w-[42px] max-sm:h-[42px]"
+              aria-label="Subscribe"
+            >
               <div className='mil-button mil-arrow-place mil-icon-button mil-arrow-right'></div>
             </button>
           </form>
 
-          <div className="social-links">
+          <div className="flex justify-content-md-around md:gap-5 sm:gap-4 max-sm:gap-3.5">
             {SOCIAL_LINKS.map(link => (
               <SocialIcon key={link.name} {...link} />
             ))}
           </div>
 
-          <p className="copyright">© Copyright 2023 - Mil. All Rights Reserved.</p>
+          <p className="text-[#606060] text-[16px] font-normal mt-auto md:text-xs sm:text-[11px] max-sm:text-[10px]">© Copyright 2025 - ∅verflow. All Rights Reserved.</p>
         </div>
 
         {/* Middle Column - Navigation */}
-        <nav className="footer-column nav-column">
+        <nav className="flex flex-col gap-7 pt-0 min-w-[200px] md:gap-6 sm:gap-5 max-sm:gap-4 lg:min-w-0">
           {NAV_LINKS.map(link => (
             <a
               key={link.text}
               href="#"
-              className={`nav-link ${link.active ? 'active' : ''}`}
+              className="no-underline text-[#ffffff] text-[38px] font-light transition-all duration-300 ease-in-out tracking-tight leading-[1.2] hover:text-[#ff9500] hover:translate-x-1.5 lg:text-4xl md:text-[32px] sm:text-[28px] max-sm:text-2xl"
             >
               {link.text}
             </a>
@@ -112,24 +129,26 @@ const Footer = () => {
         </nav>
 
         {/* Right Column - Policies and Locations */}
-        <div className="footer-column info-column">
-          <div className="policies">
+        <div className="flex flex-col gap-20 pt-[5px] md:gap-[60px] sm:gap-[50px] max-sm:gap-10 justify-between">
+          <div className="flex flex-col gap-[18px] md:gap-4 sm:gap-3.5 max-sm:gap-3">
             {POLICY_LINKS.map(policy => (
-              <a key={policy} href="#" className="policy-link">{policy}</a>
+              <a
+                key={policy}
+                href="#"
+                className="text-[#a0a0a0] no-underline text-[15px] transition-all duration-300 ease-in-out font-normal hover:text-[#ff9500] hover:translate-x-[3px] lg:text-sm md:text-[14px] sm:text-[13px] max-sm:text-xs"
+              >
+                {policy}
+              </a>
             ))}
           </div>
 
-          <div className="locations">
+          <div className="flex flex-col gap-10">
             {LOCATIONS.map(location => (
-              <div key={location.title} className="location">
-                <h3 className="location-title">{location.title}</h3>
-                <p className="location-address">
-                  {location.address.split('\n').map((line, i) => (
-                    <React.Fragment key={i}>
-                      {line}
-                      {i < location.address.split('\n').length - 1 && <br />}
-                    </React.Fragment>
-                  ))}
+              <div key={location.title} className="flex-1">
+                <h3 className="text-2xl font-medium mb-5 text-[#ffffff] tracking-tight lg:text-[22px] md:text-xl md:mb-4 sm:text-lg sm:mb-3.5 max-sm:text-base max-sm:mb-3">{location.title}</h3>
+                <p className="text-[#a0a0a0] text-[15px] leading-[1.9] font-normal lg:text-sm md:text-[14px] md:leading-[1.8] sm:text-[13px] sm:leading-[1.7] max-sm:text-xs max-sm:leading-[1.6]">
+                  {location.address}<br />
+                  {location.city}
                 </p>
               </div>
             ))}
@@ -138,614 +157,24 @@ const Footer = () => {
       </div>
 
       {/* Back to Top Button - Right Side */}
-      <button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <button
+        className="fixed right-[30px] bottom-[30px] bg-[#1a1a1a] border-none cursor-pointer flex flex-col items-center gap-3 py-4 px-3 text-[#ffffff] transition-all duration-300 ease-in-out rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:text-[#ff9500] hover:bg-[#2a2a2a] hover:-translate-y-0.5 hover:shadow-[0_6px_25px_rgba(0,0,0,0.4)] lg:bottom-[25px] lg:right-[25px] md:bottom-5 md:right-5 sm:bottom-4 sm:right-4 max-sm:bottom-3 max-sm:right-3 max-sm:py-3 max-sm:px-2.5"
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Back to top"
+      >
+        <svg
+          className="w-6 h-6 md:w-5 md:h-5 sm:w-[18px] sm:h-[18px] max-sm:w-4 max-sm:h-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
           <path d="M12 19V5M5 12l7-7 7 7"/>
         </svg>
-        <span className="back-to-top-text">BACK TO TOP</span>
+        <span className="[writing-mode:vertical-rl] rotate-180 text-[10px] tracking-[3px] text-[#606060] font-medium transition-colors duration-300 ease-in-out hover:text-[#ff9500] md:text-[9px] md:tracking-[2.5px] sm:text-[8px] sm:tracking-[2px] max-sm:text-[7px] max-sm:tracking-[1.5px]">BACK TO TOP</span>
       </button>
     </footer>
   );
 };
-
-// Inline styles
-const styles = `
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-}
-
-.footer {
-  background-color: #000000;
-  color: #ffffff;
-  padding: 100px 200px 100px;
-  position: relative;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
-  min-height: 700px;
-}
-
-.footer-container {
-  display: grid;
-  grid-template-columns: 420px 300px 1fr;
-  gap: 100px;
-  max-width: 1600px;
-  margin: 0 auto;
-  position: relative;
-}
-
-/* Brand Column */
-.brand-column {
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-}
-
-.brand {
-  display: flex;
-  align-items: flex-start;
-  gap: 0;
-  margin-bottom: 10px;
-}
-
-.brand-letter {
-  font-size: 96px;
-  font-weight: 300;
-  color: #ffffff;
-  line-height: 0.9;
-  letter-spacing: -2px;
-}
-
-.brand-name {
-  font-size: 52px;
-  font-weight: 300;
-  color: #ffffff;
-  line-height: 0.9;
-  margin-left: 0;
-  letter-spacing: -1px;
-}
-
-.newsletter-text {
-  color: #888888;
-  font-size: 15px;
-  margin-bottom: -5px;
-  font-weight: 400;
-}
-
-.newsletter-form {
-  display: flex;
-  align-items: center;
-  background-color: #1a1a1a;
-  border-radius: 60px;
-  padding: 0px 8px 0px 0px;
-  max-width: 400px;
-  width: 100%;
-  height: 60px;
-  transition: background-color 0.3s ease;
-}
-
-.newsletter-form:focus-within {
-  background-color: #222222;
-}
-
-.email-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: #ffffff;
-  font-size: 13px;
-  letter-spacing: 1px;
-  outline: none;
-  font-weight: 400;
-  padding: 0 35px;
-  text-align: left;
-}
-
-.email-input::placeholder {
-  color: #666666;
-  letter-spacing: 1px;
-  font-size: 13px;
-}
-
-.submit-btn {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #ff9500;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
-}
-
-.submit-btn:hover {
-  background-color: #ffa726;
-  transform: scale(1.05);
-}
-
-.submit-btn:active {
-  transform: scale(0.95);
-}
-
-.social-links {
-  display: flex;
-  gap: 24px;
-  margin-top: 30px;
-}
-
-.social-icon {
-  color: #ffffff;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.social-icon:hover {
-  color: #ff9500;
-  transform: translateY(-2px);
-}
-
-.copyright {
-  color: #555555;
-  font-size: 13px;
-  margin-top: 60px;
-  font-weight: 400;
-}
-
-.homepage-label {
-  color: #666666;
-  font-size: 10px;
-  letter-spacing: 3px;
-  font-weight: 500;
-  writing-mode: vertical-rl;
-  position: absolute;
-  left: 30px;
-  bottom: 60px;
-  transform: rotate(180deg);
-}
-
-/* Navigation Column */
-.nav-column {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  padding-top: 0;
-}
-
-.nav-link {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 38px;
-  font-weight: 300;
-  transition: all 0.3s ease;
-  letter-spacing: -0.5px;
-  line-height: 1.2;
-}
-
-.nav-link:hover {
-  color: #ff9500;
-  transform: translateX(5px);
-}
-
-.nav-link.active {
-  color: #ff9500;
-}
-
-/* Info Column */
-.info-column {
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
-  padding-top: 5px;
-}
-
-.policies {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.policy-link {
-  color: #888888;
-  text-decoration: none;
-  font-size: 15px;
-  transition: all 0.3s ease;
-  font-weight: 400;
-}
-
-.policy-link:hover {
-  color: #ffffff;
-  transform: translateX(3px);
-}
-
-.locations {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-}
-
-.location {
-  flex: 1;
-}
-
-.location-title {
-  font-size: 24px;
-  font-weight: 500;
-  margin-bottom: 20px;
-  color: #ffffff;
-  letter-spacing: -0.5px;
-}
-
-.location-address {
-  color: #888888;
-  font-size: 15px;
-  line-height: 1.9;
-  font-weight: 400;
-}
-
-/* Back to Top Button */
-.back-to-top {
-  position: fixed;
-  right: 30px;
-  bottom: 30px;
-  background: #000000;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 12px;
-  color: #ffffff;
-  transition: all 0.3s ease;
-  border-radius: 50px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.back-to-top:hover {
-  color: #ff9500;
-  background: #1a1a1a;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
-}
-
-.back-to-top svg {
-  color: inherit;
-}
-
-.back-to-top-text {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 10px;
-  letter-spacing: 3px;
-  color: #666666;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.back-to-top:hover .back-to-top-text {
-  color: #ff9500;
-}
-
-/* Responsive Design */
-/* Large Desktop View (up to 1400px) */
-@media (max-width: 1400px) {
-  .footer-container {
-    grid-template-columns: 380px 280px 1fr;
-    gap: 60px;
-  }
-
-  .footer {
-    padding: 80px 60px 50px;
-  }
-}
-
-/* Tablet View (768px - 1024px) */
-@media (max-width: 1024px) {
-  .footer-container {
-    grid-template-columns: 1fr;
-    gap: 70px;
-  }
-
-  .footer {
-    padding: 60px 40px 40px;
-  }
-
-  .brand-name {
-    font-size: 48px;
-  }
-
-  .newsletter-text {
-    font-size: 14px;
-  }
-
-  .newsletter-form {
-    max-width: 100%;
-  }
-
-  .email-input {
-    font-size: 13px;
-  }
-
-  .nav-link {
-    font-size: 36px;
-  }
-
-  .policy-link {
-    font-size: 14px;
-  }
-
-  .location-title {
-    font-size: 22px;
-  }
-
-  .location-address {
-    font-size: 14px;
-  }
-
-  .homepage-label {
-    position: static;
-    writing-mode: horizontal-tb;
-    transform: none;
-    margin-top: 50px;
-    font-size: 10px;
-  }
-
-  .locations {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .back-to-top {
-    bottom: 25px;
-    right: 25px;
-  }
-
-  .back-to-top:hover {
-    transform: translateY(-2px);
-  }
-}
-
-/* Mobile View (up to 767px) */
-@media (max-width: 767px) {
-  .footer {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-
-  .footer-container {
-    gap: 50px;
-  }
-
-  .brand-column {
-    gap: 40px;
-  }
-
-  .brand-name {
-    font-size: 42px;
-    line-height: 1;
-  }
-
-  .newsletter-text {
-    font-size: 13px;
-    margin-bottom: -3px;
-  }
-
-  .newsletter-form {
-    height: 56px;
-    padding: 0 6px 0 0;
-  }
-
-  .email-input {
-    font-size: 12px;
-    padding: 0 25px;
-  }
-
-  .email-input::placeholder {
-    font-size: 12px;
-  }
-
-  .submit-btn {
-    width: 46px;
-    height: 46px;
-  }
-
-  .social-links {
-    gap: 20px;
-    margin-top: 20px;
-  }
-
-  .social-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .copyright {
-    font-size: 12px;
-    margin-top: 50px;
-  }
-
-  .nav-column {
-    gap: 24px;
-  }
-
-  .nav-link {
-    font-size: 30px;
-    line-height: 1.1;
-  }
-
-  .info-column {
-    gap: 60px;
-  }
-
-  .policies {
-    gap: 16px;
-  }
-
-  .policy-link {
-    font-size: 13px;
-  }
-
-  .location-title {
-    font-size: 20px;
-    margin-bottom: 16px;
-  }
-
-  .location-address {
-    font-size: 13px;
-    line-height: 1.8;
-  }
-
-  .homepage-label {
-    display: none;
-  }
-
-  .back-to-top {
-    bottom: 20px;
-    right: 20px;
-    gap: 16px;
-    padding: 16px 12px;
-  }
-
-  .back-to-top svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .back-to-top-text {
-    font-size: 9px;
-    letter-spacing: 2.5px;
-  }
-}
-
-/* Small Mobile View (up to 480px) */
-@media (max-width: 480px) {
-  .footer {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-
-  .footer-container {
-    gap: 45px;
-  }
-
-  .brand-column {
-    gap: 35px;
-  }
-
-  .brand-name {
-    font-size: 36px;
-  }
-
-  .newsletter-text {
-    font-size: 12px;
-  }
-
-  .newsletter-form {
-    height: 52px;
-    padding: 0 5px 0 0;
-  }
-
-  .email-input {
-    font-size: 11px;
-    padding: 0 20px;
-  }
-
-  .email-input::placeholder {
-    font-size: 11px;
-    letter-spacing: 0.5px;
-  }
-
-  .submit-btn {
-    width: 42px;
-    height: 42px;
-  }
-
-  .social-links {
-    gap: 18px;
-    margin-top: 18px;
-  }
-
-  .social-icon svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  .copyright {
-    font-size: 11px;
-    margin-top: 45px;
-  }
-
-  .nav-column {
-    gap: 22px;
-  }
-
-  .nav-link {
-    font-size: 26px;
-  }
-
-  .info-column {
-    gap: 50px;
-  }
-
-  .policies {
-    gap: 14px;
-  }
-
-  .policy-link {
-    font-size: 12px;
-  }
-
-  .location-title {
-    font-size: 18px;
-    margin-bottom: 14px;
-  }
-
-  .location-address {
-    font-size: 12px;
-    line-height: 1.7;
-  }
-
-  .back-to-top {
-    bottom: 15px;
-    right: 15px;
-    gap: 14px;
-    padding: 14px 10px;
-  }
-
-  .back-to-top svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  .back-to-top-text {
-    font-size: 8px;
-    letter-spacing: 2px;
-  }
-}
-`;
-
-// Create a style element and inject CSS
-if (typeof document !== 'undefined') {
-  const styleSheet = document.createElement("style");
-  styleSheet.textContent = styles;
-  if (!document.head.querySelector('style[data-footer-styles]')) {
-    styleSheet.setAttribute('data-footer-styles', 'true');
-    document.head.appendChild(styleSheet);
-  }
-}
 
 export default Footer;
