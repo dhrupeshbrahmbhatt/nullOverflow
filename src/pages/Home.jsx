@@ -4,7 +4,7 @@ import CustomerTestimonials from './testimonial';
 import MeetOurTeamPage from './meetOurTeam';
 import AgencyLandingPage from './agencyLanding';
 import StudioAboutPage from './studioAboutPage';
-
+import HeroSection from './herosection';
 import PopularPublications from './popularPublication';
 
 const Home = () => {
@@ -12,6 +12,7 @@ const Home = () => {
   const aboutRef = useRef(null);
   const [showTop, setShowTop] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [logoColor, setLogoColor] = useState('black');
 
   const scrollToAbout = () => {
     if (aboutRef.current) {
@@ -25,6 +26,23 @@ const Home = () => {
     const handleScroll = () => {
       if (aboutRef.current) {
         setShowTop(window.scrollY >= aboutRef.current.offsetTop - 100);
+      }
+
+      // Change logo color based on scroll position
+      const scrollPosition = window.scrollY;
+
+      // If at the top (hero section - white background), use black text
+      if (scrollPosition < 100) {
+        setLogoColor('black');
+      }
+      // If scrolled past hero into white sections, use black
+      else if (aboutRef.current && scrollPosition < aboutRef.current.offsetTop + aboutRef.current.offsetHeight) {
+        setLogoColor('black');
+      }
+      // For other sections, check if background is dark
+      else {
+        // You can adjust this logic based on which sections have dark backgrounds
+        setLogoColor('black');
       }
     };
     window.addEventListener('scroll', handleScroll);
@@ -241,8 +259,8 @@ const Home = () => {
       {/* Curtain */}
       <div className="mil-curtain"></div>
       {/* Frame */}
-      <div className="mil-frame">
-        <div className="mil-frame-top">
+      <div className="mil-frame" style={{ zIndex: 10000 }}>
+        <div className="mil-frame-top" style={{ zIndex: 10000 }}>
           <a
   href="home-1.html"
   className="mil-logo"
@@ -251,9 +269,9 @@ const Home = () => {
     fontSize: "40px",
     fontWeight: 600,
     position: "relative",
-
-    zIndex: 9999, 
-    
+    zIndex: 10000,
+    color: logoColor,
+    transition: "color 0.3s ease",
   }}
 >
   ∅verflow
@@ -273,162 +291,14 @@ const Home = () => {
       <div className="mil-content">
         <div id="swupMain" className="mil-main-transition">
           
-          {/* Banner */}
-          <section className="mil-banner mil-dark-bg">
-            <div className="mi-invert-fix">
-              <div className="mil-animation-frame">
-                <div className="mil-animation mil-position-1 mil-scale" data-value-1="7" data-value-2="1.6"></div>
-                <div className="mil-animation mil-position-2 mil-scale" data-value-1="4" data-value-2="1"></div>
-                <div className="mil-animation mil-position-3 mil-scale" data-value-1="1.2" data-value-2=".1"></div>
-              </div>
+          {/* Banner - New HeroSection Component (Migrated to Tailwind CSS) */}
+          <HeroSection scrollToAbout={scrollToAbout} />
 
-              <div className="mil-gradient"></div>
-
-              <div className="container">
-                <div className="mil-banner-content mil-up">
-                  <h1 className="mil-muted mil-mb-60">Designing <span className="mil-thin">a Better</span><br /> World <span className="mil-thin">Today</span></h1>
-                  <div className="row">
-                    <div className="col-md-7 col-lg-5">
-                      <p className="mil-light-soft mil-mb-60">Welcome to our world of endless imigination and boundless <br /> creativity. Together, let's embark on a remarkable journey where <br /> dreams become tangible realities.</p>
-                    </div>
-                  </div>
-                  <a href="#." className="mil-button mil-arrow-place mil-btn-space">
-                    <span>What we do</span>
-                  </a>
-                  <a href="portfolio-1.html" className="mil-link mil-muted mil-arrow-place mil-view-works">
-                    <span>View works</span>
-                  </a>
-                  <div className="mil-circle-text">
-                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 300 300" enableBackground="new 0 0 300 300" xmlSpace="preserve" className="mil-ct-svg mil-rotate" data-value="360">
-                      <defs>
-                        <path id="circlePath" d="M 150, 150 m -60, 0 a 60,60 0 0,1 120,0 a 60,60 0 0,1 -120,0 "></path>
-                      </defs>
-                      <circle cx="60" cy="80" r="45" fill="none"></circle>
-                      <g>
-                        <use xlinkHref="#circlePath" fill="none"></use>
-                        <text style={{letterSpacing: '6.5px'}}>
-                          <textPath xlinkHref="#circlePath">Scroll down - Scroll down - </textPath>
-                        </text>
-                      </g>
-                    </svg>
-                    <a href="#about" onClick={(e)=>{e.preventDefault(); scrollToAbout();}} className="mil-button mil-arrow-place mil-icon-button mil-arrow-down"></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Banner Responsive Styles */}
-          <style>{`
-            /* Tablet View (1024px and below) */
-            @media screen and (max-width: 1024px) {
-              .mil-banner .mil-banner-content {
-                padding-bottom: 100px;
-              }
-              .mil-banner h1 {
-                font-size: 64px !important;
-                line-height: 1.2 !important;
-                margin-bottom: 40px !important;
-              }
-              .mil-banner p {
-                font-size: 15px !important;
-                line-height: 22px !important;
-                margin-bottom: 40px !important;
-              }
-            }
-
-            /* Tablet and Phone View (768px and below) */
-            @media screen and (max-width: 768px) {
-              .mil-banner .mil-banner-content {
-                padding-bottom: 80px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-              }
-              .mil-banner h1 {
-                font-size: 48px !important;
-                line-height: 1.3 !important;
-                margin-bottom: 30px !important;
-                text-align: center;
-              }
-              .mil-banner .row {
-                width: 100%;
-                justify-content: center;
-              }
-              .mil-banner .row .col-md-7 {
-                max-width: 100%;
-                padding: 0 20px;
-              }
-              .mil-banner p {
-                font-size: 14px !important;
-                line-height: 20px !important;
-                margin-bottom: 35px !important;
-                text-align: center;
-              }
-              .mil-banner p br {
-                display: none;
-              }
-              .mil-banner .mil-button {
-                margin: 0 auto 20px;
-              }
-              .mil-banner .mil-view-works {
-                display: none !important;
-              }
-            }
-
-            /* Phone View (600px and below) */
-            @media screen and (max-width: 600px) {
-              .mil-banner .mil-banner-content {
-                padding-bottom: 60px;
-              }
-              .mil-banner h1 {
-                font-size: 40px !important;
-                line-height: 1.25 !important;
-                margin-bottom: 25px !important;
-              }
-              .mil-banner p {
-                font-size: 13px !important;
-                line-height: 19px !important;
-                margin-bottom: 30px !important;
-              }
-            }
-
-            /* Small Phone View (480px and below) */
-            @media screen and (max-width: 480px) {
-              .mil-banner .mil-banner-content {
-                padding-bottom: 50px;
-              }
-              .mil-banner h1 {
-                font-size: 36px !important;
-                line-height: 1.3 !important;
-                margin-bottom: 20px !important;
-              }
-              .mil-banner p {
-                font-size: 12px !important;
-                line-height: 18px !important;
-                margin-bottom: 25px !important;
-                padding: 0 10px;
-              }
-              .mil-banner .mil-button {
-                font-size: 10px !important;
-                height: 60px !important;
-                padding: 0 10px 0 40px !important;
-              }
-            }
-
-            /* Extra Small Phone View (375px and below) */
-            @media screen and (max-width: 375px) {
-              .mil-banner h1 {
-                font-size: 32px !important;
-                line-height: 1.3 !important;
-              }
-              .mil-banner p {
-                font-size: 11px !important;
-                line-height: 17px !important;
-              }
-            }
-          `}</style>
+          {/*
+          OLD BANNER CODE - COMMENTED OUT
+          The banner section has been extracted to a separate HeroSection component
+          with Tailwind CSS migration. See /src/pages/herosection.jsx
+          */}
 
           {/* About */}
           <div id="about" ref={aboutRef}>
