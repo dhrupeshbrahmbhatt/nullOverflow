@@ -125,26 +125,14 @@ const CustomerTestimonials = () => {
         `}
       </style>
 
-      {/* Header with Logo and Menu */}
-      <header className="flex justify-between items-center py-10 px-20 relative lg:py-[30px] lg:px-10 md:py-[25px] md:px-5 max-md:py-5 max-md:px-[15px]">
-        {/* Logo */}
-        <div className="text-4xl font-bold text-black lg:text-3xl md:text-2xl max-md:text-xl">A.</div>
-
-        {/* Hamburger Menu Icon */}
-        <button className="flex flex-col gap-[5px] cursor-pointer bg-transparent border-none" aria-label="Menu">
-          <span className="w-8 h-[2px] bg-black lg:w-7 md:w-6 max-md:w-5"></span>
-          <span className="w-8 h-[2px] bg-black lg:w-7 md:w-6 max-md:w-5"></span>
-          <span className="w-8 h-[2px] bg-black lg:w-7 md:w-6 max-md:w-5"></span>
-        </button>
-      </header>
 
       {/* Main Content */}
       <main className="py-16 px-20 pb-[140px] flex flex-col items-center justify-center lg:py-12 lg:px-10 lg:pb-[120px] md:py-10 md:px-5 md:pb-24 max-md:py-8 max-md:px-[15px] max-md:pb-[70px]">
 
         {/* Top Section - Description and Title Centered */}
-        <div className="w-full flex flex-col items-center justify-center text-center mb-24 lg:mb-20 md:mb-16 max-md:mb-12">
+        <div className="w-full flex flex-col items-center justify-center gap-[60px] text-center mb-24 lg:mb-20 md:mb-16 max-md:mb-12">
           {/* Description Text */}
-          <p className="text-center text-[13px] font-light text-[#888888] leading-[20px] max-w-[450px] mb-24 lg:max-w-[400px] lg:text-[12px] lg:leading-[18px] lg:mb-20 md:max-w-full md:text-[12px] md:leading-5 md:mb-16 max-md:text-[11px] max-md:leading-[18px] max-md:mb-12">
+          <p className="text-center mt-[40px] text-[16px] font-right text-[#888888] leading-[20px] max-w-[450px] mb-24 lg:max-w-[400px] lg:text-[12px] lg:leading-[18px] lg:mb-20 md:max-w-full md:text-[12px] md:leading-5 md:mb-16 max-md:text-[11px] max-md:leading-[18px] max-md:mb-12">
             Customer reviews are a valuable source<br />
             of information for both businesses and consumers.
           </p>
@@ -158,7 +146,7 @@ const CustomerTestimonials = () => {
         </div>
 
         {/* Avatar Carousel */}
-        <div className="flex items-end justify-between gap-4 mb-20 relative min-h-[140px] lg:gap-3 lg:mb-16 lg:min-h-[120px] md:gap-2.5 md:mb-14 md:min-h-[100px] md:items-center md:flex-nowrap md:overflow-x-auto md:overflow-y-hidden md:justify-start md:py-0 md:px-5 md:pb-[15px] md:w-screen md:-ml-5 md:[scrollbar-width:thin] md:[scrollbar-color:rgba(255,140,0,0.5)_transparent] md:scroll-smooth md:[-webkit-overflow-scrolling:touch] max-md:gap-2 max-md:mb-12 max-md:min-h-[90px] max-md:px-[15px] max-md:pb-3 max-md:-ml-[15px]">
+        <div className="flex items-end justify-between gap-4 mt-[100px] mb-[50px] relative h-[160px] lg:gap-3 lg:mt-20 lg:mb-12 lg:h-[140px] md:gap-2.5 md:mt-16 md:mb-10 md:h-[120px] md:items-center md:flex-nowrap md:overflow-x-auto md:overflow-y-hidden md:justify-start md:py-0 md:px-5 md:pb-[15px] md:w-screen md:-ml-5 md:[scrollbar-width:thin] md:[scrollbar-color:rgba(255,140,0,0.5)_transparent] md:scroll-smooth md:[-webkit-overflow-scrolling:touch] max-md:gap-2 max-md:mt-12 max-md:mb-8 max-md:h-[100px] max-md:px-[15px] max-md:pb-3 max-md:-ml-[15px]">
           {testimonials.map((testimonial, index) => {
             const isActive = index === activeTestimonial;
             const size = isActive ? '100px' : '80px';
@@ -185,7 +173,8 @@ const CustomerTestimonials = () => {
                   width: size,
                   height: size,
                   border: isActive ? `${borderWidth} solid #ff9500` : 'none',
-                  marginBottom: marginBottom
+                  marginBottom: marginBottom,
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
               >
                 <img
@@ -205,13 +194,13 @@ const CustomerTestimonials = () => {
         {/* Quote Icon */}
         <div
           key={`quote-${activeTestimonial}`}
-          className="quote-icon text-[40px] text-[#ff9500] mb-12 font-bold lg:text-[36px] lg:mb-10 md:text-[32px] md:mb-8 max-md:text-[28px] max-md:mb-6"
+          className="quote-icon text-[40px] m-5 text-[#ff9500] mb-12 font-bold lg:text-[36px] lg:mb-10 md:text-[32px] md:mb-8 max-md:text-[28px] max-md:mb-6"
         >
           ,,
         </div>
 
         {/* Testimonial Content with Side Navigation */}
-        <div className="w-full max-w-[1000px] relative flex items-center justify-center gap-8 lg:max-w-[850px] lg:gap-6 md:flex-col md:max-w-full md:gap-8">
+        <div className="w-full max-w-[1000px] relative flex items-center justify-content-between gap-8 lg:max-w-[850px] lg:gap-6 md:flex-col md:max-w-full md:gap-8">
           {/* Previous Button - Left Side */}
           <button
             onClick={handlePrevious}

@@ -19,25 +19,29 @@ const StudioAboutPage = () => {
   };
 
   return (
-    <div style={{
-      fontFamily: "'Poppins', sans-serif",
-      margin: 0,
-      padding: 0,
-      backgroundColor: '#ffffff',
-      minHeight: '100vh',
-      position: 'relative'
-    }}>
+    <div className="studio-about-container font-['Poppins',sans-serif] m-0 p-0 bg-white min-h-screen relative">
       {/* Google Fonts */}
       <style>
         {`
           @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-          
+
+          html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            background-color: #ffffff !important;
+            overflow-x: hidden;
+          }
+
           * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
           }
-          
+
+          .studio-about-container {
+            background-color: #ffffff !important;
+          }
+
           @keyframes fadeInUp {
             from {
               opacity: 0;
@@ -48,7 +52,7 @@ const StudioAboutPage = () => {
               transform: translateY(0);
             }
           }
-          
+
           @keyframes fadeIn {
             from {
               opacity: 0;
@@ -57,30 +61,30 @@ const StudioAboutPage = () => {
               opacity: 1;
             }
           }
-          
+
           .fade-in-up {
             animation: fadeInUp 0.8s ease-out forwards;
           }
-          
+
           .fade-in {
             animation: fadeIn 1s ease-out forwards;
           }
-          
+
           .delay-1 {
             animation-delay: 0.2s;
             opacity: 0;
           }
-          
+
           .delay-2 {
             animation-delay: 0.4s;
             opacity: 0;
           }
-          
+
           .delay-3 {
             animation-delay: 0.6s;
             opacity: 0;
           }
-          
+
           .delay-4 {
             animation-delay: 0.8s;
             opacity: 0;
@@ -89,134 +93,65 @@ const StudioAboutPage = () => {
       </style>
 
       {/* Header */}
-      <header style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        padding: '30px 60px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        
-        zIndex: 1000,
-        transition: 'all 0.3s ease'
-      }}>
-        
-        
-        
+      <header className="fixed top-0 left-0 right-0 py-[30px] px-[60px] flex justify-between items-center z-[1000] transition-all duration-300">
+
+
+
       </header>
 
       {/* Main Content */}
-      <main style={{
-        paddingTop: '120px',
-        padding: '60px 140px',
-        display: 'flex',
-        gap: '40px',
-        maxWidth: '1400px',
-        margin: '0 auto',
-        alignItems: 'center',
-        flexWrap: 'nowrap'
-      }}>
+      <main className="pt-[120px] px-[140px] pb-[60px] flex gap-10 max-w-[1400px] mx-auto items-center flex-nowrap">
         {/* Left Content */}
-        <div style={{
-          flex: '1 1 500px',
-          minWidth: '400px'
-        }}>
-          <h1 style={{
-            fontSize: '68px',
-            fontWeight: '100',
-            lineHeight: '1.2',
-            marginBottom: '60px',
-            color: '#000'
-          }} className="fade-in-up">
+        <div className="flex-[1_1_500px] min-w-[400px]">
+          <h1 className="text-[68px] font-thin leading-[1.2] mb-[60px] text-black fade-in-up">
             <br />
-            <span style={{ fontWeight: '500' }}>Discover</span> <br />
-            <span style={{ fontWeight: '500' }}>Our</span> Studio
+            <span className="font-medium">Discover</span> <br />
+            <span className="font-medium">Our</span> Studio
           </h1>
-          
-          <p style={{
-            fontSize: '16px',
-            lineHeight: '24px',
-            width: '500px',
-            color: '#666',
-            marginBottom: '20px',
-            fontWeight: '300'
-          }} className="fade-in-up delay-1">
+
+          <p className="text-base leading-6 w-[500px] text-[#666] mb-5 font-light fade-in-up delay-1">
             At our design studio, we are a collective of talented individuals ignited by our unwavering passion for transforming ideas into reality. With a harmonious blend of diverse backgrounds and a vast array of skill sets, we join forces to create compelling solutions for our esteemed clients.
           </p>
-          <p style={{ fontSize: '16px', lineHeight: '24px', width: '500px', color: '#666', margin: '30px 0', fontWeight: '300' }} className="fade-in-up delay-2">
+          <p className="text-base leading-6 w-[500px] text-[#666] my-[30px] font-light fade-in-up delay-2">
             Collaboration is at the heart of what we do. Our team thrives on the synergy that arises when unique perspectives converge, fostering an environment of boundless creativity. By harnessing our collective expertise, we produce extraordinary results that consistently surpass expectations.
           </p>
 
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '15px',
-            padding: '15px 0'
-          }} className="fade-in-up delay-3">
+          <div className="flex items-center gap-[15px] py-[15px] fade-in-up delay-3">
             <img
               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
               alt="Profile"
-              style={{
-                width: '90px',
-                height: '90px',
-                borderRadius: '50%',
-                objectFit: 'cover'
-              }}
+              className="w-[90px] h-[90px] rounded-full object-cover"
             />
-            
+
             <div>
-              <div style={{
-                fontSize: '18px',
-                lineHeight: '27px',
-                fontWeight: '500',
-                color: '#000',
-                marginBottom: '3px'
-              }}>
-                Passionately Creating <span style={{ fontWeight: '300', color: '#666' }}>Design Wonders:</span>
+              <div className="text-lg leading-[27px] font-medium text-black mb-[3px]">
+                Passionately Creating <span className="font-light text-[#666]">Design Wonders:</span>
               </div>
-              <div style={{
-                fontSize: '18px',
-                lineHeight: '27px',
-                fontWeight: '100',
-                color: '#000'
-              }}>
-                Unleashing <span style={{ fontWeight: '300', color: '#666' }}>Boundless Creativity</span>
+              <div className="text-lg leading-[27px] font-thin text-black">
+                Unleashing <span className="font-light text-[#666]">Boundless Creativity</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Right Image */}
-        <div style={{
-          flex: '1',
-          minWidth: '400px', order: 2, display: 'flex', alignItems: 'stretch'
-        }} className="fade-in delay-4">
+        <div className="flex-1 min-w-[400px] order-2 flex items-stretch fade-in delay-4">
           <img
             src="/images/1_2.jpg"
-            className="studio-img" alt="Studio workspace"
-            style={{
-              width: '100%',
-              height: '620px',
-              borderRadius: '8px',
-              objectFit: 'cover',
-              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
-              transition: 'transform 0.5s ease',
-              cursor: 'pointer'
-            }}
+            className="studio-img w-full h-[620px] rounded-[30px] object-cover shadow-[0_20px_60px_rgba(0,0,0,0.15)] transition-transform duration-500 cursor-pointer"
+            alt="Studio workspace"
           />
         </div>
       </main>
 
       {/* Side Navigation */}
-      
-      
+
+
 
       {/* Back to Top Button */}
-      
 
-      
+
+
 
       {/* Responsive Styles */}
       <style>
