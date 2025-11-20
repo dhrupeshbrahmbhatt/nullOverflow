@@ -92,13 +92,6 @@ const StudioAboutPage = () => {
         `}
       </style>
 
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 py-[30px] px-[60px] flex justify-between items-center z-[1000] transition-all duration-300">
-
-
-
-      </header>
-
       {/* Main Content */}
       <main className="pt-[120px] px-[140px] pb-[60px] flex gap-10 max-w-[1400px] mx-auto items-center flex-nowrap">
         {/* Left Content */}

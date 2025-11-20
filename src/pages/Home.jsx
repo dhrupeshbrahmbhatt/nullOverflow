@@ -10,9 +10,15 @@ import PopularPublications from './popularPublication';
 const Home = () => {
   const topRef = useRef(null);
   const aboutRef = useRef(null);
+  const heroRef = useRef(null);
+  const servicesRef = useRef(null);
+  const teamRef = useRef(null);
+  const testimonialsRef = useRef(null);
+  const publicationsRef = useRef(null);
+  const footerRef = useRef(null);
   const [showTop, setShowTop] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [logoColor, setLogoColor] = useState('black');
+  const [logoColor, setLogoColor] = useState('white');
 
   const scrollToAbout = () => {
     if (aboutRef.current) {
@@ -28,23 +34,32 @@ const Home = () => {
         setShowTop(window.scrollY >= aboutRef.current.offsetTop - 100);
       }
 
-      // Change logo color based on scroll position
-      const scrollPosition = window.scrollY;
+      // Change logo color based on which section is currently in view
+      const scrollPosition = window.scrollY + 100; // Offset for navbar height
 
-      // If at the top (hero section - white background), use black text
-      if (scrollPosition < 100) {
-        setLogoColor('black');
+      // Section 1: Hero (Black background) - White text
+      if (heroRef.current && scrollPosition < heroRef.current.offsetTop + heroRef.current.offsetHeight) {
+        setLogoColor('white');
       }
-      // If scrolled past hero into white sections, use black
+      // Section 2: About (White background) - Black text
       else if (aboutRef.current && scrollPosition < aboutRef.current.offsetTop + aboutRef.current.offsetHeight) {
         setLogoColor('black');
       }
-      // For other sections, check if background is dark
-      else {
-        // You can adjust this logic based on which sections have dark backgrounds
+      // Section 3: Services (Black background) - White text
+      else if (servicesRef.current && scrollPosition < servicesRef.current.offsetTop + servicesRef.current.offsetHeight) {
+        setLogoColor('white');
+      }
+      // Section 4+: Team, Testimonials, Publications (White backgrounds) - Black text
+      else if (publicationsRef.current && scrollPosition < publicationsRef.current.offsetTop + publicationsRef.current.offsetHeight) {
         setLogoColor('black');
       }
+      // Section Last: Footer (Black background) - White text
+      else {
+        setLogoColor('white');
+      }
     };
+
+    handleScroll(); // Run once on mount
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -88,8 +103,8 @@ const Home = () => {
         <div className="mil-choose-text">Сhoose</div>
       </div>
 
-     {/* Preloader */}
-      <div className="mil-preloader">
+      {/* Preloader */}
+      <div className="mil-preloader" style={{ zIndex: 99999, position: 'fixed' }}>
         <div className="mil-preloader-animation">
           <div className="mil-pos-abs mil-animation-1">
             <p className="mil-h3 mil-muted mil-thin">Pioneering</p>
@@ -105,8 +120,100 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Preloader Mobile Responsive Styles */}
+      {/* Preloader and Mobile Responsive Styles */}
       <style>{`
+        /* Ensure preloader is on top */
+        .mil-preloader {
+          z-index: 99999 !important;
+          position: fixed !important;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100vh;
+        }
+
+        .mil-preloader-animation {
+          opacity: 0;
+          position: relative;
+          width: 100%;
+          height: 100vh;
+        }
+
+        .mil-preloader .mil-pos-abs {
+          position: absolute !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          width: 100% !important;
+          height: 100vh !important;
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+          text-align: center !important;
+        }
+
+        .mil-preloader .mil-animation-1 {
+          position: absolute !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+        }
+
+        .mil-preloader .mil-animation-2 {
+          position: absolute !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+        }
+
+        .mil-preloader .mil-animation-1 p,
+        .mil-preloader .mil-animation-2 p,
+        .mil-preloader .mil-animation-2 .mil-reveal-frame {
+          margin: 0 auto;
+        }
+
+        /* Laptop view - move navbar lower */
+        @media screen and (min-width: 1024px) and (max-width: 1440px) {
+          .mil-frame-top {
+            top: 30px !important;
+          }
+        }
+
+        /* Make hamburger button visible initially */
+        .mil-menu-btn {
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+
+        .mil-menu-btn span,
+        .mil-menu-btn span::before,
+        .mil-menu-btn span::after {
+          opacity: 1 !important;
+          visibility: visible !important;
+          transition: background-color 0.3s ease !important;
+        }
+
+        /* Ensure pseudo-elements inherit the background color */
+        .mil-menu-btn span::before,
+        .mil-menu-btn span::after {
+          background-color: inherit !important;
+        }
+
+        /* Hide main frame when menu is open to avoid duplicate logos */
+        body.mil-menu-open .mil-frame {
+          opacity: 0 !important;
+          pointer-events: none !important;
+        }
+
+        /* Style menu frame logo to be white */
+        .mil-menu-frame .mil-logo {
+          color: white !important;
+        }
+
         /* Hide back-to-top button on mobile and tablets to prevent auto-scroll issues */
         @media screen and (max-width: 768px) {
           .mil-back-to-top,
@@ -116,74 +223,53 @@ const Home = () => {
             pointer-events: none !important;
             opacity: 0 !important;
           }
-        }
 
-        /* Tablet and Mobile Responsive Styles for Preloader */
-        @media screen and (max-width: 1024px) {
-          .mil-preloader .mil-preloader-animation .mil-pos-abs {
-            padding: 0 40px;
+          /* Mobile navigation styles - white background with rounded corners */
+          .mil-frame-top {
+            background-color: white !important;
+            border-radius: 20px !important;
+            padding: 10px 20px !important;
+            margin: 10px !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
           }
 
-          .mil-preloader .mil-h3 {
-            font-size: 36px !important;
-            line-height: 1.2 !important;
+          /* Force logo color to white on mobile */
+          .mil-logo,
+          #logoText {
+            color: black !important;
           }
 
-          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame {
-            padding: 0 30px;
-          }
-        }
-
-        @media screen and (max-width: 767px) {
-          .mil-preloader .mil-preloader-animation .mil-pos-abs {
-            padding: 0 20px;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-          }
-
-          .mil-preloader .mil-h3 {
-            font-size: 28px !important;
-            line-height: 1.3 !important;
-          }
-
-          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0 15px;
-            position: relative;
-          }
-
-          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame p {
-            position: relative;
-            z-index: 5;
-            width: auto;
-            text-align: center;
-          }
-            
-
-          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame .mil-reveal-box {
-            width: 100%;
-            left: 0;
-            right: 0;
+          /* Menu button color on mobile */
+          .mil-menu-btn span,
+          .mil-menu-btn span::before,
+          .mil-menu-btn span::after {
+            background-color: black !important;
           }
         }
 
-        @media screen and (max-width: 480px) {
-          .mil-preloader .mil-preloader-animation .mil-pos-abs {
-            padding: 0 15px;
-          }
+        /* Keep preloader consistent across all devices - no mobile-specific changes */
 
-          .mil-preloader .mil-h3 {
-            font-size: 30px !important;
-            line-height: 1.4 !important;
-            color: white !important;
-          }
-          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame {
-            padding: 0 20px;
-          }
+        /* Center preloader content */
+        .mil-preloader {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .mil-preloader .mil-preloader-animation {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+        }
+
+        .mil-preloader .mil-preloader-animation .mil-pos-abs {
+          position: relative !important;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
         }
       `}</style>
 
@@ -278,8 +364,8 @@ const Home = () => {
 </a>
 
 
-          <div className={`mil-menu-btn ${isMenuOpen ? 'mil-active' : ''}`} onClick={toggleMenu} style={{zIndex: 50}}>
-            <span></span>
+          <div className={`mil-menu-btn ${isMenuOpen ? 'mil-active' : ''}`} onClick={toggleMenu} style={{zIndex: 10000}}>
+            <span style={{ backgroundColor: logoColor, transition: 'background-color 0.3s ease' }}></span>
           </div>
         </div>
         <div className="mil-frame-bottom">
@@ -290,9 +376,11 @@ const Home = () => {
       {/* Content */}
       <div className="mil-content">
         <div id="swupMain" className="mil-main-transition">
-          
+
           {/* Banner - New HeroSection Component (Migrated to Tailwind CSS) */}
-          <HeroSection scrollToAbout={scrollToAbout} />
+          <div ref={heroRef}>
+            <HeroSection scrollToAbout={scrollToAbout} />
+          </div>
 
           {/*
           OLD BANNER CODE - COMMENTED OUT
@@ -308,19 +396,29 @@ const Home = () => {
           </div>
 
           {/* Services */}
-          <AgencyLandingPage />
+          <div ref={servicesRef}>
+            <AgencyLandingPage />
+          </div>
 
           {/* Team */}
-          <MeetOurTeamPage />
+          <div ref={teamRef}>
+            <MeetOurTeamPage />
+          </div>
 
           {/* Reviews */}
-          <CustomerTestimonials />
+          <div ref={testimonialsRef}>
+            <CustomerTestimonials />
+          </div>
 
           {/* Blog */}
-          <PopularPublications />
-          
+          <div ref={publicationsRef}>
+            <PopularPublications />
+          </div>
+
           {/* Footer */}
-          <Footer />
+          <div ref={footerRef}>
+            <Footer />
+          </div>
 
           {/* Hidden Elements */}
           <div className="mil-hidden-elements">

@@ -4,7 +4,6 @@ export default function AgencyLandingPage() {
   const [scrolled, setScrolled] = useState(false);
   const [hoveredCard, setHoveredCard] = useState(null);
   const [ctaHovered, setCtaHovered] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -102,10 +101,6 @@ export default function AgencyLandingPage() {
     setCtaHovered(false);
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   // Get card styles based on hover state
   const getCardStyles = (isHovered) => ({
     progressBar: {
@@ -136,9 +131,16 @@ export default function AgencyLandingPage() {
           padding: 0 !important;
           background-color: #000 !important;
           overflow-x: hidden;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          -webkit-tap-highlight-color: transparent;
+        }
 
         @keyframes fadeInDown {
           from { opacity: 0; transform: translateY(-20px); }
@@ -159,6 +161,20 @@ export default function AgencyLandingPage() {
           overflow: hidden;
           position: relative;
           isolation: isolate;
+        }
+
+        /* Touch-friendly buttons for mobile */
+        button, .service-card {
+          -webkit-tap-highlight-color: transparent;
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          user-select: none;
+        }
+
+        /* Smooth font rendering on Safari */
+        .hero-heading, .tagline, .service-card h3, .service-card p {
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
 
         .decorative-svg-left {
@@ -197,33 +213,84 @@ export default function AgencyLandingPage() {
           z-index: 1;
         }
 
+        /* Safari-specific fixes */
+        @supports (-webkit-touch-callout: none) {
+          .agency-landing-container {
+            -webkit-overflow-scrolling: touch;
+            -webkit-transform: translate3d(0, 0, 0);
+          }
+
+          .hero-section {
+            -webkit-transform: translate3d(0, 0, 0);
+          }
+        }
+
         /* Tablet View (768px - 1024px) */
         @media (max-width: 1024px) {
           .hero-section {
             padding-top: 140px !important;
             padding-bottom: 60px !important;
+            padding-left: 1.5rem !important;
+            padding-right: 1.5rem !important;
           }
 
           .tagline {
             font-size: 0.8rem !important;
             margin-bottom: 2.5rem !important;
+            padding: 0 1rem;
           }
 
           .hero-heading {
-            font-size: 3.2rem !important;
-            gap: 1.2rem !important;
+            font-size: 3rem !important;
+            gap: 1rem !important;
             flex-wrap: wrap !important;
+            line-height: 1.2 !important;
           }
 
           .image-circle {
-            width: 180px !important;
-            height: 60px !important;
+            width: 160px !important;
+            height: 55px !important;
           }
 
           .services-grid {
-            width: 90% !important;
+            width: 95% !important;
             grid-template-columns: repeat(2, 1fr) !important;
             margin-top: 3rem !important;
+            gap: 0 !important;
+          }
+
+          .service-card {
+            min-height: 280px !important;
+            padding: 25px 15px !important;
+          }
+
+          .service-card-content {
+            width: 100% !important;
+            height: auto !important;
+          }
+
+          .service-card h3 {
+            font-size: 18px !important;
+            line-height: 26px !important;
+          }
+
+          .service-card p {
+            font-size: 14px !important;
+            line-height: 20px !important;
+            width: 100% !important;
+          }
+
+          .cta-button {
+            padding: 3px 16px !important;
+            font-size: 0.7rem !important;
+            gap: 0.75rem !important;
+          }
+
+          .decorative-svg-left,
+          .decorative-svg-right {
+            width: 200px !important;
+            height: 200px !important;
+            opacity: 0.05 !important;
           }
         }
 
@@ -232,135 +299,199 @@ export default function AgencyLandingPage() {
           .hero-section {
             padding-top: 100px !important;
             padding-bottom: 40px !important;
-          }
-
-          .tagline {
-            font-size: 0.75rem !important;
-            margin-bottom: 2rem !important;
-            line-height: 1.5 !important;
-          }
-
-          .hero-heading {
-            font-size: 2.2rem !important;
-            gap: 0.75rem !important;
-            flex-direction: column !important;
-          }
-
-          .image-circle {
-            width: 140px !important;
-            height: 50px !important;
-          }
-
-          .services-grid {
-            width: 100% !important;
-            grid-template-columns: 1fr !important;
-            margin-top: 2rem !important;
-          }
-
-          .service-card {
-            border-right: none !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-          }
-
-          .service-card:last-child {
-            border-bottom: none !important;
-          }
-
-          .decorative-svg-top,
-          .decorative-svg-bottom {
-            display: none !important;
-          }
-        }
-
-        /* Small Mobile View (up to 480px) */
-        @media (max-width: 480px) {
-          .hero-section {
-            padding-top: 80px !important;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
           }
 
           .tagline {
             font-size: 0.7rem !important;
-            margin-bottom: 1.5rem !important;
+            margin-bottom: 2rem !important;
+            line-height: 1.6 !important;
+            padding: 0 0.5rem;
           }
 
           .hero-heading {
-            font-size: 1.8rem !important;
-            gap: 0.6rem !important;
+            font-size: 2rem !important;
+            gap: 0.75rem !important;
+            flex-direction: column !important;
+            line-height: 1.2 !important;
           }
 
           .image-circle {
             width: 120px !important;
             height: 42px !important;
           }
+
+          .services-grid {
+            width: 100% !important;
+            grid-template-columns: 1fr !important;
+            margin-top: 2rem !important;
+            padding: 0 0.5rem !important;
+          }
+
+          .service-card {
+            border-right: none !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            min-height: 250px !important;
+            padding: 20px 15px !important;
+          }
+
+          .service-card:last-child {
+            border-bottom: none !important;
+          }
+
+          .service-card-content {
+            width: 100% !important;
+            height: auto !important;
+          }
+
+          .service-card h3 {
+            font-size: 18px !important;
+            line-height: 26px !important;
+            margin-bottom: 0.75rem !important;
+          }
+
+          .service-card p {
+            font-size: 14px !important;
+            line-height: 20px !important;
+            height: auto !important;
+            width: 100% !important;
+            margin-bottom: 20px !important;
+          }
+
+          .cta-button {
+            padding: 3px 14px !important;
+            font-size: 0.65rem !important;
+            gap: 0.5rem !important;
+            border-radius: 40px !important;
+          }
+
+          .decorative-svg-left,
+          .decorative-svg-right,
+          .decorative-svg-bottom-left {
+            display: none !important;
+          }
+
+          .mil-animation-frame {
+            display: none !important;
+          }
+
+          /* Mobile menu adjustments */
+          .mil-menu-frame {
+            width: 100% !important;
+          }
+
+          .mil-menu-content {
+            padding: 2rem 1rem !important;
+          }
+
+          .mil-main-menu ul li {
+            font-size: 1.5rem !important;
+          }
+        }
+
+        /* Small Mobile View (up to 480px) */
+        @media (max-width: 480px) {
+          .hero-section {
+            padding-top: 90px !important;
+            padding-left: 0.75rem !important;
+            padding-right: 0.75rem !important;
+          }
+
+          .tagline {
+            font-size: 0.65rem !important;
+            margin-bottom: 1.5rem !important;
+            padding: 0 0.25rem;
+          }
+
+          .hero-heading {
+            font-size: 1.75rem !important;
+            gap: 0.6rem !important;
+          }
+
+          .image-circle {
+            width: 100px !important;
+            height: 36px !important;
+          }
+
+          .service-card {
+            padding: 18px 12px !important;
+            min-height: 230px !important;
+          }
+
+          .service-card h3 {
+            font-size: 16px !important;
+            line-height: 24px !important;
+          }
+
+          .service-card p {
+            font-size: 13px !important;
+            line-height: 19px !important;
+          }
+
+          .cta-button {
+            padding: 2px 12px !important;
+            font-size: 0.6rem !important;
+          }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 375px) {
+          .hero-heading {
+            font-size: 1.5rem !important;
+          }
+
+          .tagline br {
+            display: none;
+          }
+        }
+
+        /* Landscape mode on mobile devices */
+        @media (max-width: 767px) and (orientation: landscape) {
+          .hero-section {
+            padding-top: 80px !important;
+            padding-bottom: 30px !important;
+          }
+
+          .tagline {
+            margin-bottom: 1.5rem !important;
+          }
+
+          .hero-heading {
+            font-size: 1.8rem !important;
+          }
+
+          .image-circle {
+            width: 100px !important;
+            height: 38px !important;
+          }
+
+          .services-grid {
+            margin-top: 1.5rem !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+
+          .service-card {
+            min-height: 220px !important;
+          }
+        }
+
+        /* iPad specific fixes */
+        @media only screen
+        and (min-device-width: 768px)
+        and (max-device-width: 1024px)
+        and (-webkit-min-device-pixel-ratio: 2) {
+          .services-grid {
+            width: 92% !important;
+          }
+
+          .service-card {
+            padding: 30px 20px !important;
+          }
         }
       `}</style>
 
       <div className="agency-landing-container">
-        {/* Menu */}
-        <div className={`mil-menu-frame ${isMenuOpen ? 'mil-active' : ''}`}>
-          <div className="mil-frame-top">
-            <a href="home-1.html" className="mil-logo text-white transition-colors duration-300">∅verflow</a>
-            <div
-              className={`mil-menu-btn ${isMenuOpen ? 'mil-active' : ''} text-white cursor-pointer`}
-              onClick={toggleMenu}
-              style={{zIndex: 9999}}
-            >
-              <span className="bg-white transition-colors duration-300"></span>
-            </div>
-          </div>
-          <div className="container">
-            <div className="mil-menu-content">
-              <div className="row">
-                <div className="col-xl-5">
-                  <nav className="mil-main-menu" id="swupMenu">
-                    <ul>
-                      <li className="mil-has-children mil-active">
-
-
-                      </li>
-                      <li className="mil-has-children">
-                        <a href="#.">Portfolio</a>
-                        <ul>
-                          <li><a href="portfolio-1.html">Grid type 1</a></li>
-                          <li><a href="portfolio-2.html">Grid type 2</a></li>
-                          <li><a href="portfolio-3.html">Slider</a></li>
-                        </ul>
-                      </li>
-                      <li className="mil-has-children">
-                        <a href="#.">Services</a>
-                        <ul>
-                          <li><a href="services.html">Services List</a></li>
-                          <li><a href="service.html">Single service</a></li>
-                        </ul>
-                      </li>
-                      <li className="mil-has-children">
-                        <a href="#.">Newsletter</a>
-                        <ul>
-                          <li><a href="blog.html">Blog List</a></li>
-                          <li><a href="publication.html">Publication</a></li>
-                        </ul>
-                      </li>
-                      <li className="mil-has-children">
-                        <a href="#.">Other pages</a>
-
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-                <div className="col-xl-7">
-                  {/* <div className="mil-menu-right-frame">
-                    <div className="mil-animation-in">
-                      <div className="mil-animation-frame">
-                        <div className="mil-animation mil-position-1 mil-scale" data-value-1="2" data-value-2="2"></div>
-                      </div>
-                    </div>
-
-                  </div> */}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         {/* Background Animation Frame */}
         <div className="mil-animation-frame">
           <div className="mil-animation mil-position-1 mil-scale" data-value-1="2.4" data-value-2="1.4" style={{top: '300px', right: '-100px'}}>
@@ -470,6 +601,7 @@ export default function AgencyLandingPage() {
               <span style={{fontWeight:'700'}}>For Your</span>
               <span style={{fontWeight:'200',color:'#ccc'}}>Business.</span>
               <button
+                className="cta-button"
                 style={{
                   backgroundColor: '#ff9500',
                   color: '#000',
@@ -564,7 +696,7 @@ export default function AgencyLandingPage() {
                     }}
                   ></div>
 
-                  <div style={{height: '238px', width: '223px'}}>
+                  <div className="service-card-content" style={{height: '238px', width: '223px'}}>
                     <h3 style={{
                       fontSize: '20px',
                       fontWeight: '500',

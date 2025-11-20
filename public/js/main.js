@@ -31,14 +31,18 @@ $(function () {
 
     // Wait for React to render DOM elements before initializing animations
     // Check if elements exist before proceeding
-    function waitForReactDOM(callback, maxAttempts = 50) {
+    function waitForReactDOM(callback, maxAttempts = 100) {
         let attempts = 0;
         const checkInterval = setInterval(function() {
             attempts++;
             // Check if key React-rendered elements exist
-            if (document.querySelector('.mil-preloader') &&
-                document.querySelector('.mil-banner') &&
-                document.querySelector('#swupMain')) {
+            const preloader = document.querySelector('.mil-preloader');
+            const banner = document.querySelector('.mil-banner');
+            const swupMain = document.querySelector('#swupMain');
+
+            console.log(`Attempt ${attempts}: Preloader=${!!preloader}, Banner=${!!banner}, SwupMain=${!!swupMain}`);
+
+            if (preloader && banner && swupMain) {
                 clearInterval(checkInterval);
                 console.log('React DOM ready, initializing animations');
                 callback();
@@ -47,7 +51,7 @@ $(function () {
                 console.warn('Timeout waiting for React DOM, proceeding anyway');
                 callback();
             }
-        }, 100); // Check every 100ms
+        }, 50); // Check every 50ms for faster detection
     }
 
     // Wrap all animations and initializations to wait for React DOM

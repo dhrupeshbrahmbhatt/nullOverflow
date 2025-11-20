@@ -146,18 +146,29 @@ const CustomerTestimonials = () => {
         </div>
 
         {/* Avatar Carousel */}
-        <div className="flex items-end justify-between gap-4 mt-[100px] mb-[50px] relative h-[160px] lg:gap-3 lg:mt-20 lg:mb-12 lg:h-[140px] md:gap-2.5 md:mt-16 md:mb-10 md:h-[120px] md:items-center md:flex-nowrap md:overflow-x-auto md:overflow-y-hidden md:justify-start md:py-0 md:px-5 md:pb-[15px] md:w-screen md:-ml-5 md:[scrollbar-width:thin] md:[scrollbar-color:rgba(255,140,0,0.5)_transparent] md:scroll-smooth md:[-webkit-overflow-scrolling:touch] max-md:gap-2 max-md:mt-12 max-md:mb-8 max-md:h-[100px] max-md:px-[15px] max-md:pb-3 max-md:-ml-[15px]">
+        <div className="flex items-end justify-between gap-4 mt-[100px] mb-[50px] relative h-[160px] lg:gap-3 lg:mt-20 lg:mb-12 lg:h-[140px] md:gap-2.5 md:mt-16 md:mb-10 md:h-[120px] max-md:gap-3 max-md:mt-12 max-md:mb-8 max-md:h-[100px] max-md:px-[15px] max-md:pb-3 max-md:-ml-[15px] max-md:flex-nowrap max-md:overflow-x-auto max-md:overflow-y-hidden max-md:justify-start max-md:w-screen max-md:scroll-smooth max-md:scrollbar-hide">
           {testimonials.map((testimonial, index) => {
             const isActive = index === activeTestimonial;
-            const size = isActive ? '100px' : '80px';
-            const borderWidth = isActive ? '4px' : '0px';
 
-            // Wave pattern: alternating top and bottom positions
+            // Smaller sizes for mobile only
+            let size = isActive ? '100px' : '80px';
+            if (typeof window !== 'undefined' && window.innerWidth < 768) {
+              size = isActive ? '70px' : '60px';
+            }
+
+            const borderWidth = isActive ? '3px' : '0px';
+
+            // Wave pattern: alternating top and bottom positions for all screen sizes
             let marginBottom = '0px';
             if (index === 0 || index === 2 || index === 4 || index === 6) {
               marginBottom = '0px'; // Bottom row
             } else if (index === 1 || index === 3 || index === 5) {
-              marginBottom = '50px'; // Top row
+              // Different spacing for mobile vs desktop
+              if (typeof window !== 'undefined' && window.innerWidth < 768) {
+                marginBottom = '30px'; // Smaller offset for mobile
+              } else {
+                marginBottom = '50px'; // Larger offset for desktop/tablet
+              }
             }
 
             return (
@@ -189,7 +200,7 @@ const CustomerTestimonials = () => {
         </div>
 
         {/* Scroll Hint for Mobile */}
-        <div className="hidden text-center text-xs text-[#999] mb-[35px] font-light md:block md:after:content-['_←_Swipe_to_see_all_→'] max-md:text-[11px] max-md:mb-[30px]"></div>
+        <div className="hidden text-center text-xs text-[#999] mb-[35px] font-light max-md:block max-md:after:content-['_←_Swipe_to_scroll_→'] max-md:text-[11px] max-md:mb-[30px]"></div>
 
         {/* Quote Icon */}
         <div

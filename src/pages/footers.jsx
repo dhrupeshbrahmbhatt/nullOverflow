@@ -49,10 +49,10 @@ const BRAND_NAME = '∅verflow';
 const SocialIcon = memo(({ name, path, paths, fill, stroke }) => (
   <a
     href="#"
-    className="text-[#a0a0a0] transition-all duration-300 ease-in-out hover:text-[#ff9500] hover:-translate-y-0.5 flex items-center cursor-pointer"
+    className="text-[#a0a0a0] transition-all duration-300 ease-in-out hover:text-[#ff9500] hover:-translate-y-0.5 flex items-center cursor-pointer max-md:opacity-80"
     aria-label={name}
   >
-    <svg className="w-[22px] h-[22px] max-md:w-[20px] max-md:h-[20px]" viewBox="0 0 24 24" fill={fill || 'none'} stroke={stroke} strokeWidth={stroke ? '2' : undefined}>
+    <svg className="w-[22px] h-[22px] sm:w-5 sm:h-5 max-sm:w-[18px] max-sm:h-[18px]" viewBox="0 0 24 24" fill={fill || 'none'} stroke={stroke} strokeWidth={stroke ? '2' : undefined}>
       {paths ? paths.map((p, i) => <path key={i} d={p} />) : <path d={path} />}
     </svg>
   </a>
@@ -74,96 +74,378 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-[#000000] py-[120px] px-[200px] relative min-h-[600px] xl:py-24 xl:px-[60px] lg:py-[70px] lg:px-10 md:py-[60px] md:px-8 sm:py-12 sm:px-6 max-sm:py-10 max-sm:px-5" style={{ backgroundColor: '#000000', color: '#ffffff' }}>
-      <div className="grid grid-cols-[1fr_auto_1fr] gap-[150px] max-w-[1600px] mx-auto relative xl:gap-[100px] lg:grid-cols-1 lg:gap-[70px] md:gap-[60px] sm:gap-[50px] max-sm:gap-[40px]">
+    <footer className="bg-[#000000] relative" style={{ backgroundColor: '#000000', color: '#ffffff', paddingTop: '120px', paddingBottom: '120px', paddingLeft: '200px', paddingRight: '200px' }}>
+      <style>{`
+        @media (max-width: 1280px) {
+          footer {
+            padding: 96px 60px !important;
+          }
+        }
+        @media (max-width: 1024px) {
+          footer {
+            padding: 70px 40px !important;
+          }
+        }
+        @media (max-width: 768px) {
+          footer {
+            padding: 50px 24px !important;
+          }
+        }
+        @media (max-width: 640px) {
+          footer {
+            padding: 40px 20px !important;
+          }
+        }
+      `}</style>
+      <div className="max-w-[1600px] mx-auto relative">
+        <style>{`
+          @media (min-width: 1025px) {
+            .footer-container {
+              display: grid;
+              grid-template-columns: 1fr auto 1fr;
+              gap: 150px;
+            }
+          }
+          @media (max-width: 1024px) {
+            .footer-container {
+              display: block;
+            }
+            .footer-column {
+              width: 100%;
+              margin-bottom: 50px;
+            }
+            .footer-column:last-child {
+              margin-bottom: 0;
+            }
+          }
+          @media (max-width: 768px) {
+            .footer-column {
+              text-align: center;
+              margin-bottom: 40px;
+            }
+          }
+          @media (max-width: 640px) {
+            .footer-column {
+              margin-bottom: 32px;
+            }
+          }
+        `}</style>
 
-        {/* Left Column - Brand and Newsletter */}
-        <div className="flex flex-col gap-[50px] md:gap-[40px] sm:gap-[35px] max-sm:gap-[30px]">
-          <div className="flex items-start mb-2.5">
-            <span className="text-[48px] font-light text-[#ffffff] leading-[1.1] tracking-tight lg:text-5xl md:text-[42px] sm:text-[38px] max-sm:text-[32px]">{BRAND_NAME}</span>
-          </div>
+        <div className="footer-container">
+          {/* Left Column - Brand and Newsletter */}
+          <div className="footer-column" style={{ display: 'flex', flexDirection: 'column', gap: '50px' }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '10px' }}>
+              <style>{`
+                @media (max-width: 768px) {
+                  .brand-container {
+                    justify-content: center;
+                    width: 100%;
+                  }
+                }
+              `}</style>
+              <span className="brand-container" style={{ fontSize: '48px', fontWeight: '300', color: '#ffffff', lineHeight: '1.1', letterSpacing: '-0.02em' }}>
+                <style>{`
+                  @media (max-width: 1024px) {
+                    .brand-container {
+                      font-size: 42px;
+                    }
+                  }
+                  @media (max-width: 768px) {
+                    .brand-container {
+                      font-size: 36px;
+                      display: block;
+                      text-align: center;
+                    }
+                  }
+                  @media (max-width: 640px) {
+                    .brand-container {
+                      font-size: 28px;
+                    }
+                  }
+                `}</style>
+                {BRAND_NAME}
+              </span>
+            </div>
 
-          <p className="text-[#a0a0a0] text-[15px] font-normal lg:text-sm md:text-[14px] sm:text-[13px] max-sm:text-xs">Subscribe our newsletter:</p>
+            <p style={{ color: '#a0a0a0', fontSize: '15px', fontWeight: '400', margin: 0 }}>
+              <style>{`
+                @media (max-width: 768px) {
+                  .newsletter-text {
+                    text-align: center;
+                    font-size: 13px;
+                  }
+                }
+                @media (max-width: 640px) {
+                  .newsletter-text {
+                    font-size: 12px;
+                  }
+                }
+              `}</style>
+              <span className="newsletter-text">Subscribe our newsletter:</span>
+            </p>
 
-          <form
-            className="flex items-center bg-[#2a2a2a] rounded-[60px] pr-2 max-w-[450px] w-full h-[60px] transition-colors duration-300 ease-in-out focus-within:bg-[#333333] md:h-[56px] sm:h-[52px] max-sm:h-[48px]"
-            onSubmit={handleSubmit}
-          >
-            <input
-              type="email"
-              placeholder="ENTER OUR EMAIL"
-              className="flex-1 bg-transparent mt-4 border-none text-[#ffffff] text-[13px] tracking-wider outline-none font-normal px-[35px] text-left placeholder:text-[#606060] placeholder:tracking-wider placeholder:text-[13px] md:px-[30px] md:text-xs sm:px-6 sm:text-[11px] sm:placeholder:text-[11px] max-sm:px-5 max-sm:text-[10px] max-sm:placeholder:text-[10px]"
-              value={email}
-              onChange={handleEmailChange}
-              aria-label="Email address"
-            />
-            <button
-              type="submit"
-              className="w-[54px] h-[54px] rounded-full bg-[#ff9500] border-none cursor-pointer flex items-center justify-center flex-shrink-0 transition-all duration-300 ease-in-out hover:bg-[#ffa726] hover:scale-105 active:scale-95 md:w-[50px] md:h-[50px] sm:w-[46px] sm:h-[46px] max-sm:w-[42px] max-sm:h-[42px]"
-              aria-label="Subscribe"
+            <form
+              style={{ display: 'flex', alignItems: 'center', backgroundColor: '#2a2a2a', borderRadius: '60px', paddingRight: '8px', maxWidth: '450px', width: '100%', height: '60px' }}
+              onSubmit={handleSubmit}
             >
-              <div className='mil-button mil-arrow-place mil-icon-button mil-arrow-right'></div>
-            </button>
-          </form>
-
-          <div className="flex justify-content-md-around md:gap-5 sm:gap-4 max-sm:gap-3.5">
-            {SOCIAL_LINKS.map(link => (
-              <SocialIcon key={link.name} {...link} />
-            ))}
-          </div>
-
-          <p className="text-[#606060] text-[16px] font-normal mt-auto md:text-xs sm:text-[11px] max-sm:text-[10px]">© Copyright 2025 - ∅verflow. All Rights Reserved.</p>
-        </div>
-
-        {/* Middle Column - Navigation */}
-        <nav className="flex flex-col gap-7 pt-0 min-w-[200px] md:gap-6 sm:gap-5 max-sm:gap-4 lg:min-w-0">
-          {NAV_LINKS.map(link => (
-            <a
-              key={link.text}
-              href="#"
-              className="no-underline text-[#ffffff] text-[38px] font-light transition-all duration-300 ease-in-out tracking-tight leading-[1.2] hover:text-[#ff9500] hover:translate-x-1.5 lg:text-4xl md:text-[32px] sm:text-[28px] max-sm:text-2xl"
-            >
-              {link.text}
-            </a>
-          ))}
-        </nav>
-
-        {/* Right Column - Policies and Locations */}
-        <div className="flex flex-col gap-20 pt-[5px] md:gap-[60px] sm:gap-[50px] max-sm:gap-10 justify-between">
-          <div className="flex flex-col gap-[18px] md:gap-4 sm:gap-3.5 max-sm:gap-3">
-            {POLICY_LINKS.map(policy => (
-              <a
-                key={policy}
-                href="#"
-                className="text-[#a0a0a0] no-underline text-[15px] transition-all duration-300 ease-in-out font-normal hover:text-[#ff9500] hover:translate-x-[3px] lg:text-sm md:text-[14px] sm:text-[13px] max-sm:text-xs"
+              <style>{`
+                @media (max-width: 768px) {
+                  .newsletter-form {
+                    max-width: 100%;
+                    margin: 0 auto;
+                    height: 50px !important;
+                  }
+                }
+                @media (max-width: 640px) {
+                  .newsletter-form {
+                    height: 48px !important;
+                  }
+                }
+              `}</style>
+              <input
+                type="email"
+                placeholder="ENTER OUR EMAIL"
+                style={{ flex: 1, backgroundColor: 'transparent', marginTop: '16px', border: 'none', color: '#ffffff', fontSize: '13px', letterSpacing: '0.05em', outline: 'none', fontWeight: '400', paddingLeft: '35px', paddingRight: '35px' }}
+                className="newsletter-form"
+                value={email}
+                onChange={handleEmailChange}
+                aria-label="Email address"
+              />
+              <button
+                type="submit"
+                style={{ width: '54px', height: '54px', borderRadius: '50%', backgroundColor: '#ff9500', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
+                aria-label="Subscribe"
               >
-                {policy}
-              </a>
-            ))}
+                <style>{`
+                  @media (max-width: 768px) {
+                    .submit-btn {
+                      width: 44px !important;
+                      height: 44px !important;
+                    }
+                  }
+                  @media (max-width: 640px) {
+                    .submit-btn {
+                      width: 40px !important;
+                      height: 40px !important;
+                    }
+                  }
+                `}</style>
+                <div className='mil-button mil-arrow-place mil-icon-button mil-arrow-right submit-btn'></div>
+              </button>
+            </form>
+
+            <div style={{ display: 'flex', gap: '20px' }}>
+              <style>{`
+                @media (max-width: 768px) {
+                  .social-icons {
+                    justify-content: center;
+                    gap: 14px !important;
+                  }
+                }
+              `}</style>
+              <div className="social-icons" style={{ display: 'flex', gap: '20px' }}>
+                {SOCIAL_LINKS.map(link => (
+                  <SocialIcon key={link.name} {...link} />
+                ))}
+              </div>
+            </div>
+
+            <p style={{ color: '#606060', fontSize: '16px', fontWeight: '400', margin: 0 }}>
+              <style>{`
+                @media (max-width: 768px) {
+                  .copyright {
+                    text-align: center;
+                    font-size: 11px;
+                  }
+                }
+                @media (max-width: 640px) {
+                  .copyright {
+                    font-size: 10px;
+                  }
+                }
+              `}</style>
+              <span className="copyright">© Copyright 2025 - ∅verflow. All Rights Reserved.</span>
+            </p>
           </div>
 
-          <div className="flex flex-col gap-10">
-            {LOCATIONS.map(location => (
-              <div key={location.title} className="flex-1">
-                <h3 className="text-2xl font-medium mb-5 text-[#ffffff] tracking-tight lg:text-[22px] md:text-xl md:mb-4 sm:text-lg sm:mb-3.5 max-sm:text-base max-sm:mb-3">{location.title}</h3>
-                <p className="text-[#a0a0a0] text-[15px] leading-[1.9] font-normal lg:text-sm md:text-[14px] md:leading-[1.8] sm:text-[13px] sm:leading-[1.7] max-sm:text-xs max-sm:leading-[1.6]">
-                  {location.address}<br />
-                  {location.city}
-                </p>
+          {/* Middle Column - Navigation */}
+          <nav className="footer-column" style={{ display: 'flex', flexDirection: 'column', gap: '28px', paddingTop: 0, minWidth: '200px' }}>
+            <style>{`
+              @media (max-width: 1024px) {
+                .nav-column {
+                  min-width: 0 !important;
+                }
+              }
+              @media (max-width: 768px) {
+                .nav-column {
+                  align-items: center;
+                }
+              }
+            `}</style>
+            <div className="nav-column" style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+              {NAV_LINKS.map(link => (
+                <a
+                  key={link.text}
+                  href="#"
+                  style={{ textDecoration: 'none', color: '#ffffff', fontSize: '38px', fontWeight: '300', letterSpacing: '-0.02em', lineHeight: '1.2' }}
+                >
+                  <style>{`
+                    @media (max-width: 1024px) {
+                      .nav-link {
+                        font-size: 32px;
+                      }
+                    }
+                    @media (max-width: 768px) {
+                      .nav-link {
+                        font-size: 26px;
+                        text-align: center;
+                        display: block;
+                        width: 100%;
+                      }
+                    }
+                    @media (max-width: 640px) {
+                      .nav-link {
+                        font-size: 20px;
+                      }
+                    }
+                  `}</style>
+                  <span className="nav-link">{link.text}</span>
+                </a>
+              ))}
+            </div>
+          </nav>
+
+          {/* Right Column - Policies and Locations */}
+          <div className="footer-column" style={{ display: 'flex', flexDirection: 'column', gap: '80px', paddingTop: '5px', justifyContent: 'space-between' }}>
+            <style>{`
+              @media (max-width: 768px) {
+                .right-column {
+                  padding-top: 0 !important;
+                  align-items: center;
+                  gap: 40px !important;
+                }
+              }
+              @media (max-width: 640px) {
+                .right-column {
+                  gap: 32px !important;
+                }
+              }
+            `}</style>
+            <div className="right-column" style={{ display: 'flex', flexDirection: 'column', gap: '80px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                <style>{`
+                  @media (max-width: 768px) {
+                    .policy-links {
+                      align-items: center;
+                      gap: 12px !important;
+                    }
+                  }
+                `}</style>
+                <div className="policy-links" style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                  {POLICY_LINKS.map(policy => (
+                    <a
+                      key={policy}
+                      href="#"
+                      style={{ color: '#a0a0a0', textDecoration: 'none', fontSize: '15px', fontWeight: '400' }}
+                    >
+                      <style>{`
+                        @media (max-width: 768px) {
+                          .policy-link {
+                            text-align: center;
+                            font-size: 13px;
+                          }
+                        }
+                        @media (max-width: 640px) {
+                          .policy-link {
+                            font-size: 12px;
+                          }
+                        }
+                      `}</style>
+                      <span className="policy-link">{policy}</span>
+                    </a>
+                  ))}
+                </div>
               </div>
-            ))}
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+                <style>{`
+                  @media (max-width: 768px) {
+                    .locations {
+                      align-items: center;
+                      gap: 24px !important;
+                    }
+                  }
+                `}</style>
+                <div className="locations" style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+                  {LOCATIONS.map(location => (
+                    <div key={location.title}>
+                      <style>{`
+                        @media (max-width: 768px) {
+                          .location {
+                            text-align: center;
+                          }
+                        }
+                      `}</style>
+                      <div className="location">
+                        <h3 style={{ fontSize: '24px', fontWeight: '500', marginBottom: '20px', color: '#ffffff', letterSpacing: '-0.02em', marginTop: 0 }}>
+                          <style>{`
+                            @media (max-width: 1024px) {
+                              .location-title {
+                                font-size: 20px;
+                              }
+                            }
+                            @media (max-width: 768px) {
+                              .location-title {
+                                font-size: 18px;
+                                margin-bottom: 16px;
+                              }
+                            }
+                            @media (max-width: 640px) {
+                              .location-title {
+                                font-size: 16px;
+                                margin-bottom: 12px;
+                              }
+                            }
+                          `}</style>
+                          <span className="location-title">{location.title}</span>
+                        </h3>
+                        <p style={{ color: '#a0a0a0', fontSize: '15px', lineHeight: '1.9', fontWeight: '400', margin: 0 }}>
+                          <style>{`
+                            @media (max-width: 768px) {
+                              .location-text {
+                                font-size: 13px;
+                                line-height: 1.7;
+                              }
+                            }
+                            @media (max-width: 640px) {
+                              .location-text {
+                                font-size: 12px;
+                              }
+                            }
+                          `}</style>
+                          <span className="location-text">
+                            {location.address}<br />
+                            {location.city}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Back to Top Button - Right Side */}
       <button
-        className="fixed right-[30px] bottom-[30px] bg-[#1a1a1a] border-none cursor-pointer flex flex-col items-center gap-3 py-4 px-3 text-[#ffffff] transition-all duration-300 ease-in-out rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:text-[#ff9500] hover:bg-[#2a2a2a] hover:-translate-y-0.5 hover:shadow-[0_6px_25px_rgba(0,0,0,0.4)] lg:bottom-[25px] lg:right-[25px] md:bottom-5 md:right-5 sm:bottom-4 sm:right-4 max-sm:bottom-3 max-sm:right-3 max-sm:py-3 max-sm:px-2.5"
+        className="fixed right-[30px] bottom-[30px] bg-[#1a1a1a] border-none cursor-pointer flex flex-col items-center gap-3 py-4 px-3 text-[#ffffff] transition-all duration-300 ease-in-out rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:text-[#ff9500] hover:bg-[#2a2a2a] hover:-translate-y-0.5 hover:shadow-[0_6px_25px_rgba(0,0,0,0.4)] lg:bottom-[25px] lg:right-[25px] md:bottom-5 md:right-5 sm:bottom-4 sm:right-4 sm:py-2.5 sm:px-2 sm:gap-2 max-sm:bottom-3 max-sm:right-3 max-sm:py-2 max-sm:px-1.5 max-sm:gap-1.5 max-md:shadow-[0_2px_15px_rgba(0,0,0,0.4)]"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         aria-label="Back to top"
       >
         <svg
-          className="w-6 h-6 md:w-5 md:h-5 sm:w-[18px] sm:h-[18px] max-sm:w-4 max-sm:h-4"
+          className="w-6 h-6 md:w-5 md:h-5 sm:w-4 sm:h-4 max-sm:w-3.5 max-sm:h-3.5"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -171,7 +453,7 @@ const Footer = () => {
         >
           <path d="M12 19V5M5 12l7-7 7 7"/>
         </svg>
-        <span className="[writing-mode:vertical-rl] rotate-180 text-[10px] tracking-[3px] text-[#606060] font-medium transition-colors duration-300 ease-in-out hover:text-[#ff9500] md:text-[9px] md:tracking-[2.5px] sm:text-[8px] sm:tracking-[2px] max-sm:text-[7px] max-sm:tracking-[1.5px]">BACK TO TOP</span>
+        <span className="[writing-mode:vertical-rl] rotate-180 text-[10px] tracking-[3px] text-[#606060] font-medium transition-colors duration-300 ease-in-out hover:text-[#ff9500] md:text-[9px] md:tracking-[2.5px] sm:text-[7px] sm:tracking-[1.5px] max-sm:text-[6px] max-sm:tracking-[1px]">BACK TO TOP</span>
       </button>
     </footer>
   );
