@@ -211,26 +211,14 @@ const Footer = () => {
                 onChange={handleEmailChange}
                 aria-label="Email address"
               />
-              <button
-                type="submit"
-                style={{ width: '54px', height: '54px', borderRadius: '50%', backgroundColor: '#ff9500', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
-                aria-label="Subscribe"
+                <button
+                className="mil-button mil-arrow-place mil-icon-button mil-arrow-right"
+                style={{
+                  width: '80px',
+                  height: '60px',
+                  opacity: 1,
+                }}
               >
-                <style>{`
-                  @media (max-width: 768px) {
-                    .submit-btn {
-                      width: 44px !important;
-                      height: 44px !important;
-                    }
-                  }
-                  @media (max-width: 640px) {
-                    .submit-btn {
-                      width: 40px !important;
-                      height: 40px !important;
-                    }
-                  }
-                `}</style>
-                <div className='mil-button mil-arrow-place mil-icon-button mil-arrow-right submit-btn'></div>
               </button>
             </form>
 

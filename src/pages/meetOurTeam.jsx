@@ -13,7 +13,7 @@ const MeetOurTeamPage = () => {
   }, []);
 
   const founder = {
-    name: 'Sarah Johnson',
+    name: 'Rudhvish Patel',
     role: 'Founder of the Company',
     image: '/images/3_1.jpg'
   };
@@ -56,7 +56,7 @@ const MeetOurTeamPage = () => {
       <div className="mobile-container flex px-[50px] max-w-[1400px] mx-auto my-[120px] items-start justify-center lg:flex-col lg:px-10 lg:my-20 lg:items-center md:flex-col md:px-5 md:my-16 max-md:block max-md:px-4 max-md:my-10">
 
         {/* Left Section */}
-        <section className="flex-[0_0_500px] pt-0 p-5 lg:flex-[0_0_45%] lg:max-w-[45%] lg:mb-[60px] lg:pt-0 md:max-w-full md:mb-10 md:p-0 max-md:w-full max-md:mb-10 max-md:px-3 max-md:p-0">
+        <section className="flex-[0_0_600px] pt-0 p-5 lg:flex-[0_0_55%] lg:max-w-[55%] lg:mb-[60px] lg:pt-0 md:max-w-full md:mb-10 md:p-0 max-md:w-full max-md:mb-10 max-md:px-3 max-md:p-0">
           {/* Heading */}
           <h1
             className="text-[65px] font-medium leading-[105px] mb-[50px] text-black tracking-[-3px] lg:text-[52px] lg:leading-[84px] lg:mb-[35px] lg:tracking-[-2px] md:text-[42px] md:leading-[68px] md:mb-[30px] md:tracking-[-1.5px] max-md:text-[32px] max-md:leading-[38px] max-md:mb-[25px]"
@@ -71,26 +71,27 @@ const MeetOurTeamPage = () => {
 
           {/* Description 1 */}
           <p
-            className="text-[20px] leading-[32px] font-light text-[#9b9b9b] mb-7 w-[70%] max-w-[450px] lg:w-full lg:max-w-[600px] lg:text-[16px] lg:leading-[26px] lg:mb-6 md:w-full md:text-[13px] md:leading-[21px] md:mb-5 max-md:w-full max-md:text-[12px] max-md:leading-[19px] max-md:mb-[18px]"
+            className="text-[20px] leading-[32px] font-light text-[#9b9b9b] mb-7 w-[90%] max-w-[550px] lg:w-full lg:max-w-full lg:text-[16px] lg:leading-[26px] lg:mb-6 md:w-full md:text-[13px] md:leading-[21px] md:mb-5 max-md:w-full max-md:text-[12px] max-md:leading-[19px] max-md:mb-[18px]"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
               transition: 'all 0.8s ease-out 0.2s'
             }}
           >
-            We are talented individuals who are passionate about bringing ideas to life. With a diverse range of backgrounds and skill sets, we collaborate to produce effective solutions for our clients.
+            Rudhvish Patel is a GenAI Engineer and AI researcher with a Master's in Computer Science from DePaul University. His expertise spans conversational AI, machine learning, and cloud architecture, with published research accepted at IEEE eScience 2025. He bridges academic innovation with practical implementation, building intelligent solutions deployed on AWS infrastructure.
           </p>
 
           {/* Description 2 */}
           <p
-            className="text-[20px] leading-[32px] text-[#9b9b9b] mb-7 w-[70%] max-w-[450px] lg:w-full lg:max-w-[600px] lg:text-[16px] lg:leading-[26px] lg:mb-6 md:w-full md:text-[13px] md:leading-[21px] md:mb-5 max-md:w-full max-md:text-[12px] max-md:leading-[19px] max-md:mb-[18px]"
+            className="text-[20px] leading-[32px] text-[#9b9b9b] mb-7 w-[90%] max-w-[550px] lg:w-full lg:max-w-full lg:text-[16px] lg:leading-[26px] lg:mb-6 md:w-full md:text-[13px] md:leading-[21px] md:mb-5 max-md:w-full max-md:text-[12px] max-md:leading-[19px] max-md:mb-[18px]"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
               transition: 'all 0.8s ease-out 0.3s'
             }}
           >
-            Together, our creative team is committed to delivering impactful work that exceeds expectations.
+            At NullOverflow, Rudhvish's vision is to democratize AI by making enterprise-grade technology accessible to businesses of all sizes. With certifications in AWS and CompTIA Security+, he leads with a client-first philosophy—delivering measurable results and transforming complex technological challenges into streamlined, scalable solutions.
+            
           </p>
 
           {/* CTA Button */}
