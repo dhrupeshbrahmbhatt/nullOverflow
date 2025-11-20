@@ -123,8 +123,15 @@ $(function () {
     /***************************
 
     preloader
-    
+
     ***************************/
+
+    // Detect mobile devices
+    const isMobileDevice = window.innerWidth <= 768;
+
+    // Set timing based on device
+    const companyNameDuration = isMobileDevice ? 1.2 : 0.6;
+    const companyNameDelay = isMobileDevice ? 0.8 : 0.5;
 
     var timeline = gsap.timeline();
 
@@ -148,6 +155,11 @@ $(function () {
         y: '-30',
     }, "+=.3");
 
+    // Set reveal box timing based on device
+    const revealBoxDuration = isMobileDevice ? 0.15 : 0.3;
+    const revealBoxDelay = isMobileDevice ? 0.05 : 0.2;
+    const revealBoxFinalDelay = isMobileDevice ? 0 : 0.1;
+
     timeline.fromTo(".mil-reveal-box", 0.1, {
         opacity: 0,
     }, {
@@ -155,25 +167,32 @@ $(function () {
         x: '-30',
     });
 
-    timeline.to(".mil-reveal-box", 0.45, {
+    timeline.to(".mil-reveal-box", revealBoxDuration, {
         width: "100%",
         x: 0,
-    }, "+=.1");
+    }, "+=" + revealBoxDelay);
     timeline.to(".mil-reveal-box", {
         right: "0"
     });
-    timeline.to(".mil-reveal-box", 0.3, {
+    timeline.to(".mil-reveal-box", revealBoxDuration, {
         width: "0%"
+    }, "+=" + revealBoxFinalDelay);
+
+    // Ensure box is completely hidden before company name appears
+    timeline.set(".mil-reveal-box", {
+        opacity: 0,
+        display: "none"
     });
+
     timeline.fromTo(".mil-animation-2 .mil-h3", {
         opacity: 0,
     }, {
         opacity: 1,
     }, "-=.5");
-    timeline.to(".mil-animation-2 .mil-h3", 0.6, {
+    timeline.to(".mil-animation-2 .mil-h3", companyNameDuration, {
         opacity: 0,
         y: '-30'
-    }, "+=.5");
+    }, "+=" + companyNameDelay);
     timeline.to(".mil-preloader", 0.8, {
         opacity: 0,
         ease: 'sine',

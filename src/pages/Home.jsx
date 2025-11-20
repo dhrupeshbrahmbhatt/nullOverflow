@@ -104,7 +104,7 @@ const Home = () => {
       </div>
 
       {/* Preloader */}
-      <div className="mil-preloader" style={{ zIndex: 99999, position: 'fixed' }}>
+      <div className="mil-preloader">
         <div className="mil-preloader-animation">
           <div className="mil-pos-abs mil-animation-1">
             <p className="mil-h3 mil-muted mil-thin">Pioneering</p>
@@ -120,60 +120,41 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Preloader and Mobile Responsive Styles */}
+      {/* Mobile Responsive Styles */}
       <style>{`
-        /* Ensure preloader is on top */
+        /* Ensure preloader works on all devices */
         .mil-preloader {
-          z-index: 99999 !important;
-          position: fixed !important;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100vh;
+          z-index: 9999 !important;
         }
 
-        .mil-preloader-animation {
-          opacity: 0;
-          position: relative;
-          width: 100%;
-          height: 100vh;
+
+        /* Center preloader text on mobile */
+        @media screen and (max-width: 992px) {
+          .mil-preloader .mil-preloader-animation .mil-pos-abs {
+            text-align: center !important;
+          }
+
+          .mil-preloader .mil-preloader-animation .mil-pos-abs p {
+            margin-left: auto !important;
+            margin-right: auto !important;
+          }
         }
 
-        .mil-preloader .mil-pos-abs {
-          position: absolute !important;
-          top: 0 !important;
-          left: 0 !important;
-          right: 0 !important;
-          bottom: 0 !important;
-          width: 100% !important;
-          height: 100vh !important;
-          display: flex !important;
-          flex-direction: column !important;
-          align-items: center !important;
-          justify-content: center !important;
-          text-align: center !important;
+        /* Mobile preloader text adjustments */
+        @media screen and (max-width: 768px) {
+          .mil-preloader .mil-h3 {
+            font-size: 28px !important;
+          }
+
+          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame {
+            padding: 0 20px;
+          }
         }
 
-        .mil-preloader .mil-animation-1 {
-          position: absolute !important;
-          top: 0 !important;
-          left: 0 !important;
-          right: 0 !important;
-          bottom: 0 !important;
-        }
-
-        .mil-preloader .mil-animation-2 {
-          position: absolute !important;
-          top: 0 !important;
-          left: 0 !important;
-          right: 0 !important;
-          bottom: 0 !important;
-        }
-
-        .mil-preloader .mil-animation-1 p,
-        .mil-preloader .mil-animation-2 p,
-        .mil-preloader .mil-animation-2 .mil-reveal-frame {
-          margin: 0 auto;
+        @media screen and (max-width: 480px) {
+          .mil-preloader .mil-h3 {
+            font-size: 24px !important;
+          }
         }
 
         /* Laptop view - move navbar lower */
@@ -203,10 +184,12 @@ const Home = () => {
           background-color: inherit !important;
         }
 
-        /* Hide main frame when menu is open to avoid duplicate logos */
-        body.mil-menu-open .mil-frame {
-          opacity: 0 !important;
-          pointer-events: none !important;
+        /* Hide main frame when menu is open to avoid duplicate logos - only on desktop */
+        @media screen and (min-width: 769px) {
+          body.mil-menu-open .mil-frame {
+            opacity: 0 !important;
+            pointer-events: none !important;
+          }
         }
 
         /* Style menu frame logo to be white */
@@ -245,31 +228,6 @@ const Home = () => {
           .mil-menu-btn span::after {
             background-color: black !important;
           }
-        }
-
-        /* Keep preloader consistent across all devices - no mobile-specific changes */
-
-        /* Center preloader content */
-        .mil-preloader {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .mil-preloader .mil-preloader-animation {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-        }
-
-        .mil-preloader .mil-preloader-animation .mil-pos-abs {
-          position: relative !important;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
         }
       `}</style>
 
