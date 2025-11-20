@@ -11,273 +11,286 @@ export default function AgencyLandingPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Dynamic header behavior - white text on transparent background
+  useEffect(() => {
+    const logo = document.querySelector('.mil-logo');
+    const menuBtn = document.querySelector('.mil-menu-btn');
+    const navLinks = document.querySelectorAll('.mil-top-panel a');
+
+    const updateHeaderStyle = () => {
+      // Always keep transparent background with white text
+      if (logo) {
+        logo.style.transition = 'color 0.3s';
+        logo.style.color = 'rgb(255, 255, 255)';
+      }
+      if (menuBtn) {
+        menuBtn.style.zIndex = '9999';
+        menuBtn.style.transition = 'color 0.3s';
+        menuBtn.style.color = 'rgb(255, 255, 255)';
+        const spans = menuBtn.querySelectorAll('span');
+        spans.forEach(span => {
+          span.style.transition = 'background-color 0.3s';
+          span.style.backgroundColor = 'rgb(255, 255, 255)';
+        });
+      }
+      navLinks.forEach(link => {
+        link.style.transition = 'color 0.3s';
+        link.style.color = 'rgb(255, 255, 255)';
+      });
+    };
+
+    // Set initial state
+    updateHeaderStyle();
+
+    // Cleanup on unmount
+    return () => {
+      if (logo) {
+        logo.style.transition = '';
+        logo.style.color = '';
+      }
+      if (menuBtn) {
+        menuBtn.style.zIndex = '';
+        menuBtn.style.transition = '';
+        menuBtn.style.color = '';
+        const spans = menuBtn.querySelectorAll('span');
+        spans.forEach(span => {
+          span.style.transition = '';
+          span.style.backgroundColor = '';
+        });
+      }
+      navLinks.forEach(link => {
+        link.style.transition = '';
+        link.style.color = '';
+      });
+    };
+  }, []);
+
   const services = [
-    { 
+    {
       title: 'Branding and\nIdentity Design',
       description: 'Our creative agency is a team of professionals focused on helping your brand grow.'
     },
-    { 
+    {
       title: 'Website Design\nand Development',
       description: 'Our creative agency is a team of professionals focused on helping your brand grow.'
     },
-    { 
+    {
       title: 'Advertising and\nMarketing Campaigns',
       description: 'Our creative agency is a team of professionals focused on helping your brand grow.'
     },
-    { 
+    {
       title: 'Creative Consulting\nand Development',
       description: 'Our creative agency is a team of professionals focused on helping your brand grow.'
     }
   ];
 
-  const styles = {
-    container: {
-      backgroundColor: '#000',
-      minHeight: '100vh',
-      color: '#fff',
-      fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
-      overflow: 'hidden',
-      position: 'relative'
+  // Hover handler functions
+  const handleCardEnter = (index) => {
+    setHoveredCard(index);
+  };
+
+  const handleCardLeave = () => {
+    setHoveredCard(null);
+  };
+
+  const handleCtaEnter = () => {
+    setCtaHovered(true);
+  };
+
+  const handleCtaLeave = () => {
+    setCtaHovered(false);
+  };
+
+  // Get card styles based on hover state
+  const getCardStyles = (isHovered) => ({
+    progressBar: {
+      width: isHovered ? '100%' : '0%'
     },
-    decorativeTop: {
-      position: 'absolute',
-      top: '-100px',
-      left: '100px',
-      width: '300px',
-      height: '300px',
-      opacity: 0.1,
-      pointerEvents: 'none'
+    overlay: {
+      opacity: isHovered ? 1 : 0
     },
-    decorativeBottom: {
-      position: 'absolute',
-      bottom: '-50px',
-      right: '100px',
-      width: '400px',
-      height: '400px',
-      opacity: 0.08,
-      pointerEvents: 'none'
-    },
-    heroSection: {
-      paddingTop: '180px',
-      paddingBottom: '100px',
-      paddingLeft: '2rem',
-      paddingRight: '2rem',
-      textAlign: 'center',
-      position: 'relative'
-    },
-    tagline: {
-      fontSize: '0.85rem',
-      color: '#999',
-      marginBottom: '3rem',
-      fontWeight: '300',
-      letterSpacing: '0.1em',
-      animation: 'fadeInDown 0.8s ease-out'
-    },
-    mainHeading: {
-      marginBottom: '4rem',
-      animation: 'fadeInUp 1s ease-out 0.2s both'
-    },
-    uniqueIdeas: {
-      fontSize: '4.5rem',
-      fontWeight: '300',
-      marginBottom: '0.5rem',
-      letterSpacing: '-0.02em',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '1.5rem'
-    },
-    imageCircle: {
-      width: '250px',
-      height: '80px',
-      borderRadius: '80px',
-      overflow: 'hidden'
-    },
-    forYourBusiness: {
-      fontSize: '4.5rem',
-      fontWeight: '300',
-      letterSpacing: '-0.02em',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '2rem'
-    },
-    ctaButton: {
-      backgroundColor: '#ff9500',
-      color: '#000',
-      border: 'none',
-      borderRadius: '50px',
-      padding: '4px 20px',
-      fontSize: '0.75rem',
-      fontWeight: '600',
-      letterSpacing: '0.15em',
-      cursor: 'pointer',
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: '1rem',
-      transition: 'all 0.3s ease',
-      textTransform: 'uppercase',
-      boxShadow: ctaHovered ? '0 15px 40px rgba(255, 149, 0, 0.4)' : '0 10px 30px rgba(255, 149, 0, 0.3)',
-      transform: ctaHovered ? 'translateY(-2px)' : 'translateY(0)'
+    description: {
+      opacity: isHovered ? 1 : 0
     },
     arrow: {
-      width: '28px',
-      height: '28px',
-      borderRadius: '50%',
-      backgroundColor: '#000',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontSize: '1.6rem'
-    },
-    servicesGrid: {
-      width: '70%',
-      display: 'grid',
-      gridTemplateColumns: 'repeat(4, 1fr)',
-      borderTop: '1px solid rgba(255,255,255,0.08)',
-      borderLeft: 'none',
-      gap: '0',
-      margin: '5rem auto 0',
-      padding: '0'
-    },
-    serviceCard: (isHovered) => ({
-      backgroundColor: 'transparent',
-      borderRight: '1px solid rgba(255, 255, 255, 0.08)',
-      borderRadius: '0px',
-      padding: '20px 10px',
-      minHeight: '300px',
-      transition: 'all 0.4s ease',
-      transform: 'none',
-      cursor: 'pointer',
-      position: 'relative',
-      overflow: 'hidden',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between'
-    }),
-    progressBar: (isHovered) => ({
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      height: '3px',
-      backgroundColor: '#ff9500',
-      width: isHovered ? '100%' : '0%',
-      transition: 'width 0.4s ease',
-      zIndex: 3
-    }),
-    cardOverlay: (isHovered) => ({
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      background: 'linear-gradient(135deg, rgba(255, 149, 0, 0.05) 0%, transparent 100%)',
-      opacity: isHovered ? 1 : 0,
-      transition: 'opacity 0.4s ease',
-      pointerEvents: 'none'
-    }),
-    serviceIcon: {
-      width: '12px',
-      height: '12px',
-      borderRadius: '50%',
-      backgroundColor: 'rgba(255, 149, 0, 0.8)',
-      marginBottom: '2.5rem',
-      boxShadow: '0 0 20px rgba(255, 149, 0, 0.4)'
-    },
-    serviceTitle: {
-      fontSize: '1.35rem',
-      fontWeight: '400',
-      marginBottom: '1rem',
-      lineHeight: '1.5',
-      color: '#fff',
-      letterSpacing: '-0.01em'
-    },
-    serviceDescription: (isHovered) => ({
-      fontSize: '0.9rem',
-      color: '#666',
-      lineHeight: '1.6',
-      marginBottom: '40px',
-      height: '100px', // Reserve space to avoid layout shift
-      opacity: isHovered ? 1 : 0,
-      transition: 'opacity 0.3s ease',
-      overflow: 'hidden'
-    }),
-    arrowButton: (isHovered) => ({
-      width: '40px',
-      height: '40px',
-      borderRadius: '50%',
       backgroundColor: isHovered ? '#ff9500' : 'transparent',
-      border: isHovered ? 'none' : '1px solid rgba(255, 149, 0, 0.3)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontSize: '1.2rem',
+      borderColor: isHovered ? 'transparent' : 'rgba(255, 149, 0, 0.3)',
       color: isHovered ? '#000' : '#ff9500',
-      transition: 'all 0.4s ease',
-      alignSelf: 'flex-start',
       transform: isHovered ? 'scale(1)' : 'scale(0.8)',
       opacity: isHovered ? 1 : 0.6
-    })
-  };
+    }
+  });
 
   return (
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700&display=swap');
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { margin: 0; padding: 0; overflow-x: hidden; }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        html, body {
+          margin: 0 !important;
+          padding: 0 !important;
+          background-color: #000 !important;
+          overflow-x: hidden;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        @keyframes fadeInDown {
+          from { opacity: 0; transform: translateY(-20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        .agency-landing-container {
+          background-color: #000 !important;
+          min-height: 100vh;
+          width: 100%;
+          color: #fff;
+          font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+          overflow: hidden;
+          position: relative;
+          isolation: isolate;
+        }
+
+        /* Touch-friendly buttons for mobile */
+        button, .service-card {
+          -webkit-tap-highlight-color: transparent;
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          user-select: none;
+        }
+
+        /* Smooth font rendering on Safari */
+        .hero-heading, .tagline, .service-card h3, .service-card p {
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+
+        .decorative-svg-left {
+          position: absolute;
+          top: 50%;
+          left: 50px;
+          transform: translateY(-50%);
+          width: 300px;
+          height: 300px;
+          opacity: 0.1;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        .decorative-svg-right {
+          position: absolute;
+          top: 50%;
+          right: 50px;
+          transform: translateY(-50%);
+          width: 300px;
+          height: 300px;
+          opacity: 0.1;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        .decorative-svg-bottom-left {
+          position: absolute;
+          bottom: 100px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 350px;
+          height: 350px;
+          opacity: 0.08;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        /* Safari-specific fixes */
+        @supports (-webkit-touch-callout: none) {
+          .agency-landing-container {
+            -webkit-overflow-scrolling: touch;
+            -webkit-transform: translate3d(0, 0, 0);
+          }
+
+          .hero-section {
+            -webkit-transform: translate3d(0, 0, 0);
+          }
+        }
 
         /* Tablet View (768px - 1024px) */
         @media (max-width: 1024px) {
           .hero-section {
             padding-top: 140px !important;
             padding-bottom: 60px !important;
-            padding-left: 2rem !important;
-            padding-right: 2rem !important;
+            padding-left: 1.5rem !important;
+            padding-right: 1.5rem !important;
           }
 
           .tagline {
             font-size: 0.8rem !important;
             margin-bottom: 2.5rem !important;
+            padding: 0 1rem;
           }
 
           .hero-heading {
-            font-size: 3.2rem !important;
-            gap: 1.2rem !important;
+            font-size: 3rem !important;
+            gap: 1rem !important;
             flex-wrap: wrap !important;
-            justify-content: center !important;
+            line-height: 1.2 !important;
           }
 
           .image-circle {
-            width: 180px !important;
-            height: 60px !important;
-          }
-
-          .cta-button {
-            font-size: 0.7rem !important;
-            padding: 4px 18px !important;
+            width: 160px !important;
+            height: 55px !important;
           }
 
           .services-grid {
-            width: 90% !important;
+            width: 95% !important;
             grid-template-columns: repeat(2, 1fr) !important;
             margin-top: 3rem !important;
+            gap: 0 !important;
           }
 
           .service-card {
             min-height: 280px !important;
-            padding: 18px 12px !important;
+            padding: 25px 15px !important;
           }
 
-          .service-title {
-            font-size: 1.2rem !important;
+          .service-card-content {
+            width: 100% !important;
+            height: auto !important;
           }
 
-          .service-description {
-            font-size: 0.85rem !important;
-            height: 90px !important;
+          .service-card h3 {
+            font-size: 18px !important;
+            line-height: 26px !important;
+          }
+
+          .service-card p {
+            font-size: 14px !important;
+            line-height: 20px !important;
+            width: 100% !important;
+          }
+
+          .cta-button {
+            padding: 3px 16px !important;
+            font-size: 0.7rem !important;
+            gap: 0.75rem !important;
+          }
+
+          .decorative-svg-left,
+          .decorative-svg-right {
+            width: 200px !important;
+            height: 200px !important;
+            opacity: 0.05 !important;
           }
         }
 
@@ -286,118 +299,22 @@ export default function AgencyLandingPage() {
           .hero-section {
             padding-top: 100px !important;
             padding-bottom: 40px !important;
-            padding-left: 1.5rem !important;
-            padding-right: 1.5rem !important;
-          }
-
-          .tagline {
-            font-size: 0.75rem !important;
-            margin-bottom: 2rem !important;
-            line-height: 1.5 !important;
-          }
-
-          .main-heading {
-            margin-bottom: 2.5rem !important;
-          }
-
-          .hero-heading {
-            font-size: 2.2rem !important;
-            gap: 0.8rem !important;
-            flex-direction: column !important;
-            align-items: center !important;
-          }
-
-          .unique-ideas {
-            flex-direction: row !important;
-            flex-wrap: wrap !important;
-          }
-
-          .for-your-business {
-            flex-direction: column !important;
-            gap: 1.5rem !important;
-          }
-
-          .image-circle {
-            width: 140px !important;
-            height: 50px !important;
-          }
-
-          .cta-button {
-            font-size: 0.65rem !important;
-            padding: 3px 16px !important;
-            gap: 0.8rem !important;
-          }
-
-          .arrow {
-            width: 24px !important;
-            height: 24px !important;
-            font-size: 1.4rem !important;
-          }
-
-          .services-grid {
-            width: 100% !important;
-            grid-template-columns: 1fr !important;
-            margin-top: 2rem !important;
-            gap: 0 !important;
-          }
-
-          .service-card {
-            min-height: 260px !important;
-            padding: 20px 15px !important;
-            border-right: none !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-          }
-
-          .service-card:last-child {
-            border-bottom: none !important;
-          }
-
-          .service-content {
-            height: auto !important;
-            width: 100% !important;
-          }
-
-          .service-title {
-            font-size: 1.15rem !important;
-            line-height: 1.6 !important;
-          }
-
-          .service-description {
-            font-size: 0.85rem !important;
-            line-height: 1.5 !important;
-            height: 80px !important;
-            width: 100% !important;
-            margin-bottom: 30px !important;
-          }
-
-          .arrow-button {
-            width: 36px !important;
-            height: 36px !important;
-            font-size: 1rem !important;
-          }
-
-          .decorative-top,
-          .decorative-bottom {
-            display: none !important;
-          }
-        }
-
-        /* Small Mobile View (up to 480px) */
-        @media (max-width: 480px) {
-          .hero-section {
-            padding-top: 80px !important;
             padding-left: 1rem !important;
             padding-right: 1rem !important;
           }
 
           .tagline {
             font-size: 0.7rem !important;
-            margin-bottom: 1.5rem !important;
+            margin-bottom: 2rem !important;
+            line-height: 1.6 !important;
+            padding: 0 0.5rem;
           }
 
           .hero-heading {
-            font-size: 1.8rem !important;
-            gap: 0.6rem !important;
+            font-size: 2rem !important;
+            gap: 0.75rem !important;
+            flex-direction: column !important;
+            line-height: 1.2 !important;
           }
 
           .image-circle {
@@ -405,81 +322,306 @@ export default function AgencyLandingPage() {
             height: 42px !important;
           }
 
-          .cta-button {
-            font-size: 0.6rem !important;
-            padding: 3px 14px !important;
-            gap: 0.6rem !important;
-          }
-
-          .arrow {
-            width: 22px !important;
-            height: 22px !important;
-            font-size: 1.2rem !important;
+          .services-grid {
+            width: 100% !important;
+            grid-template-columns: 1fr !important;
+            margin-top: 2rem !important;
+            padding: 0 0.5rem !important;
           }
 
           .service-card {
-            min-height: 240px !important;
+            border-right: none !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            min-height: 250px !important;
+            padding: 20px 15px !important;
+          }
+
+          .service-card:last-child {
+            border-bottom: none !important;
+          }
+
+          .service-card-content {
+            width: 100% !important;
+            height: auto !important;
+          }
+
+          .service-card h3 {
+            font-size: 18px !important;
+            line-height: 26px !important;
+            margin-bottom: 0.75rem !important;
+          }
+
+          .service-card p {
+            font-size: 14px !important;
+            line-height: 20px !important;
+            height: auto !important;
+            width: 100% !important;
+            margin-bottom: 20px !important;
+          }
+
+          .cta-button {
+            padding: 3px 14px !important;
+            font-size: 0.65rem !important;
+            gap: 0.5rem !important;
+            border-radius: 40px !important;
+          }
+
+          .decorative-svg-left,
+          .decorative-svg-right,
+          .decorative-svg-bottom-left {
+            display: none !important;
+          }
+
+          .mil-animation-frame {
+            display: none !important;
+          }
+
+          /* Mobile menu adjustments */
+          .mil-menu-frame {
+            width: 100% !important;
+          }
+
+          .mil-menu-content {
+            padding: 2rem 1rem !important;
+          }
+
+          .mil-main-menu ul li {
+            font-size: 1.5rem !important;
+          }
+        }
+
+        /* Small Mobile View (up to 480px) */
+        @media (max-width: 480px) {
+          .hero-section {
+            padding-top: 90px !important;
+            padding-left: 0.75rem !important;
+            padding-right: 0.75rem !important;
+          }
+
+          .tagline {
+            font-size: 0.65rem !important;
+            margin-bottom: 1.5rem !important;
+            padding: 0 0.25rem;
+          }
+
+          .hero-heading {
+            font-size: 1.75rem !important;
+            gap: 0.6rem !important;
+          }
+
+          .image-circle {
+            width: 100px !important;
+            height: 36px !important;
+          }
+
+          .service-card {
             padding: 18px 12px !important;
+            min-height: 230px !important;
           }
 
-          .service-title {
-            font-size: 1.05rem !important;
-            line-height: 1.5 !important;
+          .service-card h3 {
+            font-size: 16px !important;
+            line-height: 24px !important;
           }
 
-          .service-description {
-            font-size: 0.8rem !important;
-            line-height: 1.4 !important;
-            height: 75px !important;
+          .service-card p {
+            font-size: 13px !important;
+            line-height: 19px !important;
           }
 
-          .arrow-button {
-            width: 32px !important;
-            height: 32px !important;
-            font-size: 0.9rem !important;
+          .cta-button {
+            padding: 2px 12px !important;
+            font-size: 0.6rem !important;
+          }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 375px) {
+          .hero-heading {
+            font-size: 1.5rem !important;
+          }
+
+          .tagline br {
+            display: none;
+          }
+        }
+
+        /* Landscape mode on mobile devices */
+        @media (max-width: 767px) and (orientation: landscape) {
+          .hero-section {
+            padding-top: 80px !important;
+            padding-bottom: 30px !important;
+          }
+
+          .tagline {
+            margin-bottom: 1.5rem !important;
+          }
+
+          .hero-heading {
+            font-size: 1.8rem !important;
+          }
+
+          .image-circle {
+            width: 100px !important;
+            height: 38px !important;
+          }
+
+          .services-grid {
+            margin-top: 1.5rem !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+
+          .service-card {
+            min-height: 220px !important;
+          }
+        }
+
+        /* iPad specific fixes */
+        @media only screen
+        and (min-device-width: 768px)
+        and (max-device-width: 1024px)
+        and (-webkit-min-device-pixel-ratio: 2) {
+          .services-grid {
+            width: 92% !important;
+          }
+
+          .service-card {
+            padding: 30px 20px !important;
           }
         }
       `}</style>
 
-      <div style={styles.container}>
-        <svg style={styles.decorativeTop} viewBox="0 0 300 300">
-          <path d="M150,50 L250,130 L220,230 L80,230 L50,130 Z" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1"/>
-          <line x1="150" y1="50" x2="150" y2="230" stroke="rgba(255,255,255,0.05)" strokeWidth="1"/>
-          <line x1="50" y1="130" x2="250" y2="130" stroke="rgba(255,255,255,0.05)" strokeWidth="1"/>
-        </svg>
-
+      <div className="agency-landing-container">
+        {/* Background Animation Frame */}
         <div className="mil-animation-frame">
-          <div className="mil-animation mil-position-1 mil-scale" data-value-1="2.4" data-value-2="1.4" style={{top: '300px', right: '-100px'}}></div>
-          <div className="mil-animation mil-position-2 mil-scale" data-value-1="2" data-value-2="1" style={{left: '150px'}}></div>
+          <div className="mil-animation mil-position-1 mil-scale" data-value-1="2.4" data-value-2="1.4" style={{top: '300px', right: '-100px'}}>
+            <div className="mil-dodecahedron">
+              {[...Array(12)].map((_, i) => (
+                <div className="mil-pentagon" key={i}>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mil-animation mil-position-3 mil-scale" data-value-1="1.2" data-value-2=".1"></div>
+
+          <div className="mil-animation mil-position-2 mil-scale" data-value-1="2" data-value-2="1" style={{left: '150px'}}>
+            <div className="mil-dodecahedron">
+              {[...Array(12)].map((_, i) => (
+                <div className="mil-pentagon" key={i}>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <svg style={styles.decorativeBottom} viewBox="0 0 400 400">
-          <polygon points="200,50 350,150 300,300 100,300 50,150" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
-          <circle cx="200" cy="200" r="80" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1"/>
-          <line x1="100" y1="100" x2="300" y2="300" stroke="rgba(255,255,255,0.03)" strokeWidth="1"/>
-        </svg>
-        
-        <section style={styles.heroSection}>
-          <div style={styles.tagline}>
+        {/* Hero Section */}
+        <section
+          className="hero-section"
+          style={{
+            paddingTop: '180px',
+            paddingBottom: '100px',
+            paddingLeft: '2rem',
+            paddingRight: '2rem',
+            textAlign: 'center',
+            position: 'relative'
+          }}
+        >
+          {/* Tagline */}
+          <div
+            className="tagline"
+            style={{
+              fontSize: '0.85rem',
+              color: '#999',
+              marginBottom: '3rem',
+              fontWeight: '300',
+              letterSpacing: '0.1em',
+              animation: 'fadeInDown 0.8s ease-out'
+            }}
+          >
             Professionals focused on helping your brand<br/>grow and move forward.
           </div>
 
-          <div style={styles.mainHeading}>
-            <div style={styles.uniqueIdeas} className="hero-heading">
-              <div style={styles.imageCircle}>
+          {/* Main Heading */}
+          <div style={{
+            marginBottom: '4rem',
+            animation: 'fadeInUp 1s ease-out 0.2s both'
+          }}>
+            {/* Unique Ideas Row */}
+            <div
+              className="hero-heading"
+              style={{
+                fontSize: '4.5rem',
+                fontWeight: '300',
+                marginBottom: '0.5rem',
+                letterSpacing: '-0.02em',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '1.5rem'
+              }}
+            >
+              <div
+                className="image-circle"
+                style={{
+                  width: '250px',
+                  height: '80px',
+                  borderRadius: '80px',
+                  overflow: 'hidden'
+                }}
+              >
                 <img src="/images/2_1.jpg" alt="team" style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'top'}}/>
               </div>
               <span style={{fontWeight:'700'}}>Unique</span>
               <span style={{fontWeight:'200',color:'#ccc'}}>Ideas</span>
             </div>
-            
-            <div style={styles.forYourBusiness} className="hero-heading">
+
+            {/* For Your Business Row */}
+            <div
+              className="hero-heading"
+              style={{
+                fontSize: '4.5rem',
+                fontWeight: '300',
+                letterSpacing: '-0.02em',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '2rem'
+              }}
+            >
               <span style={{fontWeight:'700'}}>For Your</span>
               <span style={{fontWeight:'200',color:'#ccc'}}>Business.</span>
-              <button 
-                style={styles.ctaButton}
-                onMouseEnter={() => setCtaHovered(true)}
-                onMouseLeave={() => setCtaHovered(false)}
+              <button
+                className="cta-button"
+                style={{
+                  backgroundColor: '#ff9500',
+                  color: '#000',
+                  border: 'none',
+                  borderRadius: '50px',
+                  padding: '4px 20px',
+                  fontSize: '0.75rem',
+                  fontWeight: '600',
+                  letterSpacing: '0.15em',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '1rem',
+                  transition: 'all 0.3s ease',
+                  textTransform: 'uppercase',
+                  boxShadow: ctaHovered ? '0 15px 40px rgba(255, 149, 0, 0.4)' : '0 10px 30px rgba(255, 149, 0, 0.3)',
+                  transform: ctaHovered ? 'translateY(-2px)' : 'translateY(0)'
+                }}
+                onMouseEnter={handleCtaEnter}
+                onMouseLeave={handleCtaLeave}
               >
                 WHAT WE DO
                 <div className='mil-button mil-arrow-place mil-icon-button mil-arrow-right'></div>
@@ -487,42 +629,131 @@ export default function AgencyLandingPage() {
             </div>
           </div>
 
-          <div style={styles.servicesGrid} className="services-grid">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                style={{
-                ...styles.serviceCard(hoveredCard === index),
-                borderRight: index === services.length - 1 ? 'none' : styles.serviceCard(false).borderRight
-              }}
-                onMouseEnter={() => setHoveredCard(index)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                <div style={styles.progressBar(hoveredCard === index)}></div>
-                <div style={styles.cardOverlay(hoveredCard === index)}></div>
-                <div style={{height: '238px', width: '223px'
-                }}>
-                  <h3 style={{...styles.serviceTitle, fontSize: '20px', fontWeight: '500', lineHeight: '30px'}}>
-                    {service.title.split('\n').map((line, i) => (
-                      <React.Fragment key={i}>
-                        {line}
-                        {i < service.title.split('\n').length - 1 && <br />}
-                      </React.Fragment>
-                    ))}
-                  </h3>
-                  <p style={{
-                    ...styles.serviceDescription(hoveredCard === index),
-                    fontSize: '16px',
-                    lineHeight: '24px',
-                    fontWeight: '300',
-                    width: '95%'
-                  }}>
-                    {service.description}
-                  </p>
+          {/* Services Grid */}
+          <div
+            className="services-grid"
+            style={{
+              width: '70%',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              borderTop: '1px solid rgba(255,255,255,0.08)',
+              gap: '0',
+              margin: '5rem auto 0',
+              padding: '0'
+            }}
+          >
+            {services.map((service, index) => {
+              const isHovered = hoveredCard === index;
+              const cardStyles = getCardStyles(isHovered);
+
+              return (
+                <div
+                  key={index}
+                  className="service-card"
+                  style={{
+                    backgroundColor: 'transparent',
+                    borderRight: index === services.length - 1 ? 'none' : '1px solid rgba(255, 255, 255, 0.08)',
+                    borderRadius: '0px',
+                    padding: '20px 10px',
+                    minHeight: '300px',
+                    transition: 'all 0.4s ease',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between'
+                  }}
+                  onMouseEnter={() => handleCardEnter(index)}
+                  onMouseLeave={handleCardLeave}
+                >
+                  {/* Progress Bar */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      height: '3px',
+                      backgroundColor: '#ff9500',
+                      width: cardStyles.progressBar.width,
+                      transition: 'width 0.4s ease',
+                      zIndex: 3
+                    }}
+                  ></div>
+
+                  {/* Card Overlay */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: 'linear-gradient(135deg, rgba(255, 149, 0, 0.05) 0%, transparent 100%)',
+                      opacity: cardStyles.overlay.opacity,
+                      transition: 'opacity 0.4s ease',
+                      pointerEvents: 'none'
+                    }}
+                  ></div>
+
+                  <div className="service-card-content" style={{height: '238px', width: '223px'}}>
+                    <h3 style={{
+                      fontSize: '20px',
+                      fontWeight: '500',
+                      lineHeight: '30px',
+                      marginBottom: '1rem',
+                      color: '#fff',
+                      letterSpacing: '-0.01em'
+                    }}>
+                      {service.title.split('\n').map((line, i) => (
+                        <React.Fragment key={i}>
+                          {line}
+                          {i < service.title.split('\n').length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: '16px',
+                        lineHeight: '24px',
+                        fontWeight: '300',
+                        color: '#666',
+                        marginBottom: '40px',
+                        height: '100px',
+                        width: '95%',
+                        opacity: cardStyles.description.opacity,
+                        transition: 'opacity 0.3s ease',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      {service.description}
+                    </p>
+                  </div>
+
+                  {/* Arrow Button */}
+                  <div
+                    style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
+                      backgroundColor: cardStyles.arrow.backgroundColor,
+                      border: `1px solid ${cardStyles.arrow.borderColor}`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '1.2rem',
+                      color: cardStyles.arrow.color,
+                      transition: 'all 0.4s ease',
+                      alignSelf: 'flex-start',
+                      transform: cardStyles.arrow.transform,
+                      opacity: cardStyles.arrow.opacity
+                    }}
+                  >
+                    →
+                  </div>
                 </div>
-                <div style={styles.arrowButton(hoveredCard === index)}>→</div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
       </div>

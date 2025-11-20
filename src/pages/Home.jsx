@@ -4,14 +4,21 @@ import CustomerTestimonials from './testimonial';
 import MeetOurTeamPage from './meetOurTeam';
 import AgencyLandingPage from './agencyLanding';
 import StudioAboutPage from './studioAboutPage';
-
+import HeroSection from './herosection';
 import PopularPublications from './popularPublication';
 
 const Home = () => {
   const topRef = useRef(null);
   const aboutRef = useRef(null);
+  const heroRef = useRef(null);
+  const servicesRef = useRef(null);
+  const teamRef = useRef(null);
+  const testimonialsRef = useRef(null);
+  const publicationsRef = useRef(null);
+  const footerRef = useRef(null);
   const [showTop, setShowTop] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [logoColor, setLogoColor] = useState('white');
 
   const scrollToAbout = () => {
     if (aboutRef.current) {
@@ -26,7 +33,33 @@ const Home = () => {
       if (aboutRef.current) {
         setShowTop(window.scrollY >= aboutRef.current.offsetTop - 100);
       }
+
+      // Change logo color based on which section is currently in view
+      const scrollPosition = window.scrollY + 100; // Offset for navbar height
+
+      // Section 1: Hero (Black background) - White text
+      if (heroRef.current && scrollPosition < heroRef.current.offsetTop + heroRef.current.offsetHeight) {
+        setLogoColor('white');
+      }
+      // Section 2: About (White background) - Black text
+      else if (aboutRef.current && scrollPosition < aboutRef.current.offsetTop + aboutRef.current.offsetHeight) {
+        setLogoColor('black');
+      }
+      // Section 3: Services (Black background) - White text
+      else if (servicesRef.current && scrollPosition < servicesRef.current.offsetTop + servicesRef.current.offsetHeight) {
+        setLogoColor('white');
+      }
+      // Section 4+: Team, Testimonials, Publications (White backgrounds) - Black text
+      else if (publicationsRef.current && scrollPosition < publicationsRef.current.offsetTop + publicationsRef.current.offsetHeight) {
+        setLogoColor('black');
+      }
+      // Section Last: Footer (Black background) - White text
+      else {
+        setLogoColor('white');
+      }
     };
+
+    handleScroll(); // Run once on mount
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -70,7 +103,7 @@ const Home = () => {
         <div className="mil-choose-text">Сhoose</div>
       </div>
 
-     {/* Preloader */}
+      {/* Preloader */}
       <div className="mil-preloader">
         <div className="mil-preloader-animation">
           <div className="mil-pos-abs mil-animation-1">
@@ -87,8 +120,83 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Preloader Mobile Responsive Styles */}
+      {/* Mobile Responsive Styles */}
       <style>{`
+        /* Ensure preloader works on all devices */
+        .mil-preloader {
+          z-index: 9999 !important;
+        }
+
+
+        /* Center preloader text on mobile */
+        @media screen and (max-width: 992px) {
+          .mil-preloader .mil-preloader-animation .mil-pos-abs {
+            text-align: center !important;
+          }
+
+          .mil-preloader .mil-preloader-animation .mil-pos-abs p {
+            margin-left: auto !important;
+            margin-right: auto !important;
+          }
+        }
+
+        /* Mobile preloader text adjustments */
+        @media screen and (max-width: 768px) {
+          .mil-preloader .mil-h3 {
+            font-size: 28px !important;
+          }
+
+          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame {
+            padding: 0 20px;
+          }
+        }
+
+        @media screen and (max-width: 480px) {
+          .mil-preloader .mil-h3 {
+            font-size: 24px !important;
+          }
+        }
+
+        /* Laptop view - move navbar lower */
+        @media screen and (min-width: 1024px) and (max-width: 1440px) {
+          .mil-frame-top {
+            top: 30px !important;
+          }
+        }
+
+        /* Make hamburger button visible initially */
+        .mil-menu-btn {
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+
+        .mil-menu-btn span,
+        .mil-menu-btn span::before,
+        .mil-menu-btn span::after {
+          opacity: 1 !important;
+          visibility: visible !important;
+          transition: background-color 0.3s ease !important;
+        }
+
+        /* Ensure pseudo-elements inherit the background color */
+        .mil-menu-btn span::before,
+        .mil-menu-btn span::after {
+          background-color: inherit !important;
+        }
+
+        /* Hide main frame when menu is open to avoid duplicate logos - only on desktop */
+        @media screen and (min-width: 769px) {
+          body.mil-menu-open .mil-frame {
+            opacity: 0 !important;
+            pointer-events: none !important;
+          }
+        }
+
+        /* Style menu frame logo to be white */
+        .mil-menu-frame .mil-logo {
+          color: white !important;
+        }
+
         /* Hide back-to-top button on mobile and tablets to prevent auto-scroll issues */
         @media screen and (max-width: 768px) {
           .mil-back-to-top,
@@ -98,73 +206,27 @@ const Home = () => {
             pointer-events: none !important;
             opacity: 0 !important;
           }
-        }
 
-        /* Tablet and Mobile Responsive Styles for Preloader */
-        @media screen and (max-width: 1024px) {
-          .mil-preloader .mil-preloader-animation .mil-pos-abs {
-            padding: 0 40px;
+          /* Mobile navigation styles - white background with rounded corners */
+          .mil-frame-top {
+            background-color: white !important;
+            border-radius: 20px !important;
+            padding: 10px 20px !important;
+            margin: 10px !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
           }
 
-          .mil-preloader .mil-h3 {
-            font-size: 36px !important;
-            line-height: 1.2 !important;
+          /* Force logo color to white on mobile */
+          .mil-logo,
+          #logoText {
+            color: black !important;
           }
 
-          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame {
-            padding: 0 30px;
-          }
-        }
-
-        @media screen and (max-width: 767px) {
-          .mil-preloader .mil-preloader-animation .mil-pos-abs {
-            padding: 0 20px;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-          }
-
-          .mil-preloader .mil-h3 {
-            font-size: 28px !important;
-            line-height: 1.3 !important;
-          }
-
-          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0 15px;
-            position: relative;
-          }
-
-          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame p {
-            position: relative;
-            z-index: 5;
-            width: auto;
-            text-align: center;
-          }
-            
-
-          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame .mil-reveal-box {
-            width: 100%;
-            left: 0;
-            right: 0;
-          }
-        }
-
-        @media screen and (max-width: 480px) {
-          .mil-preloader .mil-preloader-animation .mil-pos-abs {
-            padding: 0 15px;
-          }
-
-          .mil-preloader .mil-h3 {
-            font-size: 30px !important;
-            line-height: 1.4 !important;
-            color: white !important;
-          }
-          .mil-preloader .mil-preloader-animation .mil-pos-abs .mil-reveal-frame {
-            padding: 0 20px;
+          /* Menu button color on mobile */
+          .mil-menu-btn span,
+          .mil-menu-btn span::before,
+          .mil-menu-btn span::after {
+            background-color: black !important;
           }
         }
       `}</style>
@@ -241,11 +303,27 @@ const Home = () => {
       {/* Curtain */}
       <div className="mil-curtain"></div>
       {/* Frame */}
-      <div className="mil-frame">
-        <div className="mil-frame-top">
-          <a href="home-1.html" className="mil-logo">∅verflow</a>
-          <div className={`mil-menu-btn ${isMenuOpen ? 'mil-active' : ''}`} onClick={toggleMenu} style={{zIndex: 50}}>
-            <span></span>
+      <div className="mil-frame" style={{ zIndex: 10000 }}>
+        <div className="mil-frame-top" style={{ zIndex: 10000 }}>
+          <a
+  href="home-1.html"
+  className="mil-logo"
+  id="logoText"
+  style={{
+    fontSize: "40px",
+    fontWeight: 600,
+    position: "relative",
+    zIndex: 10000,
+    color: logoColor,
+    transition: "color 0.3s ease",
+  }}
+>
+  ∅verflow
+</a>
+
+
+          <div className={`mil-menu-btn ${isMenuOpen ? 'mil-active' : ''}`} onClick={toggleMenu} style={{zIndex: 10000}}>
+            <span style={{ backgroundColor: logoColor, transition: 'background-color 0.3s ease' }}></span>
           </div>
         </div>
         <div className="mil-frame-bottom">
@@ -256,163 +334,17 @@ const Home = () => {
       {/* Content */}
       <div className="mil-content">
         <div id="swupMain" className="mil-main-transition">
-          
-          {/* Banner */}
-          <section className="mil-banner mil-dark-bg">
-            <div className="mi-invert-fix">
-              <div className="mil-animation-frame">
-                <div className="mil-animation mil-position-1 mil-scale" data-value-1="7" data-value-2="1.6"></div>
-                <div className="mil-animation mil-position-2 mil-scale" data-value-1="4" data-value-2="1"></div>
-                <div className="mil-animation mil-position-3 mil-scale" data-value-1="1.2" data-value-2=".1"></div>
-              </div>
 
-              <div className="mil-gradient"></div>
+          {/* Banner - New HeroSection Component (Migrated to Tailwind CSS) */}
+          <div ref={heroRef}>
+            <HeroSection scrollToAbout={scrollToAbout} />
+          </div>
 
-              <div className="container">
-                <div className="mil-banner-content mil-up">
-                  <h1 className="mil-muted mil-mb-60">Designing <span className="mil-thin">a Better</span><br /> World <span className="mil-thin">Today</span></h1>
-                  <div className="row">
-                    <div className="col-md-7 col-lg-5">
-                      <p className="mil-light-soft mil-mb-60">Welcome to our world of endless imigination and boundless <br /> creativity. Together, let's embark on a remarkable journey where <br /> dreams become tangible realities.</p>
-                    </div>
-                  </div>
-                  <a href="#." className="mil-button mil-arrow-place mil-btn-space">
-                    <span>What we do</span>
-                  </a>
-                  <a href="portfolio-1.html" className="mil-link mil-muted mil-arrow-place mil-view-works">
-                    <span>View works</span>
-                  </a>
-                  <div className="mil-circle-text">
-                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 300 300" enableBackground="new 0 0 300 300" xmlSpace="preserve" className="mil-ct-svg mil-rotate" data-value="360">
-                      <defs>
-                        <path id="circlePath" d="M 150, 150 m -60, 0 a 60,60 0 0,1 120,0 a 60,60 0 0,1 -120,0 "></path>
-                      </defs>
-                      <circle cx="60" cy="80" r="45" fill="none"></circle>
-                      <g>
-                        <use xlinkHref="#circlePath" fill="none"></use>
-                        <text style={{letterSpacing: '6.5px'}}>
-                          <textPath xlinkHref="#circlePath">Scroll down - Scroll down - </textPath>
-                        </text>
-                      </g>
-                    </svg>
-                    <a href="#about" onClick={(e)=>{e.preventDefault(); scrollToAbout();}} className="mil-button mil-arrow-place mil-icon-button mil-arrow-down"></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Banner Responsive Styles */}
-          <style>{`
-            /* Tablet View (1024px and below) */
-            @media screen and (max-width: 1024px) {
-              .mil-banner .mil-banner-content {
-                padding-bottom: 100px;
-              }
-              .mil-banner h1 {
-                font-size: 64px !important;
-                line-height: 1.2 !important;
-                margin-bottom: 40px !important;
-              }
-              .mil-banner p {
-                font-size: 15px !important;
-                line-height: 22px !important;
-                margin-bottom: 40px !important;
-              }
-            }
-
-            /* Tablet and Phone View (768px and below) */
-            @media screen and (max-width: 768px) {
-              .mil-banner .mil-banner-content {
-                padding-bottom: 80px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-              }
-              .mil-banner h1 {
-                font-size: 48px !important;
-                line-height: 1.3 !important;
-                margin-bottom: 30px !important;
-                text-align: center;
-              }
-              .mil-banner .row {
-                width: 100%;
-                justify-content: center;
-              }
-              .mil-banner .row .col-md-7 {
-                max-width: 100%;
-                padding: 0 20px;
-              }
-              .mil-banner p {
-                font-size: 14px !important;
-                line-height: 20px !important;
-                margin-bottom: 35px !important;
-                text-align: center;
-              }
-              .mil-banner p br {
-                display: none;
-              }
-              .mil-banner .mil-button {
-                margin: 0 auto 20px;
-              }
-              .mil-banner .mil-view-works {
-                display: none !important;
-              }
-            }
-
-            /* Phone View (600px and below) */
-            @media screen and (max-width: 600px) {
-              .mil-banner .mil-banner-content {
-                padding-bottom: 60px;
-              }
-              .mil-banner h1 {
-                font-size: 40px !important;
-                line-height: 1.25 !important;
-                margin-bottom: 25px !important;
-              }
-              .mil-banner p {
-                font-size: 13px !important;
-                line-height: 19px !important;
-                margin-bottom: 30px !important;
-              }
-            }
-
-            /* Small Phone View (480px and below) */
-            @media screen and (max-width: 480px) {
-              .mil-banner .mil-banner-content {
-                padding-bottom: 50px;
-              }
-              .mil-banner h1 {
-                font-size: 36px !important;
-                line-height: 1.3 !important;
-                margin-bottom: 20px !important;
-              }
-              .mil-banner p {
-                font-size: 12px !important;
-                line-height: 18px !important;
-                margin-bottom: 25px !important;
-                padding: 0 10px;
-              }
-              .mil-banner .mil-button {
-                font-size: 10px !important;
-                height: 60px !important;
-                padding: 0 10px 0 40px !important;
-              }
-            }
-
-            /* Extra Small Phone View (375px and below) */
-            @media screen and (max-width: 375px) {
-              .mil-banner h1 {
-                font-size: 32px !important;
-                line-height: 1.3 !important;
-              }
-              .mil-banner p {
-                font-size: 11px !important;
-                line-height: 17px !important;
-              }
-            }
-          `}</style>
+          {/*
+          OLD BANNER CODE - COMMENTED OUT
+          The banner section has been extracted to a separate HeroSection component
+          with Tailwind CSS migration. See /src/pages/herosection.jsx
+          */}
 
           {/* About */}
           <div id="about" ref={aboutRef}>
@@ -422,19 +354,29 @@ const Home = () => {
           </div>
 
           {/* Services */}
-          <AgencyLandingPage />
+          <div ref={servicesRef}>
+            <AgencyLandingPage />
+          </div>
 
           {/* Team */}
-          <MeetOurTeamPage />
+          <div ref={teamRef}>
+            <MeetOurTeamPage />
+          </div>
 
           {/* Reviews */}
-          <CustomerTestimonials />
+          <div ref={testimonialsRef}>
+            <CustomerTestimonials />
+          </div>
 
           {/* Blog */}
-          <PopularPublications />
-          
+          <div ref={publicationsRef}>
+            <PopularPublications />
+          </div>
+
           {/* Footer */}
-          <Footer />
+          <div ref={footerRef}>
+            <Footer />
+          </div>
 
           {/* Hidden Elements */}
           <div className="mil-hidden-elements">

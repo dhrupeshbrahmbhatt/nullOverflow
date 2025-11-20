@@ -165,48 +165,6 @@ export default function GeometricLandingPage() {
         </svg>
       </div>
 
-      {/* Header */}
-      <header style={{
-        position: 'relative',
-        zIndex: 100,
-        padding: '30px 60px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}>
-        <div style={{
-          fontSize: '32px',
-          fontWeight: '700',
-          letterSpacing: '2px',
-        }}>
-          overflow
-        </div>
-
-        <button style={{
-          backgroundColor: 'transparent',
-          border: 'none',
-          cursor: 'pointer',
-          padding: '10px',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'rotate(90deg)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'rotate(0deg)';
-        }}>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '6px',
-            transition: 'transform 0.3s ease',
-          }}>
-            <div style={{ width: '30px', height: '2px', backgroundColor: '#fff' }}></div>
-            <div style={{ width: '30px', height: '2px', backgroundColor: '#fff' }}></div>
-            <div style={{ width: '30px', height: '2px', backgroundColor: '#fff' }}></div>
-          </div>
-        </button>
-      </header>
-
       {/* Main Content */}
       <main style={{
         position: 'relative',
