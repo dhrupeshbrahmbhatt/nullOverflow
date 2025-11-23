@@ -30,7 +30,7 @@ jobs:
       - name: Run tests
         run: |
           if npm run -s test --silent --version >/dev/null 2>&1; then
-            npm test -- --ci || npm test
+            npm test
           else
             echo "No test script defined; skipping test step"
           fi
