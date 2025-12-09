@@ -113,6 +113,11 @@ const HeroSection = ({ scrollToAbout }) => {
             <div className="mil-animation mil-position-3 mil-scale" data-value-1="1.2" data-value-2=".1"></div>
           </div>
 
+            {/* <div class="mil-animation-frame">
+              <div class="mil-animation mil-position-1 mil-scale" data-value-1="2.4" data-value-2="1.4" style="top: 300px; right: -100px"></div>
+              <div class="mil-animation mil-position-2 mil-scale" data-value-1="2" data-value-2="1" style="left: 150px"></div>
+            </div> */}
+
           <div className="mil-gradient"></div>
 
           <div className="container mx-auto px-4">

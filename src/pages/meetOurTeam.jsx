@@ -15,7 +15,7 @@ const MeetOurTeamPage = () => {
   const founder = {
     name: 'Rudhvish Patel',
     role: 'Founder of the Company',
-    image: '/images/3_1.jpg'
+    image: '/images/rudvishPatel.jpeg'
   };
 
   return (
