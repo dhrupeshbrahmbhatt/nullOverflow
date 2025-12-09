@@ -252,10 +252,24 @@ $(function () {
 
     ***************************/
     $(document).ready(function () {
-        $(".mil-arrow").clone().appendTo(".mil-arrow-place");
-        $(".mil-dodecahedron").clone().appendTo(".mil-animation");
-        $(".mil-lines").clone().appendTo(".mil-lines-place");
-        $(".mil-main-menu ul li.mil-active > a").clone().appendTo(".mil-current-page");
+        $(".mil-arrow-place").each(function() {
+            if (!$(this).find(".mil-arrow").length) {
+                $(".mil-hidden-elements .mil-arrow").clone().appendTo($(this));
+            }
+        });
+        $(".mil-animation").each(function() {
+            if (!$(this).find(".mil-dodecahedron").length) {
+                $(".mil-hidden-elements .mil-dodecahedron").clone().appendTo($(this));
+            }
+        });
+        $(".mil-lines-place").each(function() {
+            if (!$(this).find(".mil-lines").length) {
+                $(".mil-hidden-elements .mil-lines").clone().appendTo($(this));
+            }
+        });
+        if (!$(".mil-current-page a").length) {
+            $(".mil-main-menu ul li.mil-active > a").clone().appendTo(".mil-current-page");
+        }
     });
     /***************************
 
@@ -765,9 +779,17 @@ $(function () {
         ***************************/
         $(document).ready(function () {
             $(".mil-arrow-place .mil-arrow, .mil-animation .mil-dodecahedron, .mil-current-page a").remove();
-            $(".mil-arrow").clone().appendTo(".mil-arrow-place");
-            $(".mil-dodecahedron").clone().appendTo(".mil-animation");
-            $(".mil-lines").clone().appendTo(".mil-lines-place");
+            $(".mil-arrow-place").each(function() {
+                $(".mil-hidden-elements .mil-arrow").clone().appendTo($(this));
+            });
+            $(".mil-animation").each(function() {
+                $(".mil-hidden-elements .mil-dodecahedron").clone().appendTo($(this));
+            });
+            $(".mil-lines-place").each(function() {
+                if (!$(this).find(".mil-lines").length) {
+                    $(".mil-hidden-elements .mil-lines").clone().appendTo($(this));
+                }
+            });
             $(".mil-main-menu ul li.mil-active > a").clone().appendTo(".mil-current-page");
         });
         /***************************
