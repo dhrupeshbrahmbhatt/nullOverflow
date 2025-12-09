@@ -38,24 +38,24 @@ jobs:
       - name: Trigger Render deploy
         if: ${{ success() }}
         env:
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
         run: |
-          if [ -z "${RENDER_API_KEY}" ]; then
-            echo "RENDER_API_KEY is not set. Skipping Render deploy." >&2
+          if [ -z "${RENDER_DEPLOY_HOOK}" ]; then
+            echo "RENDER_DEPLOY_HOOK is not set. Skipping Render deploy." >&2
             exit 1
           fi
 
-          # Replace srv-d487jnemcj7s73dq4opg with your service id (already provided)
-          SERVICE_ID="srv-d487jnemcj7s73dq4opg"
-
-          echo "Triggering deploy on Render for service $SERVICE_ID..."
-          response=$(curl -sS -X POST "https://api.render.com/deploy/srv-d487jnemcj7s73dq4opg" \
-            -H "Authorization: Bearer ${RENDER_API_KEY}" \
-            -H "Accept: application/json")
+          echo "Triggering deploy on Render..."
+          response=$(curl -sS -X POST "${RENDER_DEPLOY_HOOK}")
 
           echo "Render response: $response"
-          # optional: check for expected keys in response (minimal check)
-          echo "$response" | grep -q '"id"' && echo "Render deploy triggered." || (echo "Failed to trigger Render deploy" && exit 1)
+          # Deploy hooks return an empty response or simple confirmation on success
+          if [ $? -eq 0 ]; then
+            echo "Render deploy triggered successfully."
+          else
+            echo "Failed to trigger Render deploy"
+            exit 1
+          fi
 
       - name: Send success email (SMTP)
         if: ${{ success() }}
