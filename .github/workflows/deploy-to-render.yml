@@ -69,15 +69,14 @@ jobs:
         if: ${{ success() }}
         uses: dawidd6/action-send-mail@v3
         with:
-          # SMTP settings must be provided via repository environment/secret variables (see notes)
           server_address: ${{ secrets.SMTP_SERVER }}
           server_port: ${{ secrets.SMTP_PORT }}
+          secure: true
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "✅ Build & Deploy succeeded — main"
+          subject: "Build & Deploy succeeded - main"
           to: ${{ secrets.RECIPIENT_EMAIL }}
           from: ${{ secrets.SENDER_EMAIL }}
-          content_type: "text/plain"
           body: |
             Build, tests and deploy triggered by push to main succeeded.
             Repository: ${{ github.repository }}
