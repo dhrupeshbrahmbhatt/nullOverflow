@@ -1,8 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import Footer from '../pages/footers';
-import MeetOurTeamPage from '../pages/meetOurTeam';
+import Footer from '../Pages/HomeSection/footers';
+import MeetOurTeamPage from '../Pages/HomeSection/meetOurTeam';
 
 describe('Component Rendering Tests', () => {
   it('renders Footer component without crashing', () => {
