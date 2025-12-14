@@ -1,5 +1,5 @@
-import React, { memo, useCallback, useState } from 'react';
-import '../index.css';
+import { memo, useCallback, useState } from 'react';
+import '../../index.css';
 
 // Social icons data
 const SOCIAL_LINKS = [

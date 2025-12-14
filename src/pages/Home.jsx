@@ -1,11 +1,69 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Footer from './footers';
-import CustomerTestimonials from './testimonial';
-import MeetOurTeamPage from './meetOurTeam';
-import AgencyLandingPage from './agencyLanding';
-import StudioAboutPage from './studioAboutPage';
-import HeroSection from './herosection';
-import PopularPublications from './popularPublication';
+import Footer from './HomeSection/footers';
+import CustomerTestimonials from './HomeSection/testimonial';
+import MeetOurTeamPage from './HomeSection/meetOurTeam';
+import AgencyLandingPage from './HomeSection/agencyLanding';
+import StudioAboutPage from './HomeSection/studioAboutPage';
+import HeroSection from './HomeSection/herosection';
+import PopularPublications from './HomeSection/popularPublication';
+
+// Custom Menu Button Component (React-based, no jQuery)
+const MenuButton = ({ isOpen, onClick, color = 'black', style = {} }) => {
+  const lineStyle = {
+    display: 'block',
+    width: '28px',
+    height: '2.5px',
+    backgroundColor: color,
+    transition: 'all 0.3s ease',
+    position: 'absolute',
+    left: 0,
+  };
+
+  return (
+    <div
+      onClick={onClick}
+      style={{
+        cursor: 'pointer',
+        width: '28px',
+        height: '28px',
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        pointerEvents: 'all',
+        ...style,
+      }}
+    >
+      {/* Top line */}
+      <span
+        style={{
+          ...lineStyle,
+          top: isOpen ? '50%' : '6px',
+          transform: isOpen ? 'translateY(-50%) rotate(45deg)' : 'none',
+        }}
+      />
+      {/* Middle line */}
+      <span
+        style={{
+          ...lineStyle,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          opacity: isOpen ? 0 : 1,
+        }}
+      />
+      {/* Bottom line */}
+      <span
+        style={{
+          ...lineStyle,
+          width: isOpen ? '28px' : '18px',
+          bottom: isOpen ? 'auto' : '6px',
+          top: isOpen ? '50%' : 'auto',
+          transform: isOpen ? 'translateY(-50%) rotate(-45deg)' : 'none',
+        }}
+      />
+    </div>
+  );
+};
 
 const Home = () => {
   const topRef = useRef(null);
@@ -184,12 +242,10 @@ const Home = () => {
           background-color: inherit !important;
         }
 
-        /* Hide main frame when menu is open to avoid duplicate logos - only on desktop */
-        @media screen and (min-width: 769px) {
-          body.mil-menu-open .mil-frame {
-            opacity: 0 !important;
-            pointer-events: none !important;
-          }
+        /* Hide main frame when menu is open to avoid duplicate logos and X buttons */
+        body.mil-menu-open .mil-frame {
+          opacity: 0 !important;
+          pointer-events: none !important;
         }
 
         /* Style menu frame logo to be white */
@@ -242,9 +298,7 @@ const Home = () => {
       <div className={`mil-menu-frame ${isMenuOpen ? 'mil-active' : ''}`}>
         <div className="mil-frame-top">
           <a href="home-1.html" className="mil-logo">∅verflow</a>
-          <div className={`mil-menu-btn ${isMenuOpen ? 'mil-active' : ''}`} onClick={toggleMenu} style={{zIndex: 9999}}>
-            <span></span>
-          </div>
+          <MenuButton isOpen={isMenuOpen} onClick={toggleMenu} color="white" style={{ zIndex: 9999 }} />
         </div>
         <div className="container">
           <div className="mil-menu-content">
@@ -303,7 +357,7 @@ const Home = () => {
       {/* Curtain */}
       <div className="mil-curtain"></div>
       {/* Frame */}
-      <div className="mil-frame" style={{ zIndex: 10000 }}>
+      <div className="mil-frame" style={{ zIndex: 10000, opacity: isMenuOpen ? 0 : 1, pointerEvents: isMenuOpen ? 'none' : 'auto', transition: 'opacity 0.3s ease' }}>
         <div className="mil-frame-top" style={{ zIndex: 10000 }}>
           <a
   href="home-1.html"
@@ -322,9 +376,7 @@ const Home = () => {
 </a>
 
 
-          <div className={`mil-menu-btn ${isMenuOpen ? 'mil-active' : ''}`} onClick={toggleMenu} style={{zIndex: 10000}}>
-            <span style={{ backgroundColor: logoColor, transition: 'background-color 0.3s ease' }}></span>
-          </div>
+          <MenuButton isOpen={isMenuOpen} onClick={toggleMenu} color={logoColor} style={{ zIndex: 10000 }} />
         </div>
         <div className="mil-frame-bottom">
           <div className="mil-current-page"></div>
