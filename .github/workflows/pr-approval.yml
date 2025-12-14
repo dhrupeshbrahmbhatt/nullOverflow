@@ -16,22 +16,33 @@ jobs:
     name: Check for approval comment
     runs-on: ubuntu-latest
     if: github.event_name == 'issue_comment' && github.event.issue.pull_request
+    outputs:
+      approved: ${{ steps.check_approval.outputs.approved }}
     steps:
       - name: Check if comment is "approve" from authorized user
         id: check_approval
         env:
           COMMENT_BODY: ${{ github.event.comment.body }}
           COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
-          AUTHORIZED_USER: "priteshbrahmbhatt"  # Replace with your GitHub username
+          AUTHORIZED_USERS: "priteshbrahmbhatt dhrupeshbrahmbhatt"
         run: |
           # Trim whitespace and convert to lowercase
           COMMENT_LOWER=$(echo "$COMMENT_BODY" | tr '[:upper:]' '[:lower:]' | xargs)
 
           echo "Comment: $COMMENT_LOWER"
           echo "Author: $COMMENT_AUTHOR"
-          echo "Authorized: $AUTHORIZED_USER"
+          echo "Authorized users: $AUTHORIZED_USERS"
 
-          if [[ "$COMMENT_LOWER" == "approve" && "$COMMENT_AUTHOR" == "$AUTHORIZED_USER" ]]; then
+          # Check if comment author is in the authorized users list
+          IS_AUTHORIZED=false
+          for user in $AUTHORIZED_USERS; do
+            if [[ "$COMMENT_AUTHOR" == "$user" ]]; then
+              IS_AUTHORIZED=true
+              break
+            fi
+          done
+
+          if [[ "$COMMENT_LOWER" == "approve" && "$IS_AUTHORIZED" == "true" ]]; then
             echo "approved=true" >> $GITHUB_OUTPUT
             echo "✅ PR approved by authorized user"
           else
@@ -70,20 +81,28 @@ jobs:
       - name: Check PR author
         env:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-          AUTHORIZED_USER: "priteshbrahmbhatt"  # Replace with your GitHub username
+          AUTHORIZED_USERS: "priteshbrahmbhatt dhrupeshbrahmbhatt"
         run: |
           echo "PR Author: $PR_AUTHOR"
-          echo "Authorized User: $AUTHORIZED_USER"
+          echo "Authorized Users: $AUTHORIZED_USERS"
 
-          if [[ "$PR_AUTHOR" == "$AUTHORIZED_USER" ]]; then
+          IS_AUTHORIZED=false
+          for user in $AUTHORIZED_USERS; do
+            if [[ "$PR_AUTHOR" == "$user" ]]; then
+              IS_AUTHORIZED=true
+              break
+            fi
+          done
+
+          if [[ "$IS_AUTHORIZED" == "true" ]]; then
             echo "✅ PR created by authorized user - can be merged directly"
           else
-            echo "⏳ PR requires approval comment from $AUTHORIZED_USER"
+            echo "⏳ PR requires approval comment from an authorized user"
             echo "Please wait for approval before merging"
           fi
 
       - name: Comment on PR with instructions
-        if: github.event.pull_request.user.login != 'priteshbrahmbhatt'
+        if: github.event.pull_request.user.login != 'priteshbrahmbhatt' && github.event.pull_request.user.login != 'dhrupeshbrahmbhatt'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -92,7 +111,36 @@ jobs:
 
           This PR requires approval before it can be merged.
 
-          **@priteshbrahmbhatt** - Please review and comment \`approve\` to merge this PR.
+          **@priteshbrahmbhatt** or **@dhrupeshbrahmbhatt** - Please review and comment \`approve\` to merge this PR.
 
           ---
           *This is an automated message from the PR approval workflow.*"
+
+  send-merge-email:
+    name: Send email on PR merge
+    runs-on: ubuntu-latest
+    needs: check-approval
+    if: needs.check-approval.outputs.approved == 'true'
+    environment: prod
+    steps:
+      - name: Send merge notification email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.SMTP_SERVER }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          secure: true
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "PR #${{ github.event.issue.number }} merged - ${{ github.repository }}"
+          to: ${{ secrets.RECIPIENT_EMAIL }}
+          from: ${{ secrets.SENDER_EMAIL }}
+          body: |
+            Pull Request #${{ github.event.issue.number }} has been merged.
+
+            Repository: ${{ github.repository }}
+            Approved by: ${{ github.event.comment.user.login }}
+
+            View PR: ${{ github.event.issue.pull_request.html_url }}
+
+            ---
+            This is an automated message from the PR approval workflow.
