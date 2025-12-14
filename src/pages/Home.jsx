@@ -6,64 +6,7 @@ import AgencyLandingPage from './HomeSection/agencyLanding';
 import StudioAboutPage from './HomeSection/studioAboutPage';
 import HeroSection from './HomeSection/herosection';
 import PopularPublications from './HomeSection/popularPublication';
-
-// Custom Menu Button Component (React-based, no jQuery)
-const MenuButton = ({ isOpen, onClick, color = 'black', style = {} }) => {
-  const lineStyle = {
-    display: 'block',
-    width: '28px',
-    height: '2.5px',
-    backgroundColor: color,
-    transition: 'all 0.3s ease',
-    position: 'absolute',
-    left: 0,
-  };
-
-  return (
-    <div
-      onClick={onClick}
-      style={{
-        cursor: 'pointer',
-        width: '28px',
-        height: '28px',
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        pointerEvents: 'all',
-        ...style,
-      }}
-    >
-      {/* Top line */}
-      <span
-        style={{
-          ...lineStyle,
-          top: isOpen ? '50%' : '6px',
-          transform: isOpen ? 'translateY(-50%) rotate(45deg)' : 'none',
-        }}
-      />
-      {/* Middle line */}
-      <span
-        style={{
-          ...lineStyle,
-          top: '50%',
-          transform: 'translateY(-50%)',
-          opacity: isOpen ? 0 : 1,
-        }}
-      />
-      {/* Bottom line */}
-      <span
-        style={{
-          ...lineStyle,
-          width: isOpen ? '28px' : '18px',
-          bottom: isOpen ? 'auto' : '6px',
-          top: isOpen ? '50%' : 'auto',
-          transform: isOpen ? 'translateY(-50%) rotate(-45deg)' : 'none',
-        }}
-      />
-    </div>
-  );
-};
+import Navbar from '../component/Navbar/Navbar';
 
 const Home = () => {
   const topRef = useRef(null);
@@ -253,6 +196,28 @@ const Home = () => {
           color: white !important;
         }
 
+        /* Override: Show menu right section on all screen sizes */
+        .mil-menu-frame .mil-menu-right-frame {
+          display: flex !important;
+        }
+
+        /* Make menu scrollable on smaller screens */
+        @media screen and (max-width: 1200px) {
+          .mil-menu-frame .mil-menu-right-frame {
+            display: flex !important;
+            padding-left: 0;
+            border-left: none;
+            padding-top: 30px;
+          }
+          .mil-menu-frame .mil-menu-content .row {
+            flex-direction: column;
+          }
+          .mil-menu-frame .mil-menu-content {
+            overflow-y: auto;
+            max-height: 80vh;
+          }
+        }
+
         /* Hide back-to-top button on mobile and tablets to prevent auto-scroll issues */
         @media screen and (max-width: 768px) {
           .mil-back-to-top,
@@ -294,94 +259,12 @@ const Home = () => {
         <div className="mil-progress"></div>
       </div>
 
-      {/* Menu */}
-      <div className={`mil-menu-frame ${isMenuOpen ? 'mil-active' : ''}`}>
-        <div className="mil-frame-top">
-          <a href="home-1.html" className="mil-logo">∅verflow</a>
-          <MenuButton isOpen={isMenuOpen} onClick={toggleMenu} color="white" style={{ zIndex: 9999 }} />
-        </div>
-        <div className="container">
-          <div className="mil-menu-content">
-            <div className="row">
-              <div className="col-xl-5">
-                <nav className="mil-main-menu" id="swupMenu">
-                  <ul>
-                    <li className="mil-has-children mil-active">
-                      
-                      
-                    </li>
-                    <li className="mil-has-children">
-                      <a href="#.">Portfolio</a>
-                      <ul>
-                        <li><a href="portfolio-1.html">Grid type 1</a></li>
-                        <li><a href="portfolio-2.html">Grid type 2</a></li>
-                        <li><a href="portfolio-3.html">Slider</a></li>
-                      </ul>
-                    </li>
-                    <li className="mil-has-children">
-                      <a href="#.">Services</a>
-                      <ul>
-                        <li><a href="services.html">Services List</a></li>
-                        <li><a href="service.html">Single service</a></li>
-                      </ul>
-                    </li>
-                    <li className="mil-has-children">
-                      <a href="#.">Newsletter</a>
-                      <ul>
-                        <li><a href="blog.html">Blog List</a></li>
-                        <li><a href="publication.html">Publication</a></li>
-                      </ul>
-                    </li>
-                    <li className="mil-has-children">
-                      <a href="#.">Other pages</a>
-                     
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-              <div className="col-xl-7">
-                <div className="mil-menu-right-frame">
-                  <div className="mil-animation-in">
-                    <div className="mil-animation-frame">
-                      <div className="mil-animation mil-position-1 mil-scale" data-value-1="2" data-value-2="2"></div>
-                    </div>
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Curtain */}
-      <div className="mil-curtain"></div>
-      {/* Frame */}
-      <div className="mil-frame" style={{ zIndex: 10000, opacity: isMenuOpen ? 0 : 1, pointerEvents: isMenuOpen ? 'none' : 'auto', transition: 'opacity 0.3s ease' }}>
-        <div className="mil-frame-top" style={{ zIndex: 10000 }}>
-          <a
-  href="home-1.html"
-  className="mil-logo"
-  id="logoText"
-  style={{
-    fontSize: "40px",
-    fontWeight: 600,
-    position: "relative",
-    zIndex: 10000,
-    color: logoColor,
-    transition: "color 0.3s ease",
-  }}
->
-  ∅verflow
-</a>
-
-
-          <MenuButton isOpen={isMenuOpen} onClick={toggleMenu} color={logoColor} style={{ zIndex: 10000 }} />
-        </div>
-        <div className="mil-frame-bottom">
-          <div className="mil-current-page"></div>
-        </div>
-      </div>
+      <Navbar
+        activePage="home"
+        logoColor={logoColor}
+        isMenuOpen={isMenuOpen}
+        toggleMenu={toggleMenu}
+      />
 
       {/* Content */}
       <div className="mil-content">

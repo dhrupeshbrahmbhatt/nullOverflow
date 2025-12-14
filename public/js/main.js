@@ -36,13 +36,14 @@ $(function () {
         const checkInterval = setInterval(function() {
             attempts++;
             // Check if key React-rendered elements exist
+            // Check for either .mil-banner (Home) or .mil-inner-banner (Projects)
             const preloader = document.querySelector('.mil-preloader');
-            const banner = document.querySelector('.mil-banner');
+            const banner = document.querySelector('.mil-banner') || document.querySelector('.mil-inner-banner');
             const swupMain = document.querySelector('#swupMain');
 
             console.log(`Attempt ${attempts}: Preloader=${!!preloader}, Banner=${!!banner}, SwupMain=${!!swupMain}`);
 
-            if (preloader && banner && swupMain) {
+            if ((preloader || banner) && swupMain) {
                 clearInterval(checkInterval);
                 console.log('React DOM ready, initializing animations');
                 callback();
