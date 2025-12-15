@@ -22,8 +22,8 @@ const Navbar = ({ activePage = 'home', logoColor = 'white', isMenuOpen, toggleMe
                     <li className={`mil-has-children ${activePage === 'projects' ? 'mil-active' : ''}`}>
                       <Link to="/projects" onClick={(e) => { e.preventDefault(); window.location.href = '/projects'; }}>Projects</Link>
                     </li>
-                    <li className="mil-has-children">
-                      <a href="#.">Services</a>
+                    <li className={`mil-has-children ${activePage === 'services' ? 'mil-active' : ''}`}>
+                      <Link to="/services" onClick={(e) => { e.preventDefault(); window.location.href = '/services'; }}>Services</Link>
                     </li>
                     <li className="mil-has-children">
                       <a href="#.">Newsletter</a>
