@@ -1,9 +1,51 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import MenuButton from './MenuButton';
 
 const Navbar = ({ activePage = 'home', logoColor = 'white', isMenuOpen, toggleMenu }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // On mobile, always use white color for logo and menu button
+  const effectiveLogoColor = isMobile ? 'white' : logoColor;
+
   return (
     <>
+      {/* Mobile Navbar Styles */}
+      <style>{`
+        @media (max-width: 768px) {
+          .mil-frame {
+            background-color: #000000 !important;
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 15px 20px !important;
+            z-index: 10000 !important;
+          }
+
+          .mil-frame .mil-frame-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .mil-frame .mil-logo,
+          .mil-frame #logoText {
+            color: #ffffff !important;
+          }
+        }
+      `}</style>
+
       {/* Menu */}
       <div className={`mil-menu-frame ${isMenuOpen ? 'mil-active' : ''}`}>
         <div className="mil-frame-top">
@@ -110,14 +152,14 @@ const Navbar = ({ activePage = 'home', logoColor = 'white', isMenuOpen, toggleMe
               fontWeight: 600,
               position: "relative",
               zIndex: 10000,
-              color: logoColor,
+              color: effectiveLogoColor,
               transition: "color 0.3s ease",
               pointerEvents: "auto",
             }}
           >
             ∅verflow
           </a>
-          <MenuButton isOpen={isMenuOpen} onClick={toggleMenu} color={logoColor} style={{ zIndex: 10000 }} />
+          <MenuButton isOpen={isMenuOpen} onClick={toggleMenu} color={effectiveLogoColor} style={{ zIndex: 10000 }} />
         </div>
         <div className="mil-frame-bottom">
           <div className="mil-current-page"></div>

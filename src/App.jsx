@@ -3,6 +3,7 @@ import Home from './pages/Home.jsx'
 import Projects from './pages/Projects.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Services from './pages/Services.jsx'
+import Personal from './pages/Personal.jsx'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/personal" element={<Personal />} />
         </Routes>
       </BrowserRouter>
   )

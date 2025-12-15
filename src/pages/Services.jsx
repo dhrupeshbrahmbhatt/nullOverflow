@@ -72,7 +72,7 @@ const ServiceCard = ({ service, hasOffset }) => {
             opacity: isHovered ? 1 : 0,
             transition: 'transform 0.2s ease-out, opacity 0.2s ease-out',
             pointerEvents: 'none',
-            zIndex: 9999
+            zIndex: 999
           }}
         >
           <span
@@ -271,11 +271,26 @@ const Services = () => {
               </div>
             </div>
           </section>
-          {/* Call to Action End */}
-
           {/* Footer */}
           <Footer />
 
+          {/* Hidden Elements for jQuery cloning */}
+          <div className="mil-hidden-elements">
+            <div className="mil-dodecahedron">
+              {[...Array(12)].map((_, i) => (
+                <div className="mil-pentagon" key={`hidden-${i}`}>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              ))}
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="mil-arrow">
+              <path d="M 14 5.3417969 C 13.744125 5.3417969 13.487969 5.4412187 13.292969 5.6367188 L 13.207031 5.7226562 C 12.816031 6.1136563 12.816031 6.7467188 13.207031 7.1367188 L 17.070312 11 L 4 11 C 3.448 11 3 11.448 3 12 C 3 12.552 3.448 13 4 13 L 17.070312 13 L 13.207031 16.863281 C 12.816031 17.254281 12.816031 17.887344 13.207031 18.277344 L 13.292969 18.363281 C 13.683969 18.754281 14.317031 18.754281 14.707031 18.363281 L 20.363281 12.707031 C 20.754281 12.316031 20.754281 11.682969 20.363281 11.292969 L 14.707031 5.6367188 C 14.511531 5.4412187 14.255875 5.3417969 14 5.3417969 z"></path>
+            </svg>
+          </div>
         </div>
       </div>
 
@@ -295,7 +310,7 @@ const Services = () => {
           margin-bottom: 30px;
           transition: all 0.3s ease;
           position: relative;
-          overflow: hidden;
+          overflow: visible;
         }
 
         .mil-service-card-lg:hover {
@@ -388,12 +403,6 @@ const Services = () => {
           background: #e69500;
         }
 
-        .mil-button .mil-arrow {
-          width: 20px;
-          height: 20px;
-          fill: currentColor;
-        }
-
         /* Lines decoration */
         .mil-lines-place {
           position: relative;
@@ -428,84 +437,6 @@ const Services = () => {
           color: #fff;
         }
 
-        /* Down arrow animation */
-        .mil-down-arrow .mil-arrow {
-          transform: rotate(90deg);
-        }
-
-        /* Link styles */
-        .mil-link {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          font-size: 12px;
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          text-decoration: none;
-          transition: all 0.3s ease;
-        }
-
-        .mil-link.mil-accent {
-          color: var(--accent-color, #ffc107);
-        }
-
-        .mil-link .mil-arrow {
-          width: 16px;
-          height: 16px;
-          fill: currentColor;
-          transition: transform 0.3s ease;
-        }
-
-        .mil-link:hover .mil-arrow {
-          transform: translateX(5px);
-        }
-
-        .mil-down-arrow:hover .mil-arrow {
-          transform: rotate(90deg) translateX(5px);
-        }
-
-        /* Arrow visibility fix */
-        .mil-arrow {
-          display: inline-block !important;
-          width: 20px !important;
-          height: 20px !important;
-          fill: #FFA801 !important;
-          vertical-align: middle;
-        }
-
-        .mil-arrow path {
-          fill: #FFA801 !important;
-        }
-
-        .mil-arrow-place .mil-arrow {
-          width: 20px !important;
-          height: 20px !important;
-        }
-
-        /* Service card arrow */
-        .mil-service-card-lg .mil-link .mil-arrow,
-        .mil-service-card-lg .mil-link .mil-arrow path {
-          fill: #FFA801 !important;
-        }
-
-        /* Banner down arrow */
-        .mil-banner-content .mil-link.mil-accent .mil-arrow,
-        .mil-banner-content .mil-link.mil-accent .mil-arrow path {
-          fill: #FFA801 !important;
-        }
-
-        /* Accent color override */
-        .mil-link.mil-accent {
-          color: #FFA801;
-        }
-
-        /* Button arrow (Contact us) */
-        .mil-button .mil-arrow,
-        .mil-button .mil-arrow path {
-          width: 20px !important;
-          height: 20px !important;
-          fill: #000 !important;
-        }
       `}</style>
     </div>
   );
