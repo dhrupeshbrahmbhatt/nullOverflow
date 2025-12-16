@@ -15,8 +15,8 @@ const Navbar = ({ activePage = 'home', logoColor = 'white', isMenuOpen, toggleMe
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // On mobile, always use white color for logo and menu button
-  const effectiveLogoColor = isMobile ? 'white' : logoColor;
+  // Use the same logo color on mobile as desktop (passed via props)
+  const effectiveLogoColor = logoColor;
 
   return (
     <>
@@ -24,24 +24,92 @@ const Navbar = ({ activePage = 'home', logoColor = 'white', isMenuOpen, toggleMe
       <style>{`
         @media (max-width: 768px) {
           .mil-frame {
-            background-color: #000000 !important;
+            background-color: transparent !important;
             position: fixed !important;
             top: 0;
             left: 0;
             right: 0;
             padding: 15px 20px !important;
             z-index: 10000 !important;
+            height: 100px !important;
           }
 
           .mil-frame .mil-frame-top {
-            display: flex;
+            display: flex !important;
             justify-content: space-between;
             align-items: center;
+            pointer-events: auto !important;
+            background-color: transparent !important;
+            height: 60px !important;
           }
 
           .mil-frame .mil-logo,
           .mil-frame #logoText {
-            color: #ffffff !important;
+            color: ${logoColor} !important;
+            font-size: 24px !important;
+          }
+
+          .mil-frame .mil-frame-bottom {
+            display: none !important;
+          }
+
+          /* Hide side panel on mobile */
+          .mil-menu-frame .mil-menu-right-frame,
+          .mil-menu-frame .col-xl-7 {
+            display: none !important;
+          }
+
+          /* Make main menu full width on mobile */
+          .mil-menu-frame .col-xl-5 {
+            width: 100% !important;
+            max-width: 100% !important;
+            flex: 0 0 100% !important;
+          }
+
+          /* Full screen menu on mobile - exact screen height, no scroll */
+          .mil-menu-frame {
+            overflow: hidden !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+          }
+
+          .mil-menu-frame .mil-frame-top {
+            display: flex !important;
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px !important;
+            padding: 15px 20px !important;
+            z-index: 10001 !important;
+          }
+
+          .mil-menu-frame .container {
+            height: 100% !important;
+            max-height: 100vh !important;
+            max-height: 100dvh !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            overflow: hidden !important;
+          }
+
+          .mil-menu-frame .mil-menu-content {
+            overflow: hidden !important;
+            max-height: calc(100vh - 120px) !important;
+            max-height: calc(100dvh - 120px) !important;
+          }
+
+          .mil-menu-frame .mil-main-menu {
+            padding-top: 0 !important;
+          }
+
+          /* Make close button (X) white on mobile */
+          .mil-menu-frame .mil-frame-top > div span {
+            background-color: #ffffff !important;
           }
         }
       `}</style>
