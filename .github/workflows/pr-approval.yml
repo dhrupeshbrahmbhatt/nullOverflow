@@ -3,6 +3,7 @@ name: PR Approval Workflow
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    branches: [main]
   issue_comment:
     types: [created]
 
@@ -12,19 +13,160 @@ permissions:
   issues: write
 
 jobs:
-  check-approval:
-    name: Check for approval comment
+  create-approval-issue:
+    name: Create Approval Issue
     runs-on: ubuntu-latest
-    if: github.event_name == 'issue_comment' && github.event.issue.pull_request
+    if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main'
+    steps:
+      - name: Check if approval issue already exists
+        id: check_issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # Search for existing approval issue for this PR
+          EXISTING_ISSUE=$(gh issue list --repo ${{ github.repository }} --state open --search "PR #$PR_NUMBER Approval Request" --json number --jq '.[0].number' 2>/dev/null || echo "")
+
+          if [[ -n "$EXISTING_ISSUE" ]]; then
+            echo "issue_exists=true" >> $GITHUB_OUTPUT
+            echo "issue_number=$EXISTING_ISSUE" >> $GITHUB_OUTPUT
+            echo "Approval issue already exists: #$EXISTING_ISSUE"
+          else
+            echo "issue_exists=false" >> $GITHUB_OUTPUT
+            echo "No existing approval issue found"
+          fi
+
+      - name: Create approval issue
+        if: steps.check_issue.outputs.issue_exists == 'false'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          ISSUE_BODY="## 🔐 Manual Approval Required
+
+          A pull request is waiting for your approval to be merged into **main**.
+
+          ---
+
+          ### Pull Request Details
+
+          | Field | Value |
+          |-------|-------|
+          | **PR Number** | #$PR_NUMBER |
+          | **Title** | $PR_TITLE |
+          | **Author** | @$PR_AUTHOR |
+          | **Link** | $PR_URL |
+
+          ---
+
+          ### Description
+          $PR_BODY
+
+          ---
+
+          ## ✅ How to Approve
+
+          To approve and merge this PR, comment one of the following:
+          - \`approved\`
+          - \`approve\`
+
+          The PR will be automatically merged and this issue will be closed.
+
+          ---
+
+          ## ❌ How to Reject
+
+          To reject this PR, comment:
+          - \`rejected\`
+          - \`reject\`
+
+          The PR will remain open but marked as needing changes.
+
+          ---
+
+          **Authorized Approvers:** @dhrupeshbrahmbhatt
+
+          ---
+          *This issue was automatically created by the PR approval workflow.*"
+
+          gh issue create \
+            --repo ${{ github.repository }} \
+            --title "🔒 PR #$PR_NUMBER Approval Request: $PR_TITLE" \
+            --body "$ISSUE_BODY" \
+            --label "approval-required,pr-review" \
+            --assignee "dhrupeshbrahmbhatt"
+
+      - name: Comment on PR with approval instructions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # Check if we already commented
+          EXISTING_COMMENT=$(gh pr view $PR_NUMBER --repo ${{ github.repository }} --comments --json comments --jq '.comments[] | select(.body | contains("requires manual approval")) | .id' | head -1)
+
+          if [[ -z "$EXISTING_COMMENT" ]]; then
+            gh pr comment $PR_NUMBER --repo ${{ github.repository }} --body "## ⏳ Awaiting Manual Approval
+
+          This PR targets the **main** branch and requires manual approval before merging.
+
+          An approval issue has been created. An authorized user must comment \`approved\` or \`approve\` on the approval issue to merge this PR.
+
+          **Note:** Direct merges to main are blocked until approval is granted.
+
+          ---
+          *This is an automated message from the PR approval workflow.*"
+          fi
+
+  check-approval:
+    name: Check for Approval Comment
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issue_comment' && !github.event.issue.pull_request
     outputs:
       approved: ${{ steps.check_approval.outputs.approved }}
+      rejected: ${{ steps.check_approval.outputs.rejected }}
+      pr_number: ${{ steps.extract_pr.outputs.pr_number }}
     steps:
-      - name: Check if comment is "approve" from authorized user
+      - name: Check if issue is an approval request
+        id: check_issue_type
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          if [[ "$ISSUE_TITLE" == *"Approval Request"* ]]; then
+            echo "is_approval_issue=true" >> $GITHUB_OUTPUT
+            echo "This is an approval request issue"
+          else
+            echo "is_approval_issue=false" >> $GITHUB_OUTPUT
+            echo "This is not an approval request issue"
+          fi
+
+      - name: Extract PR number from issue title
+        if: steps.check_issue_type.outputs.is_approval_issue == 'true'
+        id: extract_pr
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          # Extract PR number from title like "🔒 PR #123 Approval Request: ..."
+          PR_NUMBER=$(echo "$ISSUE_TITLE" | grep -oP 'PR #\K[0-9]+' || echo "")
+
+          if [[ -n "$PR_NUMBER" ]]; then
+            echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+            echo "Extracted PR number: $PR_NUMBER"
+          else
+            echo "pr_number=" >> $GITHUB_OUTPUT
+            echo "Could not extract PR number from title"
+          fi
+
+      - name: Check if comment is approval/rejection from authorized user
+        if: steps.check_issue_type.outputs.is_approval_issue == 'true' && steps.extract_pr.outputs.pr_number != ''
         id: check_approval
         env:
           COMMENT_BODY: ${{ github.event.comment.body }}
           COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
-          AUTHORIZED_USERS: "priteshbrahmbhatt dhrupeshbrahmbhatt"
+          AUTHORIZED_USERS: "dhrupeshbrahmbhatt"
         run: |
           # Trim whitespace and convert to lowercase
           COMMENT_LOWER=$(echo "$COMMENT_BODY" | tr '[:upper:]' '[:lower:]' | xargs)
@@ -42,28 +184,97 @@ jobs:
             fi
           done
 
-          if [[ "$COMMENT_LOWER" == "approve" && "$IS_AUTHORIZED" == "true" ]]; then
-            echo "approved=true" >> $GITHUB_OUTPUT
-            echo "✅ PR approved by authorized user"
+          if [[ "$IS_AUTHORIZED" == "true" ]]; then
+            if [[ "$COMMENT_LOWER" == "approved" || "$COMMENT_LOWER" == "approve" ]]; then
+              echo "approved=true" >> $GITHUB_OUTPUT
+              echo "rejected=false" >> $GITHUB_OUTPUT
+              echo "✅ PR approved by authorized user"
+            elif [[ "$COMMENT_LOWER" == "rejected" || "$COMMENT_LOWER" == "reject" ]]; then
+              echo "approved=false" >> $GITHUB_OUTPUT
+              echo "rejected=true" >> $GITHUB_OUTPUT
+              echo "❌ PR rejected by authorized user"
+            else
+              echo "approved=false" >> $GITHUB_OUTPUT
+              echo "rejected=false" >> $GITHUB_OUTPUT
+            fi
           else
             echo "approved=false" >> $GITHUB_OUTPUT
-            if [[ "$COMMENT_LOWER" == "approve" ]]; then
-              echo "❌ User $COMMENT_AUTHOR is not authorized to approve"
+            echo "rejected=false" >> $GITHUB_OUTPUT
+            if [[ "$COMMENT_LOWER" == "approved" || "$COMMENT_LOWER" == "approve" ]]; then
+              echo "⚠️ User $COMMENT_AUTHOR is not authorized to approve"
             fi
           fi
 
-      - name: Merge PR if approved
-        if: steps.check_approval.outputs.approved == 'true'
+      - name: Add unauthorized user warning
+        if: steps.check_issue_type.outputs.is_approval_issue == 'true' && steps.check_approval.outputs.approved == 'false' && steps.check_approval.outputs.rejected == 'false'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.issue.number }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
+          AUTHORIZED_USERS: "dhrupeshbrahmbhatt"
+        run: |
+          COMMENT_LOWER=$(echo "$COMMENT_BODY" | tr '[:upper:]' '[:lower:]' | xargs)
+
+          # Check if it was an approval attempt by unauthorized user
+          IS_AUTHORIZED=false
+          for user in $AUTHORIZED_USERS; do
+            if [[ "$COMMENT_AUTHOR" == "$user" ]]; then
+              IS_AUTHORIZED=true
+              break
+            fi
+          done
+
+          if [[ "$IS_AUTHORIZED" == "false" && ("$COMMENT_LOWER" == "approved" || "$COMMENT_LOWER" == "approve") ]]; then
+            gh issue comment ${{ github.event.issue.number }} \
+              --repo ${{ github.repository }} \
+              --body "⚠️ @$COMMENT_AUTHOR is not authorized to approve this PR.
+
+          Only the following users can approve: **@dhrupeshbrahmbhatt**"
+          fi
+
+  merge-pr:
+    name: Merge PR
+    runs-on: ubuntu-latest
+    needs: check-approval
+    if: needs.check-approval.outputs.approved == 'true' && needs.check-approval.outputs.pr_number != ''
+    steps:
+      - name: Merge the PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ needs.check-approval.outputs.pr_number }}
         run: |
           echo "Merging PR #$PR_NUMBER..."
           gh pr merge $PR_NUMBER --merge --repo ${{ github.repository }}
-          echo "✅ PR merged successfully"
+          echo "✅ PR #$PR_NUMBER merged successfully"
 
-      - name: Add reaction to comment
-        if: steps.check_approval.outputs.approved == 'true'
+      - name: Add success comment to issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          PR_NUMBER: ${{ needs.check-approval.outputs.pr_number }}
+          APPROVER: ${{ github.event.comment.user.login }}
+        run: |
+          gh issue comment $ISSUE_NUMBER \
+            --repo ${{ github.repository }} \
+            --body "## ✅ PR Merged Successfully!
+
+          **PR #$PR_NUMBER** has been merged into main.
+
+          - **Approved by:** @$APPROVER
+          - **Merged at:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+
+          This issue will now be closed."
+
+      - name: Close the approval issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue close $ISSUE_NUMBER \
+            --repo ${{ github.repository }} \
+            --comment "Closed automatically after PR approval and merge."
+
+      - name: Add reaction to approval comment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -73,53 +284,58 @@ jobs:
             /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
             -f content='rocket'
 
-  pr-check:
-    name: PR Requirements Check
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    steps:
-      - name: Check PR author
-        env:
-          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-          AUTHORIZED_USERS: "priteshbrahmbhatt dhrupeshbrahmbhatt"
-        run: |
-          echo "PR Author: $PR_AUTHOR"
-          echo "Authorized Users: $AUTHORIZED_USERS"
-
-          IS_AUTHORIZED=false
-          for user in $AUTHORIZED_USERS; do
-            if [[ "$PR_AUTHOR" == "$user" ]]; then
-              IS_AUTHORIZED=true
-              break
-            fi
-          done
-
-          if [[ "$IS_AUTHORIZED" == "true" ]]; then
-            echo "✅ PR created by authorized user - can be merged directly"
-          else
-            echo "⏳ PR requires approval comment from an authorized user"
-            echo "Please wait for approval before merging"
-          fi
-
-      - name: Comment on PR with instructions
-        if: github.event.pull_request.user.login != 'priteshbrahmbhatt' && github.event.pull_request.user.login != 'dhrupeshbrahmbhatt'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          gh pr comment $PR_NUMBER --repo ${{ github.repository }} --body "👋 Thanks for your contribution!
-
-          This PR requires approval before it can be merged.
-
-          **@priteshbrahmbhatt** or **@dhrupeshbrahmbhatt** - Please review and comment \`approve\` to merge this PR.
-
-          ---
-          *This is an automated message from the PR approval workflow.*"
-
-  send-merge-email:
-    name: Send email on PR merge
+  handle-rejection:
+    name: Handle PR Rejection
     runs-on: ubuntu-latest
     needs: check-approval
+    if: needs.check-approval.outputs.rejected == 'true' && needs.check-approval.outputs.pr_number != ''
+    steps:
+      - name: Comment on PR about rejection
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ needs.check-approval.outputs.pr_number }}
+          REJECTOR: ${{ github.event.comment.user.login }}
+        run: |
+          gh pr comment $PR_NUMBER \
+            --repo ${{ github.repository }} \
+            --body "## ❌ PR Rejected
+
+          This PR has been rejected by @$REJECTOR.
+
+          Please review the feedback and make necessary changes before requesting approval again."
+
+      - name: Add rejection comment to issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          PR_NUMBER: ${{ needs.check-approval.outputs.pr_number }}
+          REJECTOR: ${{ github.event.comment.user.login }}
+        run: |
+          gh issue comment $ISSUE_NUMBER \
+            --repo ${{ github.repository }} \
+            --body "## ❌ PR Rejected
+
+          **PR #$PR_NUMBER** has been rejected.
+
+          - **Rejected by:** @$REJECTOR
+          - **Time:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+
+          The PR author should address any concerns and request a new review."
+
+      - name: Add reaction to rejection comment
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
+            -f content='eyes'
+
+  send-merge-email:
+    name: Send Email on PR Merge
+    runs-on: ubuntu-latest
+    needs: [check-approval, merge-pr]
     if: needs.check-approval.outputs.approved == 'true'
     environment: prod
     steps:
@@ -131,16 +347,14 @@ jobs:
           secure: true
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "PR #${{ github.event.issue.number }} merged - ${{ github.repository }}"
+          subject: "✅ PR #${{ needs.check-approval.outputs.pr_number }} merged - ${{ github.repository }}"
           to: ${{ secrets.RECIPIENT_EMAIL }}
           from: ${{ secrets.SENDER_EMAIL }}
           body: |
-            Pull Request #${{ github.event.issue.number }} has been merged.
+            Pull Request #${{ needs.check-approval.outputs.pr_number }} has been merged into main.
 
             Repository: ${{ github.repository }}
             Approved by: ${{ github.event.comment.user.login }}
-
-            View PR: ${{ github.event.issue.pull_request.html_url }}
 
             ---
             This is an automated message from the PR approval workflow.
