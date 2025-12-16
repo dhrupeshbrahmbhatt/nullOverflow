@@ -2,7 +2,12 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import MenuButton from './MenuButton';
 
-const Navbar = ({ activePage = 'home', logoColor = 'white', isMenuOpen, toggleMenu }) => {
+const Navbar = ({
+  activePage = 'home',
+  logoColor = 'white',
+  isMenuOpen,
+  toggleMenu
+}) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -15,23 +20,24 @@ const Navbar = ({ activePage = 'home', logoColor = 'white', isMenuOpen, toggleMe
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Use the same logo color on mobile as desktop (passed via props)
-  const effectiveLogoColor = logoColor;
+  // On mobile: always black bg with white text
+  // On desktop: use the passed logoColor
+  const effectiveLogoColor = isMobile ? 'white' : logoColor;
 
   return (
     <>
-      {/* Mobile Navbar Styles */}
+      {/* Mobile Navbar Styles - Black bg with white content for all pages */}
       <style>{`
         @media (max-width: 768px) {
           .mil-frame {
-            background-color: transparent !important;
+            background-color: #000000 !important;
             position: fixed !important;
             top: 0;
             left: 0;
             right: 0;
-            padding: 15px 20px !important;
+            padding: 0 !important;
             z-index: 10000 !important;
-            height: 100px !important;
+            height: auto !important;
           }
 
           .mil-frame .mil-frame-top {
@@ -39,14 +45,20 @@ const Navbar = ({ activePage = 'home', logoColor = 'white', isMenuOpen, toggleMe
             justify-content: space-between;
             align-items: center;
             pointer-events: auto !important;
-            background-color: transparent !important;
-            height: 60px !important;
+            background-color: #000000 !important;
+            height: 70px !important;
+            padding: 15px 20px !important;
           }
 
           .mil-frame .mil-logo,
           .mil-frame #logoText {
-            color: ${logoColor} !important;
+            color: #ffffff !important;
             font-size: 24px !important;
+          }
+
+          /* Force hamburger lines to be white */
+          .mil-frame .mil-frame-top > div span {
+            background-color: #ffffff !important;
           }
 
           .mil-frame .mil-frame-bottom {
@@ -85,6 +97,7 @@ const Navbar = ({ activePage = 'home', logoColor = 'white', isMenuOpen, toggleMe
             height: 60px !important;
             padding: 15px 20px !important;
             z-index: 10001 !important;
+            background-color: transparent !important;
           }
 
           .mil-menu-frame .container {
