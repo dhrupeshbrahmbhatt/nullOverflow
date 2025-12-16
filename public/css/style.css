@@ -1273,15 +1273,7 @@ frame
   }
 }
 .mil-frame .mil-frame-bottom .mil-current-page {
-  pointer-events: none;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 12px;
-  width: 300px;
-  color: rgb(255, 255, 255);
-  -webkit-transform: rotate(-90deg) translateX(138px) translateY(-138px);
-          transform: rotate(-90deg) translateX(138px) translateY(-138px);
+  display: none;
 }
 .mil-frame .mil-frame-bottom .mil-back-to-top {
   width: 300px;

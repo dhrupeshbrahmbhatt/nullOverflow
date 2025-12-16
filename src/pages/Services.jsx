@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from './HomeSection/footers';
 import Navbar from '../component/Navbar/Navbar';
+import Preloader from '../component/Preloader/Preloader';
 
 // Service Card Component
 const ServiceCard = ({ service, hasOffset }) => {
@@ -158,6 +159,9 @@ const Services = () => {
 
   return (
     <div className="mil-wrapper" id="top">
+      {/* Preloader */}
+      <Preloader />
+
       {/* Navbar */}
       <Navbar
         activePage="services"

@@ -7,6 +7,7 @@ import StudioAboutPage from './HomeSection/studioAboutPage';
 import HeroSection from './HomeSection/herosection';
 import PopularPublications from './HomeSection/popularPublication';
 import Navbar from '../component/Navbar/Navbar';
+import Preloader from '../component/Preloader/Preloader';
 
 const Home = () => {
   const topRef = useRef(null);
@@ -93,6 +94,9 @@ const Home = () => {
 
   return (
     <div className="mil-wrapper" id="top" ref={topRef}>
+      {/* Preloader */}
+      <Preloader />
+
       {/* Cursor */}
       <div className="mil-ball">
         <span className="mil-icon-1">
@@ -104,22 +108,7 @@ const Home = () => {
         <div className="mil-choose-text">Сhoose</div>
       </div>
 
-      {/* Preloader */}
-      <div className="mil-preloader">
-        <div className="mil-preloader-animation">
-          <div className="mil-pos-abs mil-animation-1">
-            <p className="mil-h3 mil-muted mil-thin">Pioneering</p>
-            <p className="mil-h3 mil-muted">Creative</p>
-            <p className="mil-h3 mil-muted mil-thin">Excellence</p>
-          </div>
-          <div className="mil-pos-abs mil-animation-2">
-            <div className="mil-reveal-frame">
-              <p className="mil-reveal-box"></p>
-              <p className="mil-h3 mil-muted mil-thin">∅verflow()</p>
-            </div>
-          </div>
-        </div>
-      </div>
+
 
       {/* Mobile Responsive Styles */}
       <style>{`
