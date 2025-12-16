@@ -1,9 +1,132 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import MenuButton from './MenuButton';
 
-const Navbar = ({ activePage = 'home', logoColor = 'white', isMenuOpen, toggleMenu }) => {
+const Navbar = ({
+  activePage = 'home',
+  logoColor = 'white',
+  isMenuOpen,
+  toggleMenu
+}) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // On mobile: always black bg with white text
+  // On desktop: use the passed logoColor
+  const effectiveLogoColor = isMobile ? 'white' : logoColor;
+
   return (
     <>
+      {/* Mobile Navbar Styles - Black bg with white content for all pages */}
+      <style>{`
+        @media (max-width: 768px) {
+          .mil-frame {
+            background-color: #000000 !important;
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 0 !important;
+            z-index: 10000 !important;
+            height: auto !important;
+          }
+
+          .mil-frame .mil-frame-top {
+            display: flex !important;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: auto !important;
+            background-color: #000000 !important;
+            height: 70px !important;
+            padding: 15px 20px !important;
+          }
+
+          .mil-frame .mil-logo,
+          .mil-frame #logoText {
+            color: #ffffff !important;
+            font-size: 24px !important;
+          }
+
+          /* Force hamburger lines to be white */
+          .mil-frame .mil-frame-top > div span {
+            background-color: #ffffff !important;
+          }
+
+          .mil-frame .mil-frame-bottom {
+            display: none !important;
+          }
+
+          /* Hide side panel on mobile */
+          .mil-menu-frame .mil-menu-right-frame,
+          .mil-menu-frame .col-xl-7 {
+            display: none !important;
+          }
+
+          /* Make main menu full width on mobile */
+          .mil-menu-frame .col-xl-5 {
+            width: 100% !important;
+            max-width: 100% !important;
+            flex: 0 0 100% !important;
+          }
+
+          /* Full screen menu on mobile - exact screen height, no scroll */
+          .mil-menu-frame {
+            overflow: hidden !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+          }
+
+          .mil-menu-frame .mil-frame-top {
+            display: flex !important;
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px !important;
+            padding: 15px 20px !important;
+            z-index: 10001 !important;
+            background-color: transparent !important;
+          }
+
+          .mil-menu-frame .container {
+            height: 100% !important;
+            max-height: 100vh !important;
+            max-height: 100dvh !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            overflow: hidden !important;
+          }
+
+          .mil-menu-frame .mil-menu-content {
+            overflow: hidden !important;
+            max-height: calc(100vh - 120px) !important;
+            max-height: calc(100dvh - 120px) !important;
+          }
+
+          .mil-menu-frame .mil-main-menu {
+            padding-top: 0 !important;
+          }
+
+          /* Make close button (X) white on mobile */
+          .mil-menu-frame .mil-frame-top > div span {
+            background-color: #ffffff !important;
+          }
+        }
+      `}</style>
+
       {/* Menu */}
       <div className={`mil-menu-frame ${isMenuOpen ? 'mil-active' : ''}`}>
         <div className="mil-frame-top">
@@ -22,8 +145,8 @@ const Navbar = ({ activePage = 'home', logoColor = 'white', isMenuOpen, toggleMe
                     <li className={`mil-has-children ${activePage === 'projects' ? 'mil-active' : ''}`}>
                       <Link to="/projects" onClick={(e) => { e.preventDefault(); window.location.href = '/projects'; }}>Projects</Link>
                     </li>
-                    <li className="mil-has-children">
-                      <a href="#.">Services</a>
+                    <li className={`mil-has-children ${activePage === 'services' ? 'mil-active' : ''}`}>
+                      <Link to="/services" onClick={(e) => { e.preventDefault(); window.location.href = '/services'; }}>Services</Link>
                     </li>
                     <li className="mil-has-children">
                       <a href="#.">Newsletter</a>
@@ -110,14 +233,14 @@ const Navbar = ({ activePage = 'home', logoColor = 'white', isMenuOpen, toggleMe
               fontWeight: 600,
               position: "relative",
               zIndex: 10000,
-              color: logoColor,
+              color: effectiveLogoColor,
               transition: "color 0.3s ease",
               pointerEvents: "auto",
             }}
           >
             ∅verflow
           </a>
-          <MenuButton isOpen={isMenuOpen} onClick={toggleMenu} color={logoColor} style={{ zIndex: 10000 }} />
+          <MenuButton isOpen={isMenuOpen} onClick={toggleMenu} color={effectiveLogoColor} style={{ zIndex: 10000 }} />
         </div>
         <div className="mil-frame-bottom">
           <div className="mil-current-page"></div>

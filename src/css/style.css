@@ -1225,17 +1225,14 @@ frame
   .mil-frame {
     padding: 0;
     z-index: 999;
-    height: 90px;
+    height: 60px;
   }
 }
 @media screen and (max-width: 1200px) {
   .mil-frame .mil-frame-top {
-    height: 90px;
-    background-color: rgba(0, 0, 0, 0.95);
-    border-bottom: solid 1px rgba(255, 255, 255, 0.1);
-    padding: 0 30px;
-    -webkit-backdrop-filter: blur(8px);
-            backdrop-filter: blur(8px);
+    height: 60px;
+    background-color: transparent;
+    padding: 0 20px;
   }
   .mil-frame .mil-frame-top .mil-logo {
     color: rgb(255, 255, 255);
