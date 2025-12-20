@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    types: [closed]
+    branches:
+      - main
 
 concurrency:
   group: ci-deploy-main
@@ -13,6 +17,8 @@ jobs:
   build-and-deploy:
     name: Build, Test, Deploy (production)
     runs-on: ubuntu-latest
+    # Run on push to main OR when a PR is merged (closed + merged)
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     environment: prod    # <-- uses secrets configured in the "production" environment
     steps:
       - name: Checkout repository
