@@ -1972,6 +1972,14 @@ dodecahedron
   height: 300px;
   opacity: 0.2;
   pointer-events: none;
+  z-index: 1;
+}
+@media screen and (max-width: 768px) {
+  .mil-animation {
+    width: 200px;
+    height: 200px;
+    overflow: visible;
+  }
 }
 
 .mil-position-1 {
@@ -1980,6 +1988,22 @@ dodecahedron
 }
 .mil-position-1 .mil-pentagon div {
   border-top: 0.1px solid rgb(255, 255, 255);
+}
+@media screen and (max-width: 1400px) {
+  .mil-position-1 {
+    top: 80px;
+    right: 50px;
+    transform: scale(0.6);
+    opacity: 0.15;
+  }
+}
+@media screen and (max-width: 768px) {
+  .mil-position-1 {
+    top: 120px;
+    right: -30px;
+    transform: scale(0.4);
+    opacity: 0.12;
+  }
 }
 
 .mil-position-2 {
@@ -1995,7 +2019,20 @@ dodecahedron
 }
 @media screen and (max-width: 1400px) {
   .mil-position-2 {
-    display: none;
+    display: inline-block;
+    top: 50px;
+    left: 5%;
+    transform: scale(0.6);
+    opacity: 0.15;
+  }
+}
+@media screen and (max-width: 768px) {
+  .mil-position-2 {
+    display: inline-block;
+    top: 80px;
+    left: -30px;
+    transform: scale(0.4);
+    opacity: 0.12;
   }
 }
 
@@ -2012,7 +2049,20 @@ dodecahedron
 }
 @media screen and (max-width: 1400px) {
   .mil-position-3 {
-    display: none;
+    display: inline-block;
+    bottom: 50px;
+    right: 10%;
+    transform: scale(0.5);
+    opacity: 0.12;
+  }
+}
+@media screen and (max-width: 768px) {
+  .mil-position-3 {
+    display: inline-block;
+    bottom: 100px;
+    right: -20px;
+    transform: scale(0.35);
+    opacity: 0.1;
   }
 }
 
@@ -2029,7 +2079,20 @@ dodecahedron
 }
 @media screen and (max-width: 1400px) {
   .mil-position-4 {
-    display: none;
+    display: inline-block;
+    top: 20px;
+    right: 5%;
+    transform: scale(0.5);
+    opacity: 0.12;
+  }
+}
+@media screen and (max-width: 768px) {
+  .mil-position-4 {
+    display: inline-block;
+    top: 60px;
+    right: -20px;
+    transform: scale(0.35);
+    opacity: 0.1;
   }
 }
 .mil-position-4.mil-dark .mil-pentagon div {
